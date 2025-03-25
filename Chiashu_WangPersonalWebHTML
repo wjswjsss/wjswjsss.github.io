@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Personal Website</title>
+  <style>
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    nav {
+      background: #333;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    section {
+      padding: 2rem;
+      background: white;
+      margin: 1rem auto;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #4CAF50;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chiashu Wang</h1>
+    <p>Welcome to my personal website</p>
+  </header>
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#academic">Academic Performance</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#hobbies">Hobbies</a>
+  </nav>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+    Birth: 2004 Feb <br>
+    Birthplace: Shenzhen, China <br>
+    Junior at Northeastern University (Shenyang, China)<br>
+    Computer Science
+    </p>
+	</section>
+  <section id="academic">
+    <h2>Academic Performance</h2>
+    <p>
+      <b><i>GPA Ranking</i></b>: around <b>15%</b> <br>
+      <b><i>GPA</i></b>: <b>4.093 </b>/ 5.
+    </p>
+  </section>
+
+
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li><strong>项目名称 1：</strong> 简短介绍一下项目目标、你负责的部分、用到的技术</li>
+      <li><strong>项目名称 2：</strong> …</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul>
+      <li><strong>公司/组织名称（实习/志愿者）：</strong> 简短介绍工作内容、实习时间、学到的技能等</li>
+    </ul>
+  </section>
+  <section id="hobbies">
+    <h2>Hobbies</h2>
+    <p>
+    RTS games, such as Warno by Eugen.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 Chiashu Wang. All rights reserved.
+  </footer></body></html>
