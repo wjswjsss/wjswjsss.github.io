@@ -1,152 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
-      rel="stylesheet"
-    />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Personal Website</title>
+    <title>Chiashu Wang - Junior</title>
     <style>
       body {
-        font-family: "JetBrains Mono", monospace;
-        margin: 0;
-        padding: 0;
-        line-height: 1.6;
-        background-color: #121212;
-        color: #121212;
+        font-family: "Times New Roman", Times, serif;
+        margin: 40px;
+        color: #333;
       }
-      header {
-        background-image: url("images/shenzhen.jpg"); /* update path if needed */
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 3rem 1rem;
-        text-align: center;
+      .container {
+        max-width: 800px;
+        margin: auto;
       }
-      nav {
-        background: #333;
-        padding: 0.5rem;
-        text-align: center;
+      .profile-photo {
+        float: left;
+        margin-right: 20px;
+        border-radius: 50%;
+        width: 150px;
       }
-      nav a {
-        color: #a082ff;
-        margin: 0 15px;
+      h1 {
+        margin-top: 0;
+      }
+      a {
+        color: #3a52aa;
         text-decoration: none;
       }
-      section {
-        padding: 2rem;
-        background: white;
-        margin: 1rem auto;
-        max-width: 900px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      .links a {
+        margin-right: 15px;
       }
-      h2 {
-        color: #a082ff;
+      .section {
+        clear: both;
+        margin-top: 40px;
+      }
+      ul {
+        margin-top: 0;
       }
       footer {
-        text-align: center;
-        padding: 1rem;
-        background: #eee;
-        font-size: 0.9rem;
+        margin-top: 60px;
+        font-size: 0.9em;
+        color: #777;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Chiashu Wang</h1>
-      <p>Welcome to my personal website &#128512;</p>
-    </header>
-    <nav>
-      <a href="#about">About Me</a>
-      <a href="#academic">Academic_Performance</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#language">Language</a>
-      <a href="#hobbies">Hobbies</a>
-    </nav>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        Birth: 2004 Feb <br />
-        Birthplace: Shenzhen, China <br />
-        Junior at Northeastern University (Shenyang, China)<br />
-        Computer Science
-      </p>
-    </section>
-    <section id="academic">
-      <h2>Academic Performance</h2>
-      <p>
-        <b><i>GPA Ranking</i></b
-        >: around <b>15%</b> <br />
-        <b><i>GPA</i></b
-        >: <b>4.093 </b>/ 5.
-      </p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <ul>
-        <li>
-          <strong>Computer Organization:</strong> Designed and simulated
-          <b><i>a five-stage scalar pipelined</i></b> CPU based on the Harvard
-          architecture with integrated memory.
-          <ul>
-            <li>&#x2705; Memory, and write-back hazard handling</li>
-            <li>&#x2705; Data forwarding</li>
-            <li>&#x1F527; Simulated instruction-level behavior</li>
-            <li>
-              &#x1F4AF; verified pipeline correctness through test programs
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>Data Structure:</strong> Designed and implemented a C++
-          library that supports <b><i>arbitrary-precision arithmetic</i></b
-          >, providing basic operations for large integers.
-          <ul>
-            <li>
-              &#x2705; Addition, subtraction, multiplication, and division with
-              digit-level control.
-            </li>
-            <li>&#x2705; Faster algorithms</li>
-          </ul>
-        </li>
-
-        <li><strong>Other Projects:</strong> …</li>
-      </ul>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <ul>
-        <li><strong>None：</strong> None</li>
-      </ul>
-    </section>
-
-    <section id="language">
-      <h2>Language Proficiency</h2>
-      <ul>
-        <li><strong>TOEFL:</strong> 103 / 120 (24 Apr)</li>
-        <li><strong>CET-6:</strong> 569 / 710</li>
-        <li><strong>CET-4:</strong> <b>672</b> / 710</li>
-        <!-- Add any other language exams here -->
-      </ul>
-    </section>
-
-    <section id="hobbies">
-      <h2>Hobbies</h2>
-      <p>RTS games, such as WARNO by Eugen.</p>
+    <div class="container">
       <img
-        src="images/warno_on_steam.jpg"
-        alt="Screenshot of WARNO"
-        style="max-width: 100%; border-radius: 10px; margin-top: 1rem"
+        src="./images/shutterstock-360093608.avif"
+        alt="Chiashu Wang"
+        class="profile-photo"
       />
-    </section>
+      <h1>Chiashu Wang</h1>
+      <p>
+        <em>Junior</em><br />
+        School of Computer and Communication Engineering<br />
+        The Northeastern University (Shenyang, China)<br />
+        Email:
+        <a href="mailto:wangjiashushenzhen@gmail.com"
+          >wangjiashushenzhen@gmail.com</a
+        >
+      </p>
 
-    <footer>&copy; 2025 Chiashu Wang. All rights reserved.</footer>
+      <div class="links">
+        <a href="#">NEU Page</a>
+        <!-- <a href="#">Google Scholar</a>
+        <a href="#">ResearchGate</a> -->
+      </div>
+
+      <div class="section">
+        <h2>About</h2>
+        <p>
+          Chiashu Wang is currently a junior at the Northeastern University
+          (Shenyang, China), majoring in Computer Science.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Academic Performance</h2>
+        <p>GPA ranking: <i>around 17</i>%</p>
+        <p>
+          GPA: <strong><i>4.093</i></strong> / 5.
+        </p>
+      </div>
+      <div class="section">
+        <h2>Research Interest</h2>
+        <ul>
+          <!-- <li>Computer Vision</li> -->
+          <li>Machine Learning</li>
+          <li>Deep Learning, Computer Vision</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>Research</h2>
+        <ul>
+          <li>
+            <strong
+              >Tunnel Lining Water Stain Segmentation (Deep learning)</strong
+            ><br />
+            Currently the first code contributor, second concept designer.<br />
+            <em>Technologies:</em> Python, PyTorch, OpenCV<br />
+          </li>
+          <li>
+            <strong>Point Cloud Segmentation (Machine Learning)</strong><br />
+            First Student Author.
+            <br />
+            <em>Technologies:</em> C++, PCL<br />
+          </li>
+          <!-- <li>
+            <strong>Embedded File System Simulator (2025)</strong><br />
+            c<br />
+            <em>Technologies:</em> d
+          </li> -->
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Intern</h2>
+        <p>Ping An Tech, Shenzhen</p>
+      </div>
+
+      <div class="section">
+        <h2>Language Proficiency</h2>
+        <ul>
+          <li>CET - 4 / 6: 672 / 569</li>
+          <li><strong>TOEFL</strong> - 103 (Apr 2024)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Hobbies</h2>
+        <p>RTS game, such as WARNO by Eugen.</p>
+      </div>
+
+      <footer>
+        <p>
+          © 2025 by Wang Chiashu. All rights reserved.<br />
+          Last Update: May 2025<br />
+        </p>
+      </footer>
+    </div>
   </body>
 </html>
