@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>如何贡献</title>
+    <style>
+      /* —— 统一样式 —— */
+      body {
+        margin: 0;
+        font-family: "Times New Roman", Times, serif;
+        color: #333;
+        padding-left: 200px;
+        transition: padding-left 0.3s ease;
+      }
+      body.sidebar-collapsed {
+        padding-left: 0;
+      }
+      .sidebar {
+        width: 200px;
+        background: #f5f5f5;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: transform 0.3s ease;
+        z-index: 100;
+      }
+      .sidebar.hidden {
+        transform: translateX(-100%);
+      }
+      .sidebar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .sidebar li {
+        margin-bottom: 0.5em;
+      }
+      .sidebar a {
+        text-decoration: none;
+        color: #3a52aa;
+      }
+      .sidebar a.active {
+        font-weight: bold;
+      }
+      .toggle-btn {
+        position: fixed;
+        top: 10px;
+        left: 210px;
+        z-index: 200;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition: left 0.3s ease;
+      }
+      body.sidebar-collapsed .toggle-btn {
+        left: 10px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3 {
+        margin-top: 1em;
+      }
+      .section {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 切换按钮 -->
+    <button id="toggle-btn" class="toggle-btn">☰</button>
+
+    <!-- 侧边导航 -->
+    <nav id="sidebar" class="sidebar">
+      <ul>
+        <li><a href="index.html">Home（个人主页）</a></li>
+        <li><a href="experience.html">转专业经验分享</a></li>
+        <li><a href="contribute.html" class="active">How to contribute</a></li>
+      </ul>
+    </nav>
+
+    <!-- 主体内容 -->
+    <div class="container">
+      <h1>如何贡献</h1>
+      <p>感谢您对本网站的关注与改进建议！欢迎通过 GitHub 贡献内容。</p>
+
+      <section class="section">
+        <h2>1. Fork 仓库</h2>
+        <p>
+          在 <code>wjswjsss.github.io</code> 仓库右上角点击
+          <strong>Fork</strong>，创建您自己的副本。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>2. 创建新分支</h2>
+        <p>
+          在您的 Fork 中创建一个有描述性的分支，例如
+          <code>add-contribute-page</code> 或 <code>fix-sidebar-padding</code>。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>3. 进行修改</h2>
+        <ul>
+          <li>编辑或添加 HTML、CSS 或内容文件。</li>
+          <li>保持与现有样式和缩进一致。</li>
+          <li>
+            本地测试：在浏览器中打开 <code>index.html</code> 或
+            <code>contribute.html</code>。
+          </li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>4. 提交并推送</h2>
+        <p>使用清晰的提交信息提交更改，然后推送到您的分支：</p>
+        <pre><code>git add .
+git commit -m "添加 如何贡献 页面"
+git push origin your-branch-name</code></pre>
+      </section>
+
+      <section class="section">
+        <h2>5. 创建 Pull Request</h2>
+        <p>
+          访问原仓库并点击
+          <strong>New Pull Request</strong>，选择您的分支并描述修改内容。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>6. 审查并合并</h2>
+        <p>经过审核后，Pull Request 将被合并。感谢您的宝贵贡献！</p>
+      </section>
+
+      <section class="section">
+        <h2>问题反馈</h2>
+        <p>可使用 GitHub Issues 报告 Bug 或提出功能建议。</p>
+      </section>
+
+      <section class="section">
+        <h2>其他方式</h2>
+        <p>
+          如果您不了解如何通过 GitHub 贡献，请发送邮件至
+          <a href="mailto:wangjiashushenzhen@gmail.com"
+            >wangjiashushenzhen@gmail.com</a
+          >， 附上包含您想添加的内容或想分享的经验的 PDF、MD 或 DOC
+          文件，我们会帮您发布在页面上。
+        </p>
+      </section>
+    </div>
+
+    <script>
+      const btn = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
+      btn.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+        document.body.classList.toggle("sidebar-collapsed");
+        btn.innerHTML = sidebar.classList.contains("hidden") ? "▶" : "☰";
+      });
+    </script>
+  </body>
+</html>

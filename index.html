@@ -4,26 +4,73 @@
     <meta charset="UTF-8" />
     <title>Chiashu Wang - Junior</title>
     <style>
-      .title-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.date {
-  font-style: italic;
-  color: #555;
-}
-
+      /* Layout */
       body {
+        margin: 0;
         font-family: "Times New Roman", Times, serif;
-        margin: 40px;
         color: #333;
+        /* space for sidebar when visible */
+        padding-left: 200px;
+        transition: padding-left 0.3s ease;
       }
+      body.sidebar-collapsed {
+        padding-left: 0;
+      }
+      .sidebar {
+        width: 200px;
+        background: #f5f5f5;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+        z-index: 100;
+      }
+      .sidebar.hidden {
+        transform: translateX(-100%);
+      }
+      .sidebar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .sidebar li {
+        margin-bottom: 1em;
+      }
+      .sidebar a {
+        text-decoration: none;
+        color: #3a52aa;
+      }
+      .sidebar a.active {
+        font-weight: bold;
+      }
+
+      /* Toggle Button */
+      .toggle-btn {
+        position: fixed;
+        top: 10px;
+        left: 210px;
+        z-index: 200;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition: left 0.3s ease;
+      }
+      body.sidebar-collapsed .toggle-btn {
+        left: 10px;
+      }
+
+      /* Main content */
       .container {
         max-width: 800px;
-        margin: auto;
+        margin: 40px auto;
+        padding: 0 20px;
       }
+
       .profile-photo {
         float: left;
         margin-right: 20px;
@@ -52,16 +99,42 @@
         font-size: 0.9em;
         color: #777;
       }
+
+      /* Title + date alignment */
+      .title-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .date {
+        font-style: italic;
+        color: #555;
+      }
     </style>
   </head>
   <body>
+    <!-- Toggle Button -->
+    <button id="toggle-btn" class="toggle-btn">☰</button>
+
+    <!-- Sidebar Navigation -->
+    <div id="sidebar" class="sidebar">
+      <ul>
+        <li>
+          <a href="index.html" class="active">Home（个人主页）</a>
+        </li>
+        <li><a href="experience.html">转专业经验分享</a></li>
+        <li><a href="contribute.html">How to Contribute</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
       <img
         src="./images/shutterstock-360093608.avif"
-        alt="Chiashu Wang"
+        alt="Jiashu Wang"
         class="profile-photo"
       />
-      <h1>Chiashu Wang</h1>
+      <h1>Jiashu Wang</h1>
       <p>
         <em>Junior</em><br />
         School of Computer and Communication Engineering<br />
@@ -75,88 +148,95 @@
 
       <div class="links">
         <a href="https://www.neu.edu.cn/">NEU Page</a>
-        <!-- <a href="#">Google Scholar</a>
-        <a href="#">ResearchGate</a> -->
       </div>
 
       <div class="section">
         <h2>About</h2>
         <p>
-          Chiashu Wang is currently a junior at the Northeastern University
+          Jiashu Wang is currently a junior at the Northeastern University
           (Shenyang, China), majoring in Computer Science.
         </p>
       </div>
 
       <div class="section">
         <h2>Academic Performance</h2>
-        <p>GPA ranking: <i>around 17</i>%</p>
+        <p>GPA ranking: <i>14.03</i>%</p>
         <p>
-          GPA: <strong><i>4.093</i></strong> / 5.
+          GPA: <strong><i>4.099</i></strong> / 5.
         </p>
       </div>
+
       <div class="section">
         <h2>Research Interest</h2>
         <ul>
-          <!-- <li>Computer Vision</li> -->
           <li>Machine Learning</li>
           <li>Deep Learning, Computer Vision</li>
         </ul>
       </div>
+
       <div class="section">
         <h2>Research</h2>
-        <ul>
+        <!-- <ul>
           <li>
             <div class="title-line">
-    <strong>Tunnel Lining Water Stain Segmentation (Deep Learning)</strong>
-    <span class="date">Mar 2025 – Present</span>
-  </div>
-            <i>Supervisor: Dr. Hu </i>@ THU,<i> Dr.Zhang </i>@ ZJU</i><br />
+              <strong
+                >Tunnel Lining Water Stain Segmentation (Deep Learning)</strong
+              >
+              <span class="date">Mar 2025 – Present</span>
+            </div>
+            <i>Supervisor: Dr. Hu</i> @ THU (Beijing, China)<br />
             Currently the first code contributor, second concept designer.<br />
-            <em>Technologies:</em> Python, PyTorch, OpenCV<br />
+            <em>Technologies:</em> Python, PyTorch, OpenCV
           </li>
           <li>
             <div class="title-line">
-        <strong>Point Cloud Segmentation (Machine Learning)</strong>
-        <span class="date">Jul 2024 – Present</span>
-      </div>
-            <i>Supervisor: Prof.Lv</i> @ NEU (Qinhuangdao, China)<br />
-            First Student Author.
-            <br />
-            <em>Technologies:</em> C++, PCL<br />
+              <strong>Point Cloud Segmentation (Machine Learning)</strong>
+              <span class="date">Jul 2024 – Present</span>
+            </div>
+            <i>Supervisor: Prof. Lv</i> @ NEU (Qinhuangdao, China)<br />
+            First Student Author.<br />
+            <em>Technologies:</em> C++, PCL
           </li>
-          <!-- <li>
-            <strong>Embedded File System Simulator (2025)</strong><br />
-            c<br />
-            <em>Technologies:</em> d
-          </li> -->
-        </ul>
+        </ul> -->
       </div>
 
       <div class="section">
         <h2>Intern</h2>
-        <p>Ping An Tech, Shenzhen (<i>Jul 2024 - Apr 2025</i>)</p>
+        <p></p>
       </div>
 
       <div class="section">
         <h2>Language Proficiency</h2>
-        <ul>
+        <!-- <ul>
           <li>CET - 4 / 6: 672 / 569</li>
           <li><strong>TOEFL</strong> - 103 (Apr 2024)</li>
-        </ul>
+        </ul> -->
       </div>
 
       <div class="section">
         <h2>Hobbies</h2>
         <p>RTS game, such as WARNO by Eugen.</p>
-        <p>I have a strong interest in modern military aviation — especially fighter aircraft.</p>
+        <p>
+          I have a strong interest in modern military aviation — especially
+          fighter aircraft.
+        </p>
       </div>
 
       <footer>
         <p>
-          © 2025 by Wang Chiashu. All rights reserved.<br />
-          Last Update: May 2025<br />
+          © 2025 by Wang Jiashu. All rights reserved.<br />Last Update: May 2025
         </p>
       </footer>
     </div>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+        document.body.classList.toggle("sidebar-collapsed");
+        toggleBtn.innerHTML = sidebar.classList.contains("hidden") ? "▶" : "☰";
+      });
+    </script>
   </body>
 </html>
