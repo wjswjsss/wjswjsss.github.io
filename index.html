@@ -11,176 +11,279 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: "Monaco", "Menlo", "Consolas", monospace;
-        background: #f8f9fa;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        background: #f5f7fa;
         color: #2d3748;
-        line-height: 1.7;
+        line-height: 1.6;
         min-height: 100vh;
-        padding: 20px;
+        font-size: 14px;
       }
 
-      .container {
-        max-width: 950px;
-        margin: 0 auto;
-        background: #ffffff;
-        border: 2px solid #e2e8f0;
-        border-radius: 6px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-      }
-
-      .terminal-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 18px 30px;
-        border-bottom: 3px solid #5a67d8;
+      /* Header */
+      .header {
+        background: #2c3e50;
+        color: white;
+        padding: 15px 30px;
+        border-bottom: 3px solid #3498db;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
-      .terminal-btn {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-      }
-
-      .btn-close {
-        background: #fc8181;
-      }
-      .btn-minimize {
-        background: #f6e05e;
-      }
-      .btn-maximize {
-        background: #68d391;
-      }
-
-      .terminal-title {
-        margin-left: 10px;
-        color: #ffffff;
-        font-size: 15px;
+      .header-title {
+        font-size: 1.1em;
         font-weight: 600;
-        letter-spacing: 0.5px;
       }
 
-      .nav-links {
-        margin-left: auto;
+      .header-title::before {
+        content: "~/";
+        color: #3498db;
+        margin-right: 5px;
+      }
+
+      .header-nav {
         display: flex;
         gap: 20px;
       }
 
-      .nav-links a {
-        color: #ffffff;
+      .header-nav a {
+        color: white;
         text-decoration: none;
-        font-weight: 500;
-        padding: 5px 10px;
+        padding: 8px 16px;
         border-radius: 4px;
-        transition: background 0.2s ease;
+        transition: background 0.2s;
+        font-weight: 500;
       }
 
-      .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.2);
+      .header-nav a:hover {
+        background: rgba(255, 255, 255, 0.15);
       }
 
-      .content {
-        padding: 45px;
+      /* Hero Image Section */
+      .hero-section {
+        width: 100%;
+        height: 85vh;
+        min-height: 500px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      h1 {
-        font-size: 2.6em;
-        margin-bottom: 8px;
-        color: #1a202c;
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(1.2) contrast(1.05);
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.5)
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .hero-title {
+        font-size: 4.5em;
         font-weight: 700;
-        letter-spacing: -0.5px;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        margin-bottom: 20px;
+        letter-spacing: 2px;
       }
 
-      h1::before {
-        content: "// ";
-        color: #667eea;
+      .hero-subtitle {
+        font-size: 1.8em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin-bottom: 15px;
+        font-weight: 500;
+      }
+
+      .hero-description {
+        font-size: 1.2em;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        max-width: 700px;
+        line-height: 1.6;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+        color: white;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      /* Main Layout */
+      .main-container {
+        display: flex;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px 20px;
+        gap: 30px;
+        position: relative;
+      }
+
+      /* Floating Sidebar Navigation - ALWAYS VISIBLE */
+      .sidebar-nav {
+        position: fixed;
+        left: 20px;
+        top: 90px;
+        width: 180px;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 15px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .sidebar-nav-title {
+        font-size: 0.85em;
+        color: #718096;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .sidebar-nav-title::before {
+        content: "# ";
+        color: #3498db;
+      }
+
+      .sidebar-nav ul {
+        list-style: none;
+      }
+
+      .sidebar-nav li {
+        margin-bottom: 8px;
+      }
+
+      .sidebar-nav a {
+        display: block;
+        padding: 8px 12px;
+        color: #4a5568;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition: all 0.2s;
+        font-size: 0.95em;
+        font-weight: 500;
+      }
+
+      .sidebar-nav a:hover {
+        color: #3498db;
+        background: #f7fafc;
+        border-left-color: #3498db;
+        padding-left: 16px;
+      }
+
+      .sidebar-nav a.active {
+        color: #3498db;
+        background: #ebf5ff;
+        border-left-color: #3498db;
         font-weight: 600;
       }
 
-      .subtitle {
-        color: #718096;
-        font-size: 1.15em;
-        margin-bottom: 35px;
-        font-weight: 400;
+      /* Content Area */
+      .content {
+        flex: 1;
+        margin-left: 220px;
+        max-width: 900px;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 35px 40px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       }
 
       .section {
-        margin: 35px 0;
-        padding: 25px 0;
-        border-bottom: 2px solid #e2e8f0;
+        margin: 30px 0;
+        scroll-margin-top: 80px;
       }
 
-      .section:last-of-type {
-        border-bottom: none;
+      .section:first-child {
+        margin-top: 0;
       }
 
       .section-title {
-        color: #2d3748;
-        font-size: 1.6em;
-        margin-bottom: 18px;
+        color: #2c3e50;
+        font-size: 1.4em;
+        margin-bottom: 15px;
         font-weight: 700;
-        position: relative;
-        padding-left: 15px;
+        padding-bottom: 8px;
+        border-bottom: 3px solid #3498db;
       }
 
       .section-title::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 4px;
-        height: 70%;
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        border-radius: 2px;
+        content: "// ";
+        color: #3498db;
       }
 
       .section-content {
         color: #4a5568;
-        padding-left: 15px;
-      }
-
-      .skill-tag {
-        display: inline-block;
-        background: #edf2f7;
-        color: #2d3748;
-        padding: 7px 15px;
-        margin: 5px 8px 5px 0;
-        border-radius: 5px;
-        border: 1px solid #cbd5e0;
-        font-size: 0.9em;
-        font-weight: 500;
-        transition: all 0.2s ease;
-      }
-
-      .skill-tag:hover {
-        background: #e6f2ff;
-        border-color: #667eea;
-        transform: translateY(-1px);
+        line-height: 1.8;
       }
 
       .project-item {
-        margin-bottom: 22px;
-        padding: 20px;
-        background: #f7fafc;
-        border-radius: 6px;
-        border-left: 4px solid #cbd5e0;
-        transition: all 0.2s ease;
+        margin: 15px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-left: 4px solid #3498db;
+        border-radius: 4px;
+        transition: all 0.2s;
       }
 
       .project-item:hover {
-        border-left-color: #667eea;
-        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        background: #f0f4f8;
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
       }
 
       .project-title {
-        color: #2d3748;
-        font-size: 1.15em;
-        margin-bottom: 10px;
+        color: #2c3e50;
+        font-size: 1.05em;
+        margin-bottom: 8px;
         font-weight: 700;
       }
 
@@ -189,56 +292,48 @@
         line-height: 1.7;
       }
 
-      /* Publication specific styling */
+      /* Publications */
       .publication-item {
-        margin-bottom: 25px;
-        padding: 22px;
+        margin: 18px 0;
+        padding: 18px;
         background: #ffffff;
-        border-radius: 8px;
         border: 2px solid #e2e8f0;
-        transition: all 0.3s ease;
-        position: relative;
+        border-radius: 6px;
+        transition: all 0.3s;
       }
 
       .publication-item:hover {
-        border-color: #667eea;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        border-color: #3498db;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
         transform: translateY(-2px);
       }
 
       .publication-content {
         color: #2d3748;
-        line-height: 1.8;
-        font-size: 0.98em;
+        line-height: 1.7;
+        font-size: 0.95em;
       }
 
-      .publication-content strong {
-        color: #2d3748;
-        font-weight: 600;
-      }
-
-      /* Highlight first authors (equal contribution marked with †) */
       .first-author {
-        color: #667eea;
+        color: #3498db;
         font-weight: 700;
         background: linear-gradient(
           180deg,
-          transparent 60%,
-          rgba(102, 126, 234, 0.2) 60%
+          transparent 65%,
+          rgba(52, 152, 219, 0.2) 65%
         );
       }
 
-      /* Highlight your own name in all publications */
       .my-name {
         font-weight: 700;
         text-decoration: underline;
-        text-decoration-color: #667eea;
+        text-decoration-color: #3498db;
         text-decoration-thickness: 2px;
-        text-underline-offset: 2px;
+        text-underline-offset: 3px;
       }
 
       .publication-title {
-        color: #667eea;
+        color: #3498db;
         font-weight: 600;
       }
 
@@ -247,9 +342,8 @@
         font-style: italic;
       }
 
-      /* Standard academic style for honors - just colored bold text in parentheses */
       .honor {
-        color: #c53030;
+        color: #e74c3c;
         font-weight: 700;
       }
 
@@ -259,18 +353,28 @@
         border-top: 1px dashed #cbd5e0;
       }
 
-      a {
-        color: #667eea;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.2s ease;
+      /* Skills */
+      .skill-tag {
+        display: inline-block;
+        background: #e8f4f8;
+        color: #2c3e50;
+        padding: 8px 16px;
+        margin: 6px 6px 6px 0;
+        border-radius: 4px;
+        border: 1px solid #3498db;
+        font-size: 0.9em;
+        font-weight: 600;
+        transition: all 0.2s;
       }
 
-      a:hover {
-        color: #5a67d8;
-        text-decoration: underline;
+      .skill-tag:hover {
+        background: #3498db;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
       }
 
+      /* Contact */
       .contact-links {
         display: flex;
         gap: 15px;
@@ -279,110 +383,157 @@
       }
 
       .contact-item {
-        background: #f7fafc;
+        background: #f8f9fa;
         padding: 12px 18px;
         border-radius: 6px;
-        border: 1px solid #e2e8f0;
+        border: 2px solid #e2e8f0;
         display: flex;
         align-items: center;
         gap: 10px;
-        transition: all 0.2s ease;
+        transition: all 0.2s;
       }
 
       .contact-item:hover {
-        background: #edf2f7;
-        border-color: #667eea;
+        background: #ebf5ff;
+        border-color: #3498db;
         transform: translateY(-2px);
       }
 
+      a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+      }
+
       .code-block {
-        background: #2d3748;
-        color: #e2e8f0;
+        background: #2c3e50;
+        color: #ecf0f1;
         padding: 18px;
         border-radius: 6px;
-        border-left: 4px solid #667eea;
-        margin: 15px 0;
+        border-left: 4px solid #3498db;
+        margin: 20px 0;
         font-size: 0.95em;
       }
 
       .code-block::before {
-        content: ">> ";
-        color: #667eea;
+        content: "> ";
+        color: #3498db;
         font-weight: bold;
       }
 
-      /* Responsive */
-      @media (max-width: 768px) {
-        .content {
-          padding: 25px;
-        }
-
-        h1 {
-          font-size: 2.2em;
-        }
-
-        .section-title {
-          font-size: 1.4em;
-        }
-
-        .nav-links {
-          margin-left: 0;
-          margin-top: 10px;
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .sidebar-nav {
+          position: relative;
+          left: 0;
+          top: 0;
           width: 100%;
+          margin-bottom: 20px;
         }
 
-        .terminal-header {
-          flex-wrap: wrap;
+        .content {
+          margin-left: 0;
+        }
+
+        .main-container {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          gap: 10px;
+          padding: 15px 20px;
+        }
+
+        .content {
+          padding: 30px 20px;
+        }
+
+        .hero-section {
+          height: 70vh;
+          min-height: 400px;
+        }
+
+        .hero-title {
+          font-size: 2.5em;
+        }
+
+        .hero-subtitle {
+          font-size: 1.2em;
+        }
+
+        .hero-description {
+          font-size: 1em;
+        }
+
+        .hero-overlay {
+          padding: 20px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="terminal-header">
-        <span class="terminal-btn btn-close"></span>
-        <span class="terminal-btn btn-minimize"></span>
-        <span class="terminal-btn btn-maximize"></span>
-        <span class="terminal-title">jiashu_wang@portfolio:~</span>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="blog.html">Blog</a>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">jiashu_wang@portfolio</div>
+      <div class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+      </div>
+    </div>
+
+    <!-- Hero Image Section -->
+    <div class="hero-section" id="heroSection">
+      <img src="hero-image-light.jpg" alt="Hero Image" class="hero-image" />
+      <div class="hero-overlay">
+        <div class="hero-title">JIASHU WANG</div>
+        <div class="hero-subtitle">Computer Science Graduate Applicant</div>
+        <div class="hero-description">
+          Machine Learning • Computer Vision • Automation
         </div>
       </div>
+      <div class="scroll-indicator">↓</div>
+    </div>
 
+    <!-- Main Container -->
+    <div class="main-container" id="mainContent">
+      <!-- Floating Sidebar Navigation -->
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-title">Sections</div>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#hobbies">Hobbies</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Content Area -->
       <div class="content">
-        <h1>Jiashu Wang</h1>
-        <div class="subtitle">Computer Science Graduate Applicant</div>
-
-        <div class="section">
+        <div class="section" id="about">
           <div class="section-title">About Me</div>
           <div class="section-content">
-            <p>
-              Hello! I'm a passionate computer science student with a strong
-              interest in
-              <strong>Machine Learning</strong>,
-              <strong>Computer Vision</strong>, and
-              <strong>Natural Language Processing</strong>. I'm currently
-              seeking opportunities to pursue a PhD degree where I can
-              contribute to cutting-edge research in developing robust and
-              interpretable AI systems.
-            </p>
-            <br />
-            <p>
-              My academic journey at
-              <a href="https://www.neu.edu.cn" target="_blank"
-                >Northeastern University - China</a
-              >
-              has equipped me with a solid foundation in algorithms, machine
-              learning theory, and software engineering. Through my research
-              experiences, I've developed a particular passion for making deep
-              learning models more reliable and explainable, especially in
-              high-stakes domains like healthcare and autonomous systems.
-            </p>
+            I'm from Northeastern University - China, where I majored in
+            Computer Science. My interests span traditional machine learning and
+            deep learning, with a particular passion for computer vision. I'm
+            deeply committed to contributing to automation in various
+            communities—a focus that has driven most of my undergraduate
+            research projects.
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="education">
           <div class="section-title">Education</div>
           <div class="section-content">
             <div class="project-item">
@@ -390,13 +541,14 @@
                 B.S. in Computer Science | Northeastern University - China
               </div>
               <div class="project-desc">
-                Expected Graduation: June 2026 | GPA: 4.099 / 5.0 | Rank: 14%
+                Expected Graduation: June 2026 | GPA: 4.099 / 5.0 (90.1 / 100) |
+                Rank: 14%
               </div>
             </div>
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="research">
           <div class="section-title">Research Experience</div>
           <div class="section-content">
             <div class="project-item">
@@ -430,27 +582,40 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="publications">
           <div class="section-title">Publications</div>
           <div class="section-content">
             <div class="publication-item">
               <div class="publication-content">
-                <span class="first-author my-name">X Zhang<sup>†</sup></span
+                <span class="first-author my-name"
+                  >Xulong Zhang<sup>†</sup></span
                 >,
                 <span class="first-author my-name">Jiashu Wang<sup>†</sup></span
-                >, ..., J Wang<sup>*</sup>. "<span class="publication-title"
-                  >... Solver</span
-                >." <span class="publication-venue">???</span>, 2025.
+                >, Xiaoyang Qu, Hui Tian, Jianzong Wang<sup>*</sup>. "<span
+                  class="publication-title"
+                  >Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
+                  Solver</span
+                >."
+                <span class="publication-venue"
+                  >International Conference on Neural Information Processing
+                  (ICONIP)</span
+                >, 2025.
                 <span class="honor">(Spotlight)</span>
               </div>
             </div>
 
             <div class="publication-item">
               <div class="publication-content">
-                J Li, ...,
-                <span class="my-name">Jiashu Wang</span>, Y Zhong<sup>*</sup>, J
-                Wan. "<span class="publication-title">Exx ... Generation</span
-                >." <span class="publication-venue">???</span>, 2025.
+                Junjie Li, Nan Zhang, Xiaoyang Qu,
+                <span class="my-name">Jiashu Wang</span>, Yumeng
+                Zhong<sup>*</sup>, Jiguang Wan. "<span class="publication-title"
+                  >Enhancing Generalization in Video Deepfake Detection via
+                  Ambiguous Data Generation</span
+                >."
+                <span class="publication-venue"
+                  >International Conference on Intelligent Computing
+                  (ICIC)</span
+                >, 2025.
                 <span class="honor">(Oral Presentation)</span>
               </div>
               <div class="publication-links">
@@ -482,7 +647,7 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="skills">
           <div class="section-title">Skills</div>
           <div class="section-content">
             <div>
@@ -514,7 +679,7 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="hobbies">
           <div class="section-title">Hobbies</div>
           <div class="section-content">
             <p>
@@ -525,7 +690,7 @@
           </div>
         </div>
 
-        <div class="section">
+        <div class="section" id="contact">
           <div class="section-title">Contact</div>
           <div class="section-content">
             <div class="contact-links">
@@ -560,5 +725,78 @@
         <div class="code-block">Thank you for visiting!</div>
       </div>
     </div>
+
+    <script>
+      // Active section highlighting
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".sidebar-nav a");
+        const sections = document.querySelectorAll(".section");
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "-120px 0px -66%",
+          threshold: 0,
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("id");
+              navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${id}`) {
+                  link.classList.add("active");
+                }
+              });
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+      });
+
+      // Auto-scroll on first scroll input
+      let hasScrolled = false;
+      const heroSection = document.getElementById("heroSection");
+      const mainContent = document.getElementById("mainContent");
+
+      function handleFirstScroll(e) {
+        if (hasScrolled) return;
+
+        // Detect any scroll input
+        if (
+          e.type === "wheel" ||
+          e.type === "touchmove" ||
+          e.type === "keydown"
+        ) {
+          // For keyboard, only trigger on down arrow, page down, or space
+          if (e.type === "keydown") {
+            if (![32, 34, 40].includes(e.keyCode)) return; // Space, PageDown, ArrowDown
+          }
+
+          hasScrolled = true;
+
+          // Smooth scroll to main content
+          mainContent.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+
+          // Remove listeners after first scroll
+          window.removeEventListener("wheel", handleFirstScroll);
+          window.removeEventListener("touchmove", handleFirstScroll);
+          window.removeEventListener("keydown", handleFirstScroll);
+        }
+      }
+
+      // Add scroll listeners
+      window.addEventListener("wheel", handleFirstScroll, { passive: true });
+      window.addEventListener("touchmove", handleFirstScroll, {
+        passive: true,
+      });
+      window.addEventListener("keydown", handleFirstScroll);
+    </script>
   </body>
 </html>

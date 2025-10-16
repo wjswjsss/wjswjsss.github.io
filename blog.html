@@ -11,262 +11,803 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: "Monaco", "Menlo", "Consolas", monospace;
-        background: #f8f9fa;
-        color: #2d3748;
-        line-height: 1.7;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        background: #1a1a2e;
+        color: #e4e4e7;
+        line-height: 1.6;
         min-height: 100vh;
-        padding: 20px;
+        font-size: 14px;
       }
 
-      .container {
-        max-width: 950px;
-        margin: 0 auto;
-        background: #ffffff;
-        border: 2px solid #e2e8f0;
+      /* Header with prominent navigation */
+      .header {
+        background: linear-gradient(135deg, #16213e 0%, #0f1419 100%);
+        color: white;
+        padding: 18px 40px;
+        border-bottom: 2px solid #3498db;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+
+      .header-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #3498db;
+      }
+
+      .header-title::before {
+        content: "~/";
+        color: #52de97;
+        margin-right: 5px;
+      }
+
+      .header-nav {
+        display: flex;
+        gap: 12px;
+      }
+
+      .header-nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 24px;
         border-radius: 6px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
+        transition: all 0.3s;
+        font-weight: 600;
+        font-size: 1.05em;
+        border: 2px solid transparent;
+        background: rgba(52, 152, 219, 0.1);
       }
 
-      .terminal-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 18px 30px;
-        border-bottom: 3px solid #5a67d8;
+      .header-nav a:hover {
+        background: #3498db;
+        border-color: #3498db;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+      }
+
+      .header-nav a.active {
+        background: #3498db;
+        border-color: #3498db;
+      }
+
+      /* Hero Section with Image */
+      .hero-section {
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+        border-bottom: 3px solid #3498db;
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.4);
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(26, 26, 46, 0.85) 0%,
+          rgba(15, 20, 25, 0.75) 100%
+        );
         display: flex;
         align-items: center;
-        gap: 10px;
+        justify-content: center;
       }
 
-      .terminal-btn {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
+      .hero-content {
+        text-align: center;
+        color: white;
+        z-index: 10;
       }
 
-      .btn-close {
-        background: #fc8181;
-      }
-      .btn-minimize {
-        background: #f6e05e;
-      }
-      .btn-maximize {
-        background: #68d391;
-      }
-
-      .terminal-title {
-        margin-left: 10px;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-      }
-
-      .nav-links {
-        margin-left: auto;
-        display: flex;
-        gap: 20px;
-      }
-
-      .nav-links a {
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 5px 10px;
-        border-radius: 4px;
-        transition: background 0.2s ease;
-      }
-
-      .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      .content {
-        padding: 45px;
-      }
-
-      h1 {
-        font-size: 2.6em;
+      .hero-content h1 {
+        font-size: 2.5em;
         margin-bottom: 8px;
-        color: #1a202c;
-        font-weight: 700;
-        letter-spacing: -0.5px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
       }
 
-      h1::before {
-        content: "// ";
-        color: #667eea;
+      .hero-content h1::before {
+        content: ">> ";
+        color: #52de97;
+      }
+
+      .hero-content p {
+        font-size: 1.2em;
+        color: #3498db;
         font-weight: 600;
+      }
+
+      /* Container */
+      .container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #16213e;
+        border: 2px solid #2d3748;
+        border-radius: 8px;
+        padding: 35px 40px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .page-title {
+        font-size: 2.2em;
+        margin-bottom: 8px;
+        color: #52de97;
+        font-weight: 700;
+        display: none;
+      }
+
+      .page-title::before {
+        content: ">> ";
+        color: #3498db;
+        font-weight: 700;
       }
 
       .subtitle {
-        color: #718096;
-        font-size: 1.15em;
-        margin-bottom: 35px;
-        font-weight: 400;
+        color: #a0aec0;
+        font-size: 1em;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #2d3748;
       }
 
-      .blog-post {
-        margin-bottom: 35px;
-        padding: 25px;
-        background: #ffffff;
-        border-radius: 8px;
-        border: 2px solid #e2e8f0;
-        border-left: 4px solid #667eea;
-        transition: all 0.3s ease;
+      /* Blog Posts List */
+      .blog-list {
+        margin-top: 20px;
       }
 
-      .blog-post:hover {
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-        transform: translateY(-2px);
+      .blog-post-preview {
+        margin-bottom: 25px;
+        padding: 20px;
+        background: rgba(52, 152, 219, 0.05);
+        border-left: 4px solid #3498db;
+        border-radius: 6px;
+        transition: all 0.3s;
+        border: 1px solid #2d3748;
       }
 
-      .blog-title {
-        color: #667eea;
-        font-size: 1.5em;
-        margin-bottom: 10px;
+      .blog-post-preview:hover {
+        background: rgba(52, 152, 219, 0.1);
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        transform: translateX(5px);
+      }
+
+      .blog-post-title {
+        color: #e4e4e7;
+        font-size: 1.3em;
+        margin-bottom: 8px;
         font-weight: 700;
       }
 
+      .blog-post-title a {
+        color: #e4e4e7;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .blog-post-title a:hover {
+        color: #3498db;
+      }
+
       .blog-meta {
-        color: #718096;
+        color: #a0aec0;
         font-size: 0.9em;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
+        align-items: center;
       }
 
       .blog-tag {
         display: inline-block;
-        background: #edf2f7;
-        color: #667eea;
-        padding: 3px 10px;
-        border-radius: 3px;
-        font-size: 0.85em;
+        background: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.9em;
         font-weight: 600;
+        border: 1px solid #3498db;
       }
 
       .blog-excerpt {
-        color: #4a5568;
-        line-height: 1.8;
-        margin-bottom: 15px;
+        color: #cbd5e0;
+        line-height: 1.7;
+        margin-bottom: 12px;
       }
 
       .read-more {
-        color: #667eea;
+        color: #52de97;
         text-decoration: none;
         font-weight: 600;
-        transition: all 0.2s ease;
+        transition: all 0.2s;
       }
 
       .read-more:hover {
-        color: #5a67d8;
+        color: #3498db;
         text-decoration: underline;
       }
 
-      .no-posts {
-        text-align: center;
-        padding: 60px 20px;
-        color: #718096;
+      /* Full Blog Post */
+      .blog-post-full {
+        display: none;
+        animation: fadeIn 0.3s;
       }
 
-      .no-posts-icon {
-        font-size: 4em;
-        margin-bottom: 20px;
+      .blog-post-full.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .blog-post-header {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+      }
+
+      .blog-post-header h2 {
+        color: #52de97;
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .blog-post-header h2::before {
+        content: "// ";
+        color: #3498db;
+      }
+
+      .blog-content {
+        color: #cbd5e0;
+        line-height: 1.8;
+      }
+
+      .blog-content h3 {
+        color: #3498db;
+        font-size: 1.3em;
+        margin: 25px 0 15px 0;
+        font-weight: 700;
+      }
+
+      .blog-content p {
+        margin-bottom: 15px;
+      }
+
+      .blog-content code {
+        background: rgba(52, 152, 219, 0.15);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        color: #52de97;
+        font-size: 0.95em;
+        border: 1px solid #2d3748;
+      }
+
+      .blog-content pre {
+        background: #0f1419;
+        color: #52de97;
+        padding: 18px;
+        border-radius: 6px;
+        border-left: 4px solid #3498db;
+        overflow-x: auto;
+        margin: 20px 0;
+        border: 1px solid #2d3748;
+      }
+
+      .blog-content pre code {
+        background: none;
+        padding: 0;
+        color: #52de97;
+        border: none;
+      }
+
+      .blog-content ul,
+      .blog-content ol {
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+
+      .blog-content li {
+        margin-bottom: 8px;
+      }
+
+      .blog-content strong {
+        color: #3498db;
+      }
+
+      .back-to-list {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 24px;
+        background: #3498db;
+        color: #1a1a2e;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 700;
+        transition: all 0.3s;
+        border: 2px solid #3498db;
+      }
+
+      .back-to-list:hover {
+        background: #52de97;
+        border-color: #52de97;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(82, 222, 151, 0.4);
       }
 
       /* Responsive */
       @media (max-width: 768px) {
-        .content {
-          padding: 25px;
+        .header {
+          flex-direction: column;
+          gap: 12px;
+          padding: 15px 20px;
         }
 
-        h1 {
-          font-size: 2.2em;
+        .hero-section {
+          height: 200px;
         }
 
-        .nav-links {
-          margin-left: 0;
-          margin-top: 10px;
-          width: 100%;
+        .hero-content h1 {
+          font-size: 2em;
         }
 
-        .terminal-header {
-          flex-wrap: wrap;
+        .container {
+          padding: 25px 20px;
+          margin: 15px;
+        }
+
+        .page-title {
+          font-size: 1.8em;
+        }
+
+        .blog-post-header h2 {
+          font-size: 1.5em;
         }
       }
     </style>
   </head>
   <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">jiashu_wang@blog</div>
+      <div class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="blog.html" class="active">Blog</a>
+      </div>
+    </div>
+
+    <!-- Hero Section with Landscape Image -->
+    <div class="hero-section">
+      <!-- Replace this src with your uploaded image path -->
+      <img
+        src="hero-image.jpg"
+        alt="Blog Hero Background"
+        class="hero-image"
+        onerror="this.style.display='none'"
+      />
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <h1>Blog</h1>
+          <p>Thoughts on research, coding, and life</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container -->
     <div class="container">
-      <div class="terminal-header">
-        <span class="terminal-btn btn-close"></span>
-        <span class="terminal-btn btn-minimize"></span>
-        <span class="terminal-btn btn-maximize"></span>
-        <span class="terminal-title">jiashu_wang@blog:~</span>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="blog.html">Blog</a>
+      <!-- Blog List View -->
+      <div id="blog-list-view">
+        <div class="subtitle">
+          Recent posts from my journey in computer science
+        </div>
+
+        <div class="blog-list">
+          <!-- Blog Post 1 -->
+          <div class="blog-post-preview">
+            <div class="blog-post-title">
+              <a href="#" onclick="showPost('post1'); return false;"
+                >Getting Started with Diffusion Models in Computer Vision</a
+              >
+            </div>
+            <div class="blog-meta">
+              <span>📅 October 15, 2025</span>
+              <span class="blog-tag">Machine Learning</span>
+              <span class="blog-tag">Computer Vision</span>
+            </div>
+            <div class="blog-excerpt">
+              <p>
+                Diffusion models have become one of the most exciting
+                developments in generative AI. In this post, I share my
+                experience implementing and experimenting with diffusion models
+                for image generation tasks in my research...
+              </p>
+            </div>
+            <a
+              href="#"
+              onclick="showPost('post1'); return false;"
+              class="read-more"
+              >Read More →</a
+            >
+          </div>
+
+          <!-- Blog Post 2 -->
+          <div class="blog-post-preview">
+            <div class="blog-post-title">
+              <a href="#" onclick="showPost('post2'); return false;"
+                >Lessons from My First Research Paper</a
+              >
+            </div>
+            <div class="blog-meta">
+              <span>📅 September 28, 2025</span>
+              <span class="blog-tag">Research</span>
+              <span class="blog-tag">Personal</span>
+            </div>
+            <div class="blog-excerpt">
+              <p>
+                Publishing my first research paper was both exciting and
+                challenging. Here are the key lessons I learned about
+                collaboration, dealing with rejection, and the importance of
+                clear communication in academic research...
+              </p>
+            </div>
+            <a
+              href="#"
+              onclick="showPost('post2'); return false;"
+              class="read-more"
+              >Read More →</a
+            >
+          </div>
+
+          <!-- Blog Post 3 -->
+          <div class="blog-post-preview">
+            <div class="blog-post-title">
+              <a href="#" onclick="showPost('post3'); return false;"
+                >Why I'm Pursuing a PhD in Computer Science</a
+              >
+            </div>
+            <div class="blog-meta">
+              <span>📅 August 12, 2025</span>
+              <span class="blog-tag">PhD</span>
+              <span class="blog-tag">Career</span>
+            </div>
+            <div class="blog-excerpt">
+              <p>
+                Choosing to pursue a PhD is a big decision. In this post, I
+                reflect on what drew me to research, my long-term goals, and why
+                I believe graduate school is the right path for me at this stage
+                of my career...
+              </p>
+            </div>
+            <a
+              href="#"
+              onclick="showPost('post3'); return false;"
+              class="read-more"
+              >Read More →</a
+            >
+          </div>
         </div>
       </div>
 
-      <div class="content">
-        <h1>Blog</h1>
-        <div class="subtitle">My thoughts on research, coding, and life</div>
-
-        <!-- Example Blog Post 1 -->
-        <div class="blog-post">
-          <div class="blog-title">Testing blog 1</div>
+      <!-- Full Blog Post 1 -->
+      <div id="post1" class="blog-post-full">
+        <div class="blog-post-header">
+          <h2>Getting Started with Diffusion Models in Computer Vision</h2>
           <div class="blog-meta">
             <span>📅 October 15, 2025</span>
             <span class="blog-tag">Machine Learning</span>
-            <span class="blog-tag">Research</span>
+            <span class="blog-tag">Computer Vision</span>
           </div>
-          <div class="blog-excerpt">
-            <p>Test ...</p>
-          </div>
-          <a href="#" class="read-more">Read More →</a>
         </div>
+        <div class="blog-content">
+          <p>
+            Diffusion models have revolutionized the field of generative AI in
+            recent years, particularly in computer vision tasks. From
+            text-to-image generation to image editing, these models have shown
+            remarkable capabilities. In this post, I'll share my journey
+            learning about diffusion models and implementing them in my
+            research.
+          </p>
 
-        <!-- Example Blog Post 2 -->
-        <div class="blog-post">
-          <div class="blog-title">This is an example</div>
+          <h3>What Are Diffusion Models?</h3>
+          <p>
+            At their core, diffusion models work by gradually adding noise to
+            data and then learning to reverse this process. The forward process
+            adds Gaussian noise over many timesteps, while the reverse process
+            learns to denoise and reconstruct the original data. This simple yet
+            powerful idea has led to state-of-the-art results in image
+            generation.
+          </p>
+
+          <h3>Key Concepts I Found Helpful</h3>
+          <ul>
+            <li>
+              <strong>Forward Diffusion Process:</strong> Gradually adds noise
+              to images following a schedule
+            </li>
+            <li>
+              <strong>Reverse Process:</strong> A neural network learns to
+              predict and remove the noise
+            </li>
+            <li>
+              <strong>Score Matching:</strong> Training the model to estimate
+              the gradient of the data distribution
+            </li>
+            <li>
+              <strong>Sampling:</strong> Generating new images by iteratively
+              denoising random noise
+            </li>
+          </ul>
+
+          <h3>My Implementation Experience</h3>
+          <p>
+            When I first started implementing a diffusion model using PyTorch, I
+            was surprised by how conceptually simple the training loop is. The
+            main challenge was understanding the math behind the noise schedule
+            and variance calculations. Here's a simplified version of the core
+            training step:
+          </p>
+
+          <pre><code># Simplified diffusion training step
+t = torch.randint(0, num_timesteps, (batch_size,))
+noise = torch.randn_like(x)
+x_noisy = sqrt_alpha[t] * x + sqrt_one_minus_alpha[t] * noise
+predicted_noise = model(x_noisy, t)
+loss = F.mse_loss(predicted_noise, noise)</code></pre>
+
+          <h3>Applications in My Research</h3>
+          <p>
+            In my current project on tunnel lining water leakage segmentation,
+            I'm exploring how diffusion models can be used for data
+            augmentation. By generating synthetic training examples, we can
+            potentially improve model robustness when real training data is
+            limited.
+          </p>
+
+          <h3>Resources I Found Useful</h3>
+          <ul>
+            <li>The original DDPM paper by Ho et al.</li>
+            <li>Lilian Weng's excellent blog post on diffusion models</li>
+            <li>Hugging Face's diffusers library documentation</li>
+            <li>Various implementation tutorials on GitHub</li>
+          </ul>
+
+          <h3>Final Thoughts</h3>
+          <p>
+            Diffusion models represent an exciting frontier in generative AI.
+            While they can be computationally expensive to train and sample
+            from, recent work on faster sampling methods (like DDIM) is making
+            them more practical. I'm excited to continue exploring their
+            applications in my research and see where this technology goes next.
+          </p>
+
+          <p>
+            If you're interested in learning more about diffusion models or have
+            questions about my research, feel free to reach out!
+          </p>
+        </div>
+        <a href="#" onclick="showList(); return false;" class="back-to-list"
+          >← Back to Blog List</a
+        >
+      </div>
+
+      <!-- Full Blog Post 2 -->
+      <div id="post2" class="blog-post-full">
+        <div class="blog-post-header">
+          <h2>Lessons from My First Research Paper</h2>
           <div class="blog-meta">
             <span>📅 September 28, 2025</span>
-            <span class="blog-tag">Computer Vision</span>
+            <span class="blog-tag">Research</span>
             <span class="blog-tag">Personal</span>
           </div>
-          <div class="blog-excerpt">
-            <p>Content.</p>
-          </div>
-          <a href="#" class="read-more">Read More →</a>
         </div>
+        <div class="blog-content">
+          <p>
+            Getting my first paper accepted to ICONIP 2025 was an incredible
+            milestone in my academic journey. But the path to publication was
+            filled with valuable lessons that I wish I had known earlier. Here's
+            what I learned along the way.
+          </p>
 
-        <!-- Example Blog Post 3 -->
-        <div class="blog-post">
-          <div class="blog-title">Hello, this is an example blog</div>
+          <h3>Lesson 1: Start Writing Early</h3>
+          <p>
+            One of my biggest mistakes was waiting until all experiments were
+            "finished" before starting to write. I learned that writing is
+            actually part of the research process—it helps clarify your
+            thinking, identify gaps in your experiments, and communicate your
+            ideas more effectively. Now I start drafting the introduction and
+            related work sections as soon as I have a clear research question.
+          </p>
+
+          <h3>Lesson 2: Collaboration Is Key</h3>
+          <p>
+            Working with my co-authors taught me the importance of clear
+            communication and dividing responsibilities. Regular meetings,
+            shared documents, and being open to feedback made the process much
+            smoother. Having different perspectives also significantly improved
+            the quality of our work.
+          </p>
+
+          <h3>Lesson 3: Handle Rejection Gracefully</h3>
+          <p>
+            Before getting accepted at ICONIP, we received reviews from another
+            conference that were quite critical. Initially, it was discouraging,
+            but the feedback helped us identify real weaknesses in our work. We
+            revised the paper substantially based on those comments, and the
+            final version was much stronger.
+          </p>
+
+          <h3>Lesson 4: The Devil Is in the Details</h3>
+          <p>Small things matter more than I expected:</p>
+          <ul>
+            <li>Clear, informative figure captions</li>
+            <li>Consistent notation throughout the paper</li>
+            <li>Properly formatted references</li>
+            <li>
+              Thorough proofreading (I found embarrassing typos even after
+              multiple readings)
+            </li>
+          </ul>
+
+          <h3>Lesson 5: Code and Reproducibility</h3>
+          <p>
+            Keeping clean, well-documented code from the start would have saved
+            me countless hours. When it came time to respond to reviewer
+            questions about implementation details, I had to dig through messy
+            experiment scripts. Now I use version control properly and document
+            as I go.
+          </p>
+
+          <h3>Looking Forward</h3>
+          <p>
+            These lessons have already proven valuable as I work on my next
+            papers. Research is a learning process, and each paper teaches you
+            something new about the craft of scientific writing and
+            communication. I'm grateful for the mentorship I received and
+            excited to keep improving.
+          </p>
+        </div>
+        <a href="#" onclick="showList(); return false;" class="back-to-list"
+          >← Back to Blog List</a
+        >
+      </div>
+
+      <!-- Full Blog Post 3 -->
+      <div id="post3" class="blog-post-full">
+        <div class="blog-post-header">
+          <h2>Why I'm Pursuing a PhD in Computer Science</h2>
           <div class="blog-meta">
             <span>📅 August 12, 2025</span>
             <span class="blog-tag">PhD</span>
-            <span class="blog-tag">Advice</span>
+            <span class="blog-tag">Career</span>
           </div>
-          <div class="blog-excerpt">
-            <p>Hello!</p>
-          </div>
-          <a href="#" class="read-more">Read More →</a>
         </div>
+        <div class="blog-content">
+          <p>
+            As I prepare my PhD applications, I've spent a lot of time
+            reflecting on why I want to pursue graduate school. It's a
+            significant commitment, and I want to make sure I'm doing it for the
+            right reasons. Here are my thoughts on why research is the right
+            path for me.
+          </p>
 
-        <!-- Uncomment this section if you have no blog posts yet
-        <div class="no-posts">
-          <div class="no-posts-icon">📝</div>
-          <h2>No blog posts yet</h2>
-          <p>Check back soon for updates!</p>
+          <h3>The Joy of Discovery</h3>
+          <p>
+            What excites me most about research is the opportunity to push the
+            boundaries of what we know. Whether it's developing new algorithms,
+            finding better ways to solve existing problems, or discovering
+            unexpected patterns in data—there's something deeply satisfying
+            about contributing new knowledge to the field.
+          </p>
+
+          <h3>Deep Dive into Problems</h3>
+          <p>
+            In industry, there's often pressure to move quickly and ship
+            products. While I respect that urgency and have learned a lot from
+            project work, I crave the opportunity to deeply understand problems.
+            A PhD offers the time and environment to really dig into complex
+            questions without rushing to immediate applications.
+          </p>
+
+          <h3>Impact Through Automation</h3>
+          <p>
+            My research interests center around automation—particularly in using
+            computer vision and machine learning to automate tasks that
+            currently require significant human effort. I believe this work can
+            have real-world impact, whether it's in infrastructure monitoring,
+            medical imaging, or other domains. A PhD will give me the skills and
+            credibility to work on these impactful problems.
+          </p>
+
+          <h3>The Research Community</h3>
+          <p>
+            I've been inspired by the collaborative nature of academic research.
+            Conferences, seminars, and open-source projects create a community
+            where people freely share ideas and build on each other's work. I
+            want to be part of this community and contribute to the collective
+            advancement of the field.
+          </p>
+
+          <h3>What I'm Looking For</h3>
+          <p>In choosing PhD programs, I'm looking for:</p>
+          <ul>
+            <li>
+              Strong research groups in computer vision and machine learning
+            </li>
+            <li>
+              Advisors whose work aligns with my interests in automation and
+              practical applications
+            </li>
+            <li>Collaborative environments where I can learn from peers</li>
+            <li>
+              Opportunities to work on both theoretical understanding and
+              real-world problems
+            </li>
+          </ul>
+
+          <h3>Acknowledging the Challenges</h3>
+          <p>
+            I'm not naive about the challenges of a PhD—the long hours, the
+            inevitable setbacks, the pressure to publish. But I've experienced
+            glimpses of these challenges during my undergraduate research, and
+            rather than discouraging me, they've confirmed that this is work I
+            find meaningful and want to pursue at a deeper level.
+          </p>
+
+          <h3>Closing Thoughts</h3>
+          <p>
+            Ultimately, I'm pursuing a PhD because I can't imagine doing
+            anything else right now. The questions that keep me up at night are
+            research questions. The work that makes me lose track of time is
+            implementing and experimenting with new ideas. If that resonates
+            with you too, maybe we'll cross paths at a conference or as
+            collaborators someday.
+          </p>
         </div>
-        -->
+        <a href="#" onclick="showList(); return false;" class="back-to-list"
+          >← Back to Blog List</a
+        >
       </div>
     </div>
+
+    <script>
+      function showPost(postId) {
+        document.getElementById("blog-list-view").style.display = "none";
+        const posts = document.querySelectorAll(".blog-post-full");
+        posts.forEach((post) => post.classList.remove("active"));
+        document.getElementById(postId).classList.add("active");
+        window.scrollTo(0, 0);
+      }
+
+      function showList() {
+        const posts = document.querySelectorAll(".blog-post-full");
+        posts.forEach((post) => post.classList.remove("active"));
+        document.getElementById("blog-list-view").style.display = "block";
+        window.scrollTo(0, 0);
+      }
+    </script>
   </body>
 </html>
