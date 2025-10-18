@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jiashu Wang | CS Graduate Applicant</title>
+    <title>Jiashu Wang</title>
     <style>
       * {
         margin: 0;
@@ -16,41 +16,60 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           sans-serif;
         background: #ffffff;
-        color: #333333;
+        color: #333;
         line-height: 1.6;
-        min-height: 100vh;
         font-size: 16px;
       }
 
       /* Header */
       .header {
         background: #ffffff;
-        color: #333;
-        padding: 20px 40px;
-        border-bottom: 1px solid #e5e5e5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 20px 0;
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       }
 
-      .header-title {
-        font-size: 1.1em;
-        font-weight: 500;
-        color: #555;
+      .header-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-name {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #000;
+      }
+
+      .header-nav {
+        display: flex;
+        gap: 25px;
+      }
+
+      .header-nav a {
+        color: #666;
+        text-decoration: none;
+        font-size: 0.95em;
+        transition: color 0.2s;
+      }
+
+      .header-nav a:hover {
+        color: #000;
       }
 
       /* Hero Image Section */
       .hero-section {
         width: 100%;
-        height: 85vh;
-        min-height: 500px;
+        height: 70vh;
+        min-height: 400px;
         overflow: hidden;
         position: relative;
         display: flex;
@@ -62,7 +81,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: brightness(1.1);
+        filter: brightness(0.85);
       }
 
       .hero-overlay {
@@ -71,43 +90,27 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.1),
-          rgba(255, 255, 255, 0.3)
-        );
+        background: rgba(0, 0, 0, 0.3);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: #333;
+        color: white;
         text-align: center;
         padding: 40px;
       }
 
       .hero-title {
-        font-size: 4.5em;
-        font-weight: 300;
-        margin-bottom: 20px;
-        letter-spacing: 3px;
-        color: #222;
-        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+        font-size: 3.5em;
+        font-weight: 400;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
       }
 
       .hero-subtitle {
-        font-size: 1.5em;
-        margin-bottom: 15px;
-        font-weight: 400;
-        color: #444;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-      }
-
-      .hero-description {
-        font-size: 1.1em;
-        max-width: 700px;
-        line-height: 1.6;
-        color: #555;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        font-size: 1.3em;
+        font-weight: 300;
+        opacity: 0.95;
       }
 
       .scroll-indicator {
@@ -116,7 +119,7 @@
         left: 50%;
         transform: translateX(-50%);
         animation: bounce 2s infinite;
-        color: #666;
+        color: white;
         font-size: 2em;
       }
 
@@ -136,238 +139,167 @@
         }
       }
 
-      /* Main Layout */
-      .main-container {
-        display: flex;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 60px 20px;
-        gap: 40px;
-        position: relative;
-      }
-
-      /* Floating Sidebar Navigation */
-      .sidebar-nav {
-        position: fixed;
-        left: calc((100vw - 1200px) / 2);
-        top: 120px;
-        width: 160px;
-      }
-
-      .sidebar-nav ul {
-        list-style: none;
-      }
-
-      .sidebar-nav li {
-        margin-bottom: 12px;
-      }
-
-      .sidebar-nav a {
-        display: block;
-        padding: 8px 0;
-        color: #666;
-        text-decoration: none;
-        transition: all 0.2s;
-        font-size: 0.95em;
-        font-weight: 400;
-      }
-
-      .sidebar-nav a:hover {
-        color: #000;
-      }
-
-      .sidebar-nav a.active {
-        color: #000;
-        font-weight: 500;
-      }
-
-      /* Content Area */
-      .content {
-        flex: 1;
-        margin-left: 200px;
+      /* Main Container */
+      .container {
         max-width: 800px;
+        margin: 0 auto;
+        padding: 60px 30px;
       }
 
+      /* Sections */
       .section {
-        margin: 60px 0;
-        scroll-margin-top: 100px;
-      }
-
-      .section:first-child {
-        margin-top: 0;
+        margin-bottom: 50px;
+        scroll-margin-top: 80px;
       }
 
       .section-title {
-        color: #222;
-        font-size: 1.8em;
-        margin-bottom: 25px;
-        font-weight: 400;
+        font-size: 1.5em;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 20px;
       }
 
       .section-content {
-        color: #555;
-        line-height: 1.8;
-        font-size: 1em;
+        color: #444;
+        line-height: 1.7;
       }
 
-      .project-item {
-        margin: 25px 0;
-        padding: 0;
+      /* Bio */
+      .bio {
+        font-size: 1.05em;
+        margin-bottom: 20px;
       }
 
-      .project-title {
-        color: #222;
-        font-size: 1.1em;
-        margin-bottom: 10px;
-        font-weight: 500;
-      }
-
-      .project-desc {
-        color: #555;
-        line-height: 1.8;
-      }
-
-      /* Publications */
-      .publication-item {
-        margin: 30px 0;
-        padding: 0;
-      }
-
-      .publication-content {
-        color: #555;
-        line-height: 1.8;
-        font-size: 1em;
-      }
-
-      .first-author {
-        font-weight: 500;
-      }
-
-      .my-name {
-        font-weight: 500;
-        text-decoration: underline;
-      }
-
-      .publication-title {
-        font-weight: 500;
-        color: #222;
-      }
-
-      .publication-venue {
-        font-style: italic;
-      }
-
-      .honor {
-        color: #d63031;
-        font-weight: 500;
-      }
-
-      .publication-links {
-        margin-top: 12px;
-      }
-
-      /* Skills */
-      .skill-tag {
-        display: inline-block;
-        background: #f5f5f5;
-        color: #333;
-        padding: 8px 16px;
-        margin: 6px 6px 6px 0;
-        border-radius: 4px;
-        font-size: 0.9em;
-        font-weight: 400;
-      }
-
-      /* Contact */
-      .contact-links {
+      .links {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
         margin-top: 20px;
       }
 
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      a {
+      .links a {
         color: #0066cc;
         text-decoration: none;
-        transition: color 0.2s;
       }
 
-      a:hover {
-        color: #004499;
+      .links a:hover {
+        text-decoration: underline;
       }
 
-      .thank-you {
-        margin-top: 80px;
-        text-align: center;
-        color: #999;
+      /* Publications */
+      .publication {
+        margin-bottom: 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .publication:last-child {
+        border-bottom: none;
+      }
+
+      .pub-title {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 8px;
+      }
+
+      .pub-authors {
+        color: #666;
+        margin-bottom: 5px;
         font-size: 0.95em;
       }
 
-      /* Responsive Design */
-      @media (max-width: 1240px) {
-        .sidebar-nav {
-          position: relative;
-          left: 0;
-          top: 0;
-          width: 100%;
-          margin-bottom: 40px;
-          display: flex;
-          justify-content: center;
-        }
-
-        .sidebar-nav ul {
-          display: flex;
-          gap: 20px;
-          flex-wrap: wrap;
-        }
-
-        .content {
-          margin-left: 0;
-        }
-
-        .main-container {
-          flex-direction: column;
-        }
+      .pub-venue {
+        color: #888;
+        font-size: 0.95em;
       }
 
-      @media (max-width: 768px) {
-        .header {
-          padding: 15px 20px;
-        }
+      .author-me {
+        font-weight: 600;
+        background: linear-gradient(180deg, transparent 60%, #fff59d 60%);
+        padding: 2px 0;
+      }
 
-        .main-container {
-          padding: 40px 20px;
+      .note {
+        color: #d63031;
+        font-weight: 500;
+      }
+
+      .pub-link {
+        color: #0066cc;
+        text-decoration: none;
+        font-size: 0.9em;
+        margin-left: 10px;
+      }
+
+      .pub-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Research/Projects */
+      .project {
+        margin-bottom: 25px;
+      }
+
+      .project-title {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 5px;
+      }
+
+      .project-meta {
+        color: #888;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+      }
+
+      .project-desc {
+        color: #555;
+      }
+
+      /* Education */
+      .edu-title {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 5px;
+      }
+
+      .edu-meta {
+        color: #666;
+        font-size: 0.95em;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 40px 30px;
+        color: #999;
+        font-size: 0.9em;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 15px;
         }
 
         .hero-section {
-          height: 70vh;
-          min-height: 400px;
+          height: 60vh;
+          min-height: 350px;
         }
 
         .hero-title {
-          font-size: 2.5em;
+          font-size: 2.2em;
         }
 
         .hero-subtitle {
-          font-size: 1.2em;
+          font-size: 1.1em;
         }
 
-        .hero-description {
-          font-size: 1em;
-        }
-
-        .section {
-          margin: 40px 0;
-        }
-
-        .section-title {
-          font-size: 1.5em;
+        .container {
+          padding: 40px 20px;
         }
       }
     </style>
@@ -375,272 +307,156 @@
   <body>
     <!-- Header -->
     <div class="header">
-      <div class="header-title">Jiashu Wang</div>
+      <div class="header-content">
+        <div class="header-name">Jiashu Wang</div>
+        <nav class="header-nav">
+          <a href="#about">About</a>
+          <a href="#publications">Publications</a>
+          <a href="#research">Research</a>
+        </nav>
+      </div>
     </div>
 
     <!-- Hero Image Section -->
     <div class="hero-section" id="heroSection">
       <img src="hero-image-light.jpg" alt="Hero Image" class="hero-image" />
       <div class="hero-overlay">
-        <div class="hero-title">JIASHU WANG</div>
-        <div class="hero-subtitle">Computer Science Graduate Applicant</div>
-        <div class="hero-description">
-          Machine Learning • Computer Vision • Automation
-        </div>
+        <div class="hero-title">Jiashu Wang</div>
+        <div class="hero-subtitle">Computer Science Student</div>
       </div>
       <div class="scroll-indicator">↓</div>
     </div>
 
     <!-- Main Container -->
-    <div class="main-container" id="mainContent">
-      <!-- Floating Sidebar Navigation -->
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#research">Research</a></li>
-          <li><a href="#publications">Publications</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#hobbies">Hobbies</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
+    <div class="container" id="mainContent">
+      <!-- About Section -->
+      <div class="section" id="about">
+        <h2 class="section-title">About</h2>
+        <div class="section-content">
+          <p class="bio">
+            I'm a senior undergraduate student in Computer Science at
+            Northeastern University - China. My research interests include
+            machine learning, computer vision, and automation. I'm deeply
+            committed to contributing to automation in various communities—a
+            focus that has driven most of my undergraduate research projects.
+          </p>
+          <div class="links">
+            <a href="mailto:wangjiashushenzhen@gmail.com">Email</a>
+            <a
+              href="https://scholar.google.com/citations?user=XXXXX"
+              target="_blank"
+              >Google Scholar</a
+            >
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="cv.pdf" target="_blank">CV</a>
+          </div>
+        </div>
+      </div>
 
-      <!-- Content Area -->
-      <div class="content">
-        <div class="section" id="about">
-          <div class="section-title">About Me</div>
-          <div class="section-content">
-            I'm from Northeastern University - China, where I majored in
-            Computer Science. My interests span traditional machine learning and
-            deep learning, with a particular passion for computer vision. I'm
-            deeply committed to contributing to automation in various
-            communities—a focus that has driven most of my undergraduate
-            research projects.
+      <!-- Publications Section -->
+      <div class="section" id="publications">
+        <h2 class="section-title">Publications</h2>
+
+        <div class="publication">
+          <div class="pub-title">
+            Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver
+          </div>
+          <div class="pub-authors">
+            Xulong Zhang†, <span class="author-me">Jiashu Wang†</span>, Xiaoyang
+            Qu, Hui Tian, Jianzong Wang*
+          </div>
+          <div class="pub-venue">
+            ICONIP 2025 <span class="note">(Spotlight)</span>
           </div>
         </div>
 
-        <div class="section" id="education">
-          <div class="section-title">Education</div>
-          <div class="section-content">
-            <div class="project-item">
-              <div class="project-title">B.S. in Computer Science</div>
-              <div class="project-desc">
-                Northeastern University - China<br />
-                Expected Graduation: June 2026<br />
-                GPA: 4.099 / 5.0 (90.1 / 100) | Rank: 14%
-              </div>
-            </div>
+        <div class="publication">
+          <div class="pub-title">
+            Enhancing Generalization in Video Deepfake Detection via Ambiguous
+            Data Generation
+          </div>
+          <div class="pub-authors">
+            Junjie Li, Nan Zhang, Xiaoyang Qu,
+            <span class="author-me">Jiashu Wang</span>, Yumeng Zhong*, Jiguang
+            Wan
+          </div>
+          <div class="pub-venue">
+            ICIC 2025 <span class="note">(Oral)</span>
+            <a
+              href="https://www.mdpi.com/2072-4292/17/13/2313"
+              target="_blank"
+              class="pub-link"
+              >[Paper]</a
+            >
           </div>
         </div>
 
-        <div class="section" id="research">
-          <div class="section-title">Research Experience</div>
-          <div class="section-content">
-            <div class="project-item">
-              <div class="project-title">xxx Segmentation (Deep Learning)</div>
-              <div class="project-desc">
-                <strong>Advisor:</strong>
-                <a href="https://www.tsinghua.edu.cn" target="_blank"
-                  >Dr. Xiaoxi Hu @ Tsinghua University</a
-                ><br />
-                <strong>Duration:</strong> March 2025 - Present<br /><br />
-                Wait to be filled.
-              </div>
-            </div>
+        <div class="publication">
+          <div class="pub-title">
+            YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on
+            Unmanned Aerial Vehicles
+          </div>
+          <div class="pub-authors">
+            Shimin Weng, Han Wang, <span class="author-me">Jiashu Wang</span>,
+            Changming Xu*, Ende Zhang
+          </div>
+          <div class="pub-venue">
+            Remote Sensing 2025
+            <a
+              href="https://www.mdpi.com/2072-4292/17/13/2313"
+              target="_blank"
+              class="pub-link"
+              >[Paper]</a
+            >
+          </div>
+        </div>
+      </div>
 
-            <div class="project-item">
-              <div class="project-title">
-                Optimization on xxx (Traditional Machine Learning)
-              </div>
-              <div class="project-desc">
-                <strong>Advisor:</strong>
-                <a href="https://www.neu.edu.cn" target="_blank"
-                  >Dr. Xianwei Lv @ Northeastern University - China</a
-                >
-                <br />
-                <strong>Duration:</strong> January 2025 - Present<br /><br />
-                Wait to be filled.
-              </div>
-            </div>
+      <!-- Research Experience -->
+      <div class="section" id="research">
+        <h2 class="section-title">Research</h2>
+
+        <div class="project">
+          <div class="project-title">Deep Learning for Image Segmentation</div>
+          <div class="project-meta">
+            Advisor: Dr. Xiaoxi Hu, Tsinghua University | March 2025 - Present
+          </div>
+          <div class="project-desc">
+            Working on advanced segmentation techniques using deep learning
+            approaches.
           </div>
         </div>
 
-        <div class="section" id="publications">
-          <div class="section-title">Publications</div>
-          <div class="section-content">
-            <div class="publication-item">
-              <div class="publication-content">
-                <span class="first-author my-name"
-                  >Xulong Zhang<sup>†</sup></span
-                >,
-                <span class="first-author my-name">Jiashu Wang<sup>†</sup></span
-                >, Xiaoyang Qu, Hui Tian, Jianzong Wang<sup>*</sup>. "<span
-                  class="publication-title"
-                  >Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
-                  Solver</span
-                >."
-                <span class="publication-venue"
-                  >International Conference on Neural Information Processing
-                  (ICONIP)</span
-                >, 2025.
-                <span class="honor">(Spotlight)</span>
-              </div>
-            </div>
-
-            <div class="publication-item">
-              <div class="publication-content">
-                Junjie Li, Nan Zhang, Xiaoyang Qu,
-                <span class="my-name">Jiashu Wang</span>, Yumeng
-                Zhong<sup>*</sup>, Jiguang Wan. "<span class="publication-title"
-                  >Enhancing Generalization in Video Deepfake Detection via
-                  Ambiguous Data Generation</span
-                >."
-                <span class="publication-venue"
-                  >International Conference on Intelligent Computing
-                  (ICIC)</span
-                >, 2025.
-                <span class="honor">(Oral Presentation)</span>
-              </div>
-              <div class="publication-links">
-                <a
-                  href="https://www.mdpi.com/2072-4292/17/13/2313"
-                  target="_blank"
-                  >📄 Paper</a
-                >
-              </div>
-            </div>
-
-            <div class="publication-item">
-              <div class="publication-content">
-                Shimin Weng, Han Wang,
-                <span class="my-name">Jiashu Wang</span>, Changming
-                Xu<sup>*</sup>, Ende Zhang. "<span class="publication-title"
-                  >YOLO-SRMX: A Lightweight Model for Real-Time Object Detection
-                  on Unmanned Aerial Vehicles</span
-                >." <span class="publication-venue">Remote Sensing</span>, 2025.
-              </div>
-              <div class="publication-links">
-                <a
-                  href="https://www.mdpi.com/2072-4292/17/13/2313"
-                  target="_blank"
-                  >📄 Journal</a
-                >
-              </div>
-            </div>
+        <div class="project">
+          <div class="project-title">
+            Traditional Machine Learning Optimization
+          </div>
+          <div class="project-meta">
+            Advisor: Dr. Xianwei Lv, Northeastern University - China | January
+            2025 - Present
+          </div>
+          <div class="project-desc">
+            Exploring optimization algorithms and their applications in machine
+            learning.
           </div>
         </div>
+      </div>
 
-        <div class="section" id="skills">
-          <div class="section-title">Skills</div>
-          <div class="section-content">
-            <div>
-              <strong>Programming Languages</strong><br />
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">C++/C</span>
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">MATLAB</span>
-            </div>
-            <br />
-            <div>
-              <strong>ML/AI Frameworks</strong><br />
-              <span class="skill-tag">PyTorch</span>
-              <span class="skill-tag">OpenCV</span>
-              <span class="skill-tag">PCL</span>
-              <span class="skill-tag">scikit-learn</span>
-            </div>
-            <br />
-            <div>
-              <strong>Tools & Technologies</strong><br />
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">Vivado</span>
-              <span class="skill-tag">Blender</span>
-              <span class="skill-tag">Linux</span>
-              <span class="skill-tag">LaTeX</span>
-            </div>
-          </div>
+      <!-- Education -->
+      <div class="section" id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="edu-title">B.S. in Computer Science</div>
+        <div class="edu-meta">
+          Northeastern University - China | 2022 - 2026<br />
+          GPA: 4.099/5.0 (90.1/100) 😍 | Top 14% 😭
         </div>
-
-        <div class="section" id="hobbies">
-          <div class="section-title">Hobbies</div>
-          <div class="section-content">
-            <p>
-              When I'm not coding or researching, you can find me:<br /><br />
-              • 🎮 Playing games<br />
-              • 🏃 Trail running
-            </p>
-          </div>
-        </div>
-
-        <div class="section" id="contact">
-          <div class="section-title">Contact</div>
-          <div class="section-content">
-            <div class="contact-links">
-              <div class="contact-item">
-                <span>📧</span>
-                <a href="mailto:wangjiashushenzhen@gmail.com"
-                  >wangjiashushenzhen@gmail.com</a
-                >
-              </div>
-              <div class="contact-item">
-                <span>🔗</span>
-                <a href="https://github.com/yourusername" target="_blank"
-                  >GitHub</a
-                >
-              </div>
-              <div class="contact-item">
-                <span>🌐</span>
-                <a
-                  href="https://scholar.google.com/citations?user=XXXXX"
-                  target="_blank"
-                  >Google Scholar</a
-                >
-              </div>
-              <div class="contact-item">
-                <span>📄</span>
-                <a href="cv.pdf" target="_blank">CV</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="thank-you">Thank you for visiting!</div>
       </div>
     </div>
 
+    <!-- Footer -->
+    <div class="footer">Last updated: October 2025</div>
+
     <script>
-      // Active section highlighting
-      document.addEventListener("DOMContentLoaded", function () {
-        const navLinks = document.querySelectorAll(".sidebar-nav a");
-        const sections = document.querySelectorAll(".section");
-
-        const observerOptions = {
-          root: null,
-          rootMargin: "-120px 0px -66%",
-          threshold: 0,
-        };
-
-        const observer = new IntersectionObserver(function (entries) {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const id = entry.target.getAttribute("id");
-              navLinks.forEach((link) => {
-                link.classList.remove("active");
-                if (link.getAttribute("href") === `#${id}`) {
-                  link.classList.add("active");
-                }
-              });
-            }
-          });
-        }, observerOptions);
-
-        sections.forEach((section) => {
-          observer.observe(section);
-        });
-      });
-
       // Auto-scroll on first scroll input
       let hasScrolled = false;
       const heroSection = document.getElementById("heroSection");
