@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jiashu Wang</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
       * {
         margin: 0;
@@ -170,6 +174,15 @@
         margin-bottom: 20px;
       }
 
+      .collaboration-note {
+        background: #f8f9fa;
+        border-left: 3px solid #0066cc;
+        padding: 12px 16px;
+        margin-top: 20px;
+        font-size: 0.95em;
+        color: #555;
+      }
+
       .links {
         display: flex;
         gap: 20px;
@@ -180,10 +193,18 @@
       .links a {
         color: #0066cc;
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.2s;
       }
 
       .links a:hover {
-        text-decoration: underline;
+        color: #0052a3;
+      }
+
+      .links a i {
+        font-size: 1.1em;
       }
 
       /* Publications */
@@ -230,10 +251,18 @@
         text-decoration: none;
         font-size: 0.9em;
         margin-left: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.2s;
       }
 
       .pub-link:hover {
-        text-decoration: underline;
+        color: #0052a3;
+      }
+
+      .pub-link i {
+        font-size: 0.95em;
       }
 
       /* Research/Projects */
@@ -340,15 +369,27 @@
             committed to contributing to automation in various communities—a
             focus that has driven most of my undergraduate research projects.
           </p>
+          <div class="collaboration-note">
+            <i class="fas fa-users"></i> Currently collaborating with
+            researchers at Tsinghua University and Northeastern University -
+            China
+          </div>
           <div class="links">
-            <a href="mailto:wangjiashushenzhen@gmail.com">Email</a>
+            <a href="mailto:wangjiashushenzhen@gmail.com">
+              <i class="fas fa-envelope"></i>Email
+            </a>
             <a
               href="https://scholar.google.com/citations?user=XXXXX"
               target="_blank"
-              >Google Scholar</a
             >
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="cv.pdf" target="_blank">CV</a>
+              <i class="fas fa-graduation-cap"></i>Google Scholar
+            </a>
+            <a href="https://github.com/yourusername" target="_blank">
+              <i class="fab fa-github"></i>GitHub
+            </a>
+            <a href="cv.pdf" target="_blank">
+              <i class="fas fa-file-pdf"></i>CV
+            </a>
           </div>
         </div>
       </div>
@@ -362,7 +403,7 @@
             Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver
           </div>
           <div class="pub-authors">
-            Xulong Zhang†, <span class="author-me">Jiashu Wang†</span>, Xiaoyang
+            Xulong Zhang*, <span class="author-me">Jiashu Wang*</span>, Xiaoyang
             Qu, Hui Tian, Jianzong Wang*
           </div>
           <div class="pub-venue">
@@ -386,8 +427,9 @@
               href="https://www.mdpi.com/2072-4292/17/13/2313"
               target="_blank"
               class="pub-link"
-              >[Paper]</a
             >
+              <i class="fas fa-file-alt"></i>Paper
+            </a>
           </div>
         </div>
 
@@ -406,8 +448,9 @@
               href="https://www.mdpi.com/2072-4292/17/13/2313"
               target="_blank"
               class="pub-link"
-              >[Paper]</a
             >
+              <i class="fas fa-file-alt"></i>Paper
+            </a>
           </div>
         </div>
       </div>
@@ -448,7 +491,7 @@
         <div class="edu-title">B.S. in Computer Science</div>
         <div class="edu-meta">
           Northeastern University - China | 2022 - 2026<br />
-          GPA: 4.099/5.0 (90.1/100) 😍 | Top 14% 😭
+          GPA: 4.099/5.0 (90.1/100) | Top 14%
         </div>
       </div>
     </div>
