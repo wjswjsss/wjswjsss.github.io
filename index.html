@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jiashu Wang</title>
+    <title>Jiashu Wang | CS Undergrad</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -20,26 +20,31 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        background: #ffffff;
-        color: #333;
+        font-family: "Monaco", "Consolas", "Courier New", monospace;
+        background: #1a1a2e;
+        color: #e0e0e0;
         line-height: 1.6;
         font-size: 16px;
+        overflow-x: hidden;
+      }
+
+      .content-wrapper {
+        position: relative;
       }
 
       /* Header */
       .header {
-        background: #ffffff;
-        border-bottom: 1px solid #e0e0e0;
+        background: rgba(26, 26, 46, 0.95);
+        border-bottom: 1px solid #3a3a5c;
         padding: 20px 0;
         position: sticky;
         top: 0;
         z-index: 1000;
+        backdrop-filter: blur(10px);
       }
 
       .header-content {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 0 30px;
         display: flex;
@@ -50,23 +55,24 @@
       .header-name {
         font-size: 1.2em;
         font-weight: 600;
-        color: #000;
+        color: #00d4ff;
+        letter-spacing: 1px;
       }
 
       .header-nav {
         display: flex;
-        gap: 25px;
+        gap: 30px;
       }
 
       .header-nav a {
-        color: #666;
+        color: #a0a0a0;
         text-decoration: none;
         font-size: 0.95em;
-        transition: color 0.2s;
+        transition: color 0.3s;
       }
 
       .header-nav a:hover {
-        color: #000;
+        color: #00d4ff;
       }
 
       /* Hero Image Section */
@@ -85,7 +91,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: brightness(0.85);
+        filter: brightness(0.7);
       }
 
       .hero-overlay {
@@ -94,7 +100,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.4);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -106,15 +112,17 @@
 
       .hero-title {
         font-size: 3.5em;
-        font-weight: 400;
+        font-weight: 300;
         margin-bottom: 15px;
-        letter-spacing: 2px;
+        letter-spacing: 3px;
+        color: #ffffff;
       }
 
       .hero-subtitle {
         font-size: 1.3em;
         font-weight: 300;
         opacity: 0.95;
+        color: #00d4ff;
       }
 
       .scroll-indicator {
@@ -145,95 +153,128 @@
 
       /* Main Container */
       .container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 60px 30px;
       }
 
       /* Sections */
       .section {
-        margin-bottom: 50px;
-        scroll-margin-top: 80px;
+        margin-bottom: 60px;
+        scroll-margin-top: 100px;
+        background: rgba(30, 30, 50, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border-left: 3px solid #00d4ff;
+        transition: all 0.3s ease;
+      }
+
+      .section:hover {
+        background: rgba(30, 30, 50, 0.8);
+        border-left-width: 5px;
+        transform: translateX(5px);
+        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
       }
 
       .section-title {
-        font-size: 1.5em;
+        font-size: 1.8em;
         font-weight: 600;
-        color: #000;
-        margin-bottom: 20px;
+        color: #00d4ff;
+        margin-bottom: 25px;
       }
 
       .section-content {
-        color: #444;
-        line-height: 1.7;
+        color: #c0c0c0;
+        line-height: 1.8;
       }
 
       /* Bio */
       .bio {
-        font-size: 1.05em;
-        margin-bottom: 20px;
+        font-size: 1.1em;
+        margin-bottom: 25px;
+        color: #e0e0e0;
       }
 
       .collaboration-note {
-        background: #f8f9fa;
-        border-left: 3px solid #0066cc;
-        padding: 12px 16px;
-        margin-top: 20px;
-        font-size: 0.95em;
-        color: #555;
+        background: rgba(0, 212, 255, 0.1);
+        border-left: 3px solid #00d4ff;
+        padding: 15px 20px;
+        margin-top: 25px;
+        border-radius: 5px;
+        color: #e0e0e0;
+      }
+
+      .collaboration-note i {
+        color: #00d4ff;
+        margin-right: 10px;
       }
 
       .links {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
-        margin-top: 20px;
+        margin-top: 25px;
       }
 
       .links a {
-        color: #0066cc;
+        color: #00d4ff;
         text-decoration: none;
         display: flex;
         align-items: center;
-        gap: 6px;
-        transition: color 0.2s;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(0, 212, 255, 0.1);
+        border: 1px solid #00d4ff;
+        border-radius: 5px;
+        transition: all 0.3s;
       }
 
       .links a:hover {
-        color: #0052a3;
+        background: rgba(0, 212, 255, 0.2);
       }
 
       .links a i {
         font-size: 1.1em;
       }
+
       .coming-soon-link {
-        color: #999 !important;
-        cursor: default;
+        color: #666 !important;
+        border-color: #444 !important;
+        cursor: not-allowed;
+        opacity: 0.5;
       }
 
       .coming-soon-link:hover {
-        color: #999 !important;
-      }
-      /* Publications */
-      .publication {
-        margin-bottom: 25px;
-        padding-bottom: 25px;
-        border-bottom: 1px solid #f0f0f0;
+        background: rgba(0, 212, 255, 0.05) !important;
       }
 
-      .publication:last-child {
-        border-bottom: none;
+      /* Publications */
+      .publication {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-left: 3px solid #00d4ff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .publication:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-left-width: 5px;
+        transform: translateX(8px);
+        box-shadow: -5px 5px 20px rgba(0, 212, 255, 0.3);
       }
 
       .pub-title {
-        font-weight: 500;
-        color: #000;
-        margin-bottom: 8px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-size: 1.05em;
       }
 
       .pub-authors {
-        color: #666;
-        margin-bottom: 5px;
+        color: #a0a0a0;
+        margin-bottom: 8px;
         font-size: 0.95em;
       }
 
@@ -244,112 +285,154 @@
 
       .author-me {
         font-weight: 600;
-        background: linear-gradient(180deg, transparent 60%, #fff59d 60%);
-        padding: 2px 0;
+        color: #00d4ff;
+      }
+
+      .author-joint {
+        font-weight: 600;
+        color: #0099cc;
       }
 
       .note {
-        color: #d63031;
+        color: #ff6b9d;
         font-weight: 500;
       }
 
       .pub-link {
-        color: #0066cc;
+        color: #00d4ff;
         text-decoration: none;
         font-size: 0.9em;
         margin-left: 10px;
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        transition: color 0.2s;
+        gap: 5px;
+        transition: color 0.3s;
       }
 
       .pub-link:hover {
-        color: #0052a3;
+        color: #66e0ff;
       }
 
-      .pub-link i {
-        font-size: 0.95em;
-      }
-
-      /* Research/Projects */
+      /* Projects */
       .project {
         margin-bottom: 25px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-left: 3px solid #00d4ff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .project:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-left-width: 5px;
+        transform: translateX(8px);
+        box-shadow: -5px 5px 20px rgba(0, 212, 255, 0.3);
       }
 
       .project-title {
-        font-weight: 500;
-        color: #000;
-        margin-bottom: 5px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 8px;
+        font-size: 1.05em;
       }
 
       .project-meta {
         color: #888;
         font-size: 0.9em;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
 
       .project-desc {
-        color: #555;
+        color: #c0c0c0;
       }
 
       /* Education */
       .edu-title {
-        font-weight: 500;
-        color: #000;
-        margin-bottom: 5px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 8px;
+        font-size: 1.1em;
       }
 
       .edu-meta {
-        color: #666;
+        color: #a0a0a0;
         font-size: 0.95em;
-      }
-
-      /* Footer */
-      .footer {
-        text-align: center;
-        padding: 40px 30px;
-        color: #999;
-        font-size: 0.9em;
-        border-top: 1px solid #f0f0f0;
+        line-height: 1.8;
       }
 
       /* Honors */
       .honor {
         margin-bottom: 25px;
-        padding-bottom: 25px;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-left: 3px solid #ffa500;
+        border-radius: 5px;
+        transition: all 0.3s ease;
       }
 
-      .honor:last-child {
-        border-bottom: none;
+      .honor:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-left-width: 5px;
+        transform: translateX(8px);
+        box-shadow: -5px 5px 20px rgba(255, 165, 0, 0.3);
       }
 
       .honor-title {
-        font-weight: 500;
-        color: #000;
-        margin-bottom: 5px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 8px;
+        font-size: 1.05em;
+      }
+
+      .award-badge {
+        display: inline-block;
+        background: #ffa500;
+        color: #1a1a2e;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-left: 10px;
       }
 
       .honor-meta {
         color: #888;
         font-size: 0.9em;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
 
       .honor-desc {
-        color: #555;
+        color: #c0c0c0;
       }
 
-      .award-badge {
-        display: inline-block;
-        background: #fff3cd;
-        color: #856404;
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-size: 0.85em;
-        font-weight: 500;
-        margin-left: 8px;
+      /* Google Map */
+      .map-container {
+        margin-top: 30px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid #00d4ff;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+      }
+
+      .map-container iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+        display: block;
+      }
+
+      .map-label {
+        color: #00d4ff;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .map-label i {
+        font-size: 1.1em;
       }
 
       /* Modal */
@@ -361,72 +444,61 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        animation: fadeIn 0.3s;
+        background-color: rgba(0, 0, 0, 0.8);
       }
 
       .modal-content {
-        background-color: #ffffff;
+        background: #1a1a2e;
         margin: 15% auto;
         padding: 40px;
-        border-radius: 12px;
-        max-width: 400px;
+        border: 1px solid #00d4ff;
+        border-radius: 10px;
+        max-width: 500px;
         text-align: center;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        animation: slideDown 0.3s;
       }
 
       .modal-icon {
         font-size: 3em;
-        color: #0066cc;
+        color: #00d4ff;
         margin-bottom: 20px;
       }
 
       .modal-title {
-        font-size: 1.5em;
-        font-weight: 600;
-        color: #000;
-        margin-bottom: 10px;
+        font-size: 1.8em;
+        color: #00d4ff;
+        margin-bottom: 15px;
       }
 
       .modal-text {
-        color: #666;
-        margin-bottom: 25px;
+        color: #c0c0c0;
+        margin-bottom: 30px;
+        font-size: 1em;
       }
 
       .modal-close {
-        background: #0066cc;
-        color: white;
+        background: #00d4ff;
+        color: #1a1a2e;
         border: none;
         padding: 12px 30px;
-        border-radius: 6px;
-        cursor: pointer;
         font-size: 1em;
-        transition: background 0.2s;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: "Monaco", "Consolas", monospace;
       }
 
       .modal-close:hover {
-        background: #0052a3;
+        background: #66e0ff;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes slideDown {
-        from {
-          transform: translateY(-50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 40px 30px;
+        color: #666;
+        border-top: 1px solid #3a3a5c;
+        background: rgba(26, 26, 46, 0.5);
       }
 
       /* Responsive */
@@ -436,235 +508,266 @@
           gap: 15px;
         }
 
-        .hero-section {
-          height: 60vh;
-          min-height: 350px;
+        .header-nav {
+          gap: 15px;
         }
 
         .hero-title {
-          font-size: 2.2em;
+          font-size: 2.5em;
         }
 
         .hero-subtitle {
-          font-size: 1.1em;
+          font-size: 1.2em;
         }
 
         .container {
           padding: 40px 20px;
         }
 
-        .modal-content {
-          margin: 30% auto;
-          padding: 30px;
-          max-width: 90%;
+        .section {
+          padding: 25px;
+        }
+
+        .terminal-window {
+          padding: 30px 20px;
+        }
+
+        .links {
+          flex-direction: column;
+        }
+
+        .links a {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .map-container iframe {
+          height: 300px;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Header -->
-    <div class="header">
-      <div class="header-content">
-        <div class="header-name">Jiashu Wang</div>
-        <nav class="header-nav">
-          <a href="#about">About</a>
-          <a href="#publications">Publications</a>
-          <a href="#research">Ongoing Research</a>
-          <a href="#honors">Honors</a>
-        </nav>
+    <div class="content-wrapper">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-content">
+          <div class="header-name">Jiashu Wang</div>
+          <nav class="header-nav">
+            <a href="#about">About</a>
+            <a href="#publications">Publications</a>
+            <a href="#research">Research</a>
+            <a href="#honors">Honors</a>
+          </nav>
+        </div>
       </div>
+
+      <!-- Hero Section -->
+      <div class="hero-section" id="heroSection">
+        <img src="hero-image-light.jpg" alt="Hero Image" class="hero-image" />
+        <div class="hero-overlay">
+          <div class="hero-title">Jiashu Wang</div>
+          <div class="hero-subtitle">CS Undergraduate @ NEU China</div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+      </div>
+
+      <!-- Main Container -->
+      <div class="container" id="mainContent">
+        <!-- About Section -->
+        <div class="section" id="about">
+          <h2 class="section-title">About</h2>
+          <div class="section-content">
+            <p class="bio">
+              I'm a senior undergraduate student in Computer Science at
+              Northeastern University - China. My research interests include
+              machine learning, computer vision, and automation. I'm deeply
+              committed to contributing to automation in various communities—a
+              focus that has driven most of my undergraduate research projects.
+            </p>
+            <div class="collaboration-note">
+              <i class="fas fa-users"></i> Currently collaborating with
+              researchers at Tsinghua University and Northeastern University -
+              China
+            </div>
+            <div class="links">
+              <a href="mailto:wangjiashushenzhen@gmail.com">
+                <i class="fas fa-envelope"></i>Email
+              </a>
+              <a href="#" class="coming-soon-link">
+                <i class="fas fa-graduation-cap"></i>Google Scholar
+              </a>
+              <a href="#" class="coming-soon-link">
+                <i class="fab fa-github"></i>GitHub
+              </a>
+              <a href="#" class="coming-soon-link">
+                <i class="fas fa-file-pdf"></i>CV
+              </a>
+            </div>
+            <div class="map-label">
+              <i class="fas fa-map-marker-alt"></i>
+              Hometown: Shenzhen, China
+            </div>
+            <div class="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236153.17839679493!2d113.76353054272662!3d22.54325327659294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f432efa99ff5%3A0xb9c4f21ecf66b8f7!2sShenzhen%2C%20Guangdong%20Province%2C%20China!5e0!3m2!1sen!2ssg!4v1234567890123!5m2!1sen!2ssg"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publications Section -->
+        <div class="section" id="publications">
+          <h2 class="section-title">Publications</h2>
+
+          <div class="publication">
+            <div class="pub-title">
+              Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
+              Solver
+            </div>
+            <div class="pub-authors">
+              <span class="author-joint">Xulong Zhang*</span>,
+              <span class="author-me">Jiashu Wang*</span>, Xiaoyang Qu, Hui
+              Tian, Jianzong Wang*
+            </div>
+            <div class="pub-venue">
+              ICONIP 2025 <span class="note">(Spotlight)</span>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-title">
+              Enhancing Generalization in Video Deepfake Detection via Ambiguous
+              Data Generation
+            </div>
+            <div class="pub-authors">
+              Junjie Li, Nan Zhang, Xiaoyang Qu,
+              <span class="author-me">Jiashu Wang</span>, Yumeng Zhong*, Jiguang
+              Wan
+            </div>
+            <div class="pub-venue">
+              ICIC 2025 <span class="note">(Oral)</span>
+              <a
+                href="https://link.springer.com/chapter/10.1007/978-981-96-9949-0_23"
+                target="_blank"
+                class="pub-link"
+              >
+                <i class="fas fa-external-link-alt"></i>Paper
+              </a>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-title">
+              YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on
+              Unmanned Aerial Vehicles
+            </div>
+            <div class="pub-authors">
+              Shimin Weng, Han Wang, <span class="author-me">Jiashu Wang</span>,
+              Changming Xu*, Ende Zhang
+            </div>
+            <div class="pub-venue">
+              Remote Sensing 2025
+              <a
+                href="https://www.mdpi.com/2072-4292/17/13/2313"
+                target="_blank"
+                class="pub-link"
+              >
+                <i class="fas fa-external-link-alt"></i>Paper
+              </a>
+              <a
+                href="https://www.mdpi.com/2072-4292/17/13/2313/pdf"
+                target="_blank"
+                class="pub-link"
+              >
+                <i class="fas fa-file-pdf"></i>PDF
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research Experience -->
+        <div class="section" id="research">
+          <h2 class="section-title">Ongoing Research</h2>
+
+          <div class="project">
+            <div class="project-title">
+              Deep Learning for Infrastructure Disease Diagnosis
+            </div>
+            <div class="project-meta">
+              Advisor: Dr. Xiaoxi Hu, Tsinghua University | March 2025 - Present
+            </div>
+            <div class="project-desc">
+              Working on advanced augmentation techniques using deep learning
+              approaches.
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-title">
+              Traditional Machine Learning Optimization
+            </div>
+            <div class="project-meta">
+              Advisor: Dr. Xianwei Lv, Northeastern University - China | January
+              2025 - Present
+            </div>
+            <div class="project-desc">
+              Exploring optimization algorithms and their applications in 3D
+              point cloud Semantic & Instance segmentation.
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="section" id="education">
+          <h2 class="section-title">Education</h2>
+          <div class="edu-title">B.S. in Computer Science</div>
+          <div class="edu-meta">
+            Northeastern University - China | 2022 - 2026<br />
+            GPA: 4.099/5.0 (90.1/100) | Rank: 27 / 191
+          </div>
+        </div>
+
+        <!-- Honors & Competitions -->
+        <div class="section" id="honors">
+          <h2 class="section-title">Honors & Competitions</h2>
+
+          <div class="honor">
+            <div class="honor-title">
+              National Exhibition of Inventions
+              <span class="award-badge">Gold Medal</span>
+            </div>
+            <div class="honor-meta">National Level | 2025</div>
+            <div class="honor-desc">
+              Condition monitoring and autonomous operation and maintenance of
+              complex large-scale infrastructure based on heterogeneous
+              multimodal information fusion
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon Modal -->
+      <div id="comingSoonModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-icon">
+            <i class="fas fa-hourglass-half"></i>
+          </div>
+          <div class="modal-title">Coming Soon...</div>
+          <div class="modal-text">
+            This page is currently under construction. Please check back later!
+          </div>
+          <button class="modal-close" onclick="closeModal()">Got it!</button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">Last updated: October 2025</div>
     </div>
-
-    <!-- Hero Image Section -->
-    <div class="hero-section" id="heroSection">
-      <img src="hero-image-light.jpg" alt="Hero Image" class="hero-image" />
-      <div class="hero-overlay">
-        <div class="hero-title">Jiashu Wang</div>
-        <div class="hero-subtitle">Undergraduate Student @ NEU (China)</div>
-      </div>
-      <div class="scroll-indicator">↓</div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container" id="mainContent">
-      <!-- About Section -->
-      <div class="section" id="about">
-        <h2 class="section-title">About</h2>
-        <div class="section-content">
-          <p class="bio">
-            I'm a senior undergraduate student in Computer Science at
-            Northeastern University - China. My research interests include
-            machine learning, computer vision, and automation. I'm deeply
-            committed to contributing to automation in various communities—a
-            focus that has driven most of my undergraduate research projects.
-          </p>
-          <div class="collaboration-note">
-            <i class="fas fa-users"></i> Currently collaborating with
-            researchers at Tsinghua University and Northeastern University -
-            China
-          </div>
-          <div class="links">
-            <a href="mailto:wangjiashushenzhen@gmail.com">
-              <i class="fas fa-envelope"></i>Email
-            </a>
-            <a href="#" class="coming-soon-link">
-              <i class="fas fa-graduation-cap"></i>Google Scholar
-            </a>
-            <a href="#" class="coming-soon-link">
-              <i class="fab fa-github"></i>GitHub
-            </a>
-            <a href="#" class="coming-soon-link">
-              <i class="fas fa-file-pdf"></i>CV
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publications Section -->
-      <div class="section" id="publications">
-        <h2 class="section-title">Publications</h2>
-
-        <div class="publication">
-          <div class="pub-title">
-            Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver
-          </div>
-          <div class="pub-authors">
-            Xulong Zhang*, <span class="author-me">Jiashu Wang*</span>, Xiaoyang
-            Qu, Hui Tian, Jianzong Wang*
-          </div>
-          <div class="pub-venue">
-            ICONIP 2025 <span class="note">(Spotlight)</span>
-          </div>
-        </div>
-
-        <div class="publication">
-          <div class="pub-title">
-            Enhancing Generalization in Video Deepfake Detection via Ambiguous
-            Data Generation
-          </div>
-          <div class="pub-authors">
-            Junjie Li, Nan Zhang, Xiaoyang Qu,
-            <span class="author-me">Jiashu Wang</span>, Yumeng Zhong*, Jiguang
-            Wan
-          </div>
-          <div class="pub-venue">
-            ICIC 2025 <span class="note">(Oral)</span>
-            <a
-              href="https://link.springer.com/chapter/10.1007/978-981-96-9949-0_23"
-              target="_blank"
-              class="pub-link"
-            >
-              <i class="fas fa-external-link-alt"></i>Paper
-            </a>
-          </div>
-        </div>
-
-        <div class="publication">
-          <div class="pub-title">
-            YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on
-            Unmanned Aerial Vehicles
-          </div>
-          <div class="pub-authors">
-            Shimin Weng, Han Wang, <span class="author-me">Jiashu Wang</span>,
-            Changming Xu*, Ende Zhang
-          </div>
-          <div class="pub-venue">
-            Remote Sensing 2025
-            <a
-              href="https://www.mdpi.com/2072-4292/17/13/2313"
-              target="_blank"
-              class="pub-link"
-            >
-              <i class="fas fa-external-link-alt"></i>Paper
-            </a>
-            <a
-              href="https://www.mdpi.com/2072-4292/17/13/2313/pdf"
-              target="_blank"
-              class="pub-link"
-            >
-              <i class="fas fa-file-pdf"></i>PDF
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Research Experience -->
-      <div class="section" id="research">
-        <h2 class="section-title">Ongoing Research</h2>
-
-        <div class="project">
-          <div class="project-title">
-            Deep Learning for Infrastructure Disease Diagnosis
-          </div>
-          <div class="project-meta">
-            Advisor: Dr. Xiaoxi Hu, Tsinghua University | March 2025 - Present
-          </div>
-          <div class="project-desc">
-            Working on advanced augmentation techniques using deep learning
-            approaches.
-          </div>
-        </div>
-
-        <div class="project">
-          <div class="project-title">
-            Traditional Machine Learning Optimization
-          </div>
-          <div class="project-meta">
-            Advisor: Dr. Xianwei Lv, Northeastern University - China | January
-            2025 - Present
-          </div>
-          <div class="project-desc">
-            Exploring optimization algorithms and their applications in 3D point
-            cloud Semantic & Instance segmentation.
-          </div>
-        </div>
-      </div>
-
-      <!-- Education -->
-      <div class="section" id="education">
-        <h2 class="section-title">Education</h2>
-        <div class="edu-title">B.S. in Computer Science</div>
-        <div class="edu-meta">
-          Northeastern University - China | 2022 - 2026<br />
-          GPA: 4.099/5.0 (90.1/100) | Rank: 27 / 191
-        </div>
-      </div>
-
-      <!-- Honors & Competitions -->
-      <div class="section" id="honors">
-        <h2 class="section-title">Honors & Competitions</h2>
-
-        <div class="honor">
-          <div class="honor-title">
-            National Exhibition of Inventions
-            <span class="award-badge">Gold Medal</span>
-          </div>
-          <div class="honor-meta">National Level | 2025</div>
-          <div class="honor-desc">
-            Condition monitoring and autonomous operation and maintenance of
-            complex large-scale infrastructure based on heterogeneous multimodal
-            information fusion
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Coming Soon Modal -->
-    <div id="comingSoonModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-icon">
-          <i class="fas fa-hourglass-half"></i>
-        </div>
-        <div class="modal-title">Coming Soon...</div>
-        <div class="modal-text">
-          This page is currently under construction. Please check back later!
-        </div>
-        <button class="modal-close" onclick="closeModal()">Got it!</button>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">Last updated: October 2025</div>
 
     <script>
       // Auto-scroll on first scroll input
