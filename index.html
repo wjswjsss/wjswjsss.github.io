@@ -206,7 +206,14 @@
       .links a i {
         font-size: 1.1em;
       }
+      .coming-soon-link {
+        color: #999 !important;
+        cursor: default;
+      }
 
+      .coming-soon-link:hover {
+        color: #999 !important;
+      }
       /* Publications */
       .publication {
         margin-bottom: 25px;
@@ -307,6 +314,121 @@
         border-top: 1px solid #f0f0f0;
       }
 
+      /* Honors */
+      .honor {
+        margin-bottom: 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .honor:last-child {
+        border-bottom: none;
+      }
+
+      .honor-title {
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 5px;
+      }
+
+      .honor-meta {
+        color: #888;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+      }
+
+      .honor-desc {
+        color: #555;
+      }
+
+      .award-badge {
+        display: inline-block;
+        background: #fff3cd;
+        color: #856404;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: 500;
+        margin-left: 8px;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        margin: 15% auto;
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: slideDown 0.3s;
+      }
+
+      .modal-icon {
+        font-size: 3em;
+        color: #0066cc;
+        margin-bottom: 20px;
+      }
+
+      .modal-title {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 10px;
+      }
+
+      .modal-text {
+        color: #666;
+        margin-bottom: 25px;
+      }
+
+      .modal-close {
+        background: #0066cc;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background 0.2s;
+      }
+
+      .modal-close:hover {
+        background: #0052a3;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .header-content {
@@ -330,6 +452,12 @@
         .container {
           padding: 40px 20px;
         }
+
+        .modal-content {
+          margin: 30% auto;
+          padding: 30px;
+          max-width: 90%;
+        }
       }
     </style>
   </head>
@@ -341,7 +469,8 @@
         <nav class="header-nav">
           <a href="#about">About</a>
           <a href="#publications">Publications</a>
-          <a href="#research">Research</a>
+          <a href="#research">Ongoing Research</a>
+          <a href="#honors">Honors</a>
         </nav>
       </div>
     </div>
@@ -351,7 +480,7 @@
       <img src="hero-image-light.jpg" alt="Hero Image" class="hero-image" />
       <div class="hero-overlay">
         <div class="hero-title">Jiashu Wang</div>
-        <div class="hero-subtitle">Computer Science Student</div>
+        <div class="hero-subtitle">Undergraduate Student @ NEU (China)</div>
       </div>
       <div class="scroll-indicator">↓</div>
     </div>
@@ -378,16 +507,13 @@
             <a href="mailto:wangjiashushenzhen@gmail.com">
               <i class="fas fa-envelope"></i>Email
             </a>
-            <a
-              href="https://scholar.google.com/citations?user=XXXXX"
-              target="_blank"
-            >
+            <a href="#" class="coming-soon-link">
               <i class="fas fa-graduation-cap"></i>Google Scholar
             </a>
-            <a href="https://github.com/yourusername" target="_blank">
+            <a href="#" class="coming-soon-link">
               <i class="fab fa-github"></i>GitHub
             </a>
-            <a href="cv.pdf" target="_blank">
+            <a href="#" class="coming-soon-link">
               <i class="fas fa-file-pdf"></i>CV
             </a>
           </div>
@@ -424,11 +550,11 @@
           <div class="pub-venue">
             ICIC 2025 <span class="note">(Oral)</span>
             <a
-              href="https://www.mdpi.com/2072-4292/17/13/2313"
+              href="https://link.springer.com/chapter/10.1007/978-981-96-9949-0_23"
               target="_blank"
               class="pub-link"
             >
-              <i class="fas fa-file-alt"></i>Paper
+              <i class="fas fa-external-link-alt"></i>Paper
             </a>
           </div>
         </div>
@@ -449,7 +575,7 @@
               target="_blank"
               class="pub-link"
             >
-              <i class="fas fa-file-alt"></i>Paper
+              <i class="fas fa-external-link-alt"></i>Paper
             </a>
           </div>
         </div>
@@ -457,15 +583,17 @@
 
       <!-- Research Experience -->
       <div class="section" id="research">
-        <h2 class="section-title">Research</h2>
+        <h2 class="section-title">Ongoing Research</h2>
 
         <div class="project">
-          <div class="project-title">Deep Learning for Image Segmentation</div>
+          <div class="project-title">
+            Deep Learning for Infrastructure Disease Diagnosis
+          </div>
           <div class="project-meta">
             Advisor: Dr. Xiaoxi Hu, Tsinghua University | March 2025 - Present
           </div>
           <div class="project-desc">
-            Working on advanced segmentation techniques using deep learning
+            Working on advanced augmentation techniques using deep learning
             approaches.
           </div>
         </div>
@@ -479,8 +607,8 @@
             2025 - Present
           </div>
           <div class="project-desc">
-            Exploring optimization algorithms and their applications in machine
-            learning.
+            Exploring optimization algorithms and their applications in 3D point
+            cloud Semantic & Instance segmentation.
           </div>
         </div>
       </div>
@@ -491,8 +619,38 @@
         <div class="edu-title">B.S. in Computer Science</div>
         <div class="edu-meta">
           Northeastern University - China | 2022 - 2026<br />
-          GPA: 4.099/5.0 (90.1/100) | Top 14%
+          GPA: 4.099/5.0 (90.1/100) | Rank: 27 / 191
         </div>
+      </div>
+
+      <!-- Honors & Competitions -->
+      <div class="section" id="honors">
+        <h2 class="section-title">Honors & Competitions</h2>
+
+        <div class="honor">
+          <div class="honor-title">
+            National Exhibition of Inventions
+            <span class="award-badge">Gold Medal</span>
+          </div>
+          <div class="honor-meta">National Level | 2025</div>
+          <div class="honor-desc">
+            Description of the competition and your achievement.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coming Soon Modal -->
+    <div id="comingSoonModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-icon">
+          <i class="fas fa-hourglass-half"></i>
+        </div>
+        <div class="modal-title">Coming Soon...</div>
+        <div class="modal-text">
+          This page is currently under construction. Please check back later!
+        </div>
+        <button class="modal-close" onclick="closeModal()">Got it!</button>
       </div>
     </div>
 
@@ -535,6 +693,38 @@
         passive: true,
       });
       window.addEventListener("keydown", handleFirstScroll);
+
+      // Coming Soon Modal functionality
+      const modal = document.getElementById("comingSoonModal");
+
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // Add click handlers to coming-soon links
+      document.addEventListener("DOMContentLoaded", function () {
+        const comingSoonLinks = document.querySelectorAll(".coming-soon-link");
+        comingSoonLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            modal.style.display = "block";
+          });
+        });
+      });
+
+      // Close modal when clicking outside of it
+      window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+          closeModal();
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      });
     </script>
   </body>
 </html>
