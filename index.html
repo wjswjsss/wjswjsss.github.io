@@ -503,46 +503,157 @@
 
       /* Responsive */
       @media (max-width: 768px) {
+        body {
+          font-size: 14px;
+        }
+
         .header-content {
           flex-direction: column;
           gap: 15px;
         }
 
+        .header-name {
+          font-size: 1em;
+        }
+
         .header-nav {
           gap: 15px;
+          font-size: 0.85em;
         }
 
         .hero-title {
-          font-size: 2.5em;
+          font-size: 2em;
+          letter-spacing: 1px;
         }
 
         .hero-subtitle {
-          font-size: 1.2em;
+          font-size: 1em;
         }
 
         .container {
-          padding: 40px 20px;
+          padding: 30px 15px;
         }
 
         .section {
-          padding: 25px;
+          padding: 20px;
+          margin-bottom: 40px;
         }
 
-        .terminal-window {
-          padding: 30px 20px;
+        .section-title {
+          font-size: 1.4em;
+          margin-bottom: 20px;
+        }
+
+        .bio {
+          font-size: 1em;
+        }
+
+        .collaboration-note {
+          font-size: 0.9em;
+          padding: 12px 15px;
         }
 
         .links {
-          flex-direction: column;
+          gap: 8px;
+          justify-content: space-between;
         }
 
         .links a {
-          width: 100%;
+          font-size: 0.8em;
+          padding: 8px 10px;
+          flex: 1 1 calc(50% - 4px);
+          min-width: 0;
           justify-content: center;
         }
 
+        .links a i {
+          font-size: 0.9em;
+        }
+
+        .map-label {
+          font-size: 0.85em;
+          margin-bottom: 8px;
+        }
+
+        .map-container {
+          margin-top: 20px;
+        }
+
         .map-container iframe {
-          height: 300px;
+          height: 250px;
+        }
+
+        .pub-title {
+          font-size: 0.95em;
+        }
+
+        .pub-authors,
+        .pub-venue {
+          font-size: 0.85em;
+        }
+
+        .pub-link {
+          font-size: 0.8em;
+          padding: 3px 8px;
+          margin-left: 5px;
+        }
+
+        .project-title {
+          font-size: 0.95em;
+        }
+
+        .project-meta,
+        .project-desc {
+          font-size: 0.85em;
+        }
+
+        .edu-title {
+          font-size: 1em;
+        }
+
+        .edu-meta {
+          font-size: 0.85em;
+        }
+
+        .honor-title {
+          font-size: 0.95em;
+        }
+
+        .honor-meta,
+        .honor-desc {
+          font-size: 0.85em;
+        }
+
+        .award-badge {
+          font-size: 0.75em;
+          padding: 3px 10px;
+        }
+
+        .modal-content {
+          margin: 30% auto;
+          padding: 25px;
+          max-width: 85%;
+        }
+
+        .modal-icon {
+          font-size: 2.5em;
+        }
+
+        .modal-title {
+          font-size: 1.5em;
+        }
+
+        .modal-text {
+          font-size: 0.9em;
+        }
+
+        .modal-close {
+          padding: 10px 25px;
+          font-size: 0.9em;
+        }
+
+        .scroll-indicator {
+          font-size: 1.5em;
         }
       }
     </style>
@@ -580,10 +691,11 @@
           <div class="section-content">
             <p class="bio">
               I'm a senior undergraduate student in Computer Science at
-              Northeastern University - China. My research interests include
-              machine learning, computer vision, and automation. I'm deeply
-              committed to contributing to automation in various communities—a
-              focus that has driven most of my undergraduate research projects.
+              Northeastern University - China, originally from Shenzhen. My
+              research interests include machine learning, computer vision, and
+              automation. I'm deeply committed to contributing to automation in
+              various communities—a focus that has driven most of my
+              undergraduate research projects.
             </p>
             <div class="collaboration-note">
               <i class="fas fa-users"></i> Currently collaborating with
