@@ -8,6 +8,17 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <style>
       * {
         margin: 0;
@@ -20,65 +31,92 @@
       }
 
       body {
-        font-family: "Monaco", "Consolas", "Courier New", monospace;
-        background: #1a1a2e;
-        color: #e0e0e0;
-        line-height: 1.6;
-        font-size: 16px;
-        overflow-x: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: #fafafa;
+        color: #2c3e50;
+        line-height: 1.7;
+        font-size: 15px;
       }
 
-      .content-wrapper {
-        position: relative;
+      @media (min-width: 768px) {
+        body {
+          font-size: 16px;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        body {
+          font-size: 16px;
+        }
       }
 
       /* Header */
       .header {
-        background: rgba(26, 26, 46, 0.95);
-        border-bottom: 1px solid #3a3a5c;
-        padding: 20px 0;
+        background: #ffffff;
+        border-bottom: 2px solid #e8eef3;
+        padding: 18px 0;
         position: sticky;
         top: 0;
         z-index: 1000;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       }
 
       .header-content {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 0 30px;
+        padding: 0 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
       .header-name {
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: 600;
-        color: #00d4ff;
-        letter-spacing: 1px;
+        color: #1e40af;
+        letter-spacing: -0.5px;
+      }
+
+      @media (min-width: 768px) {
+        .header-name {
+          font-size: 1.2em;
+        }
       }
 
       .header-nav {
         display: flex;
-        gap: 30px;
+        gap: 20px;
+      }
+
+      @media (min-width: 768px) {
+        .header-nav {
+          gap: 28px;
+        }
       }
 
       .header-nav a {
-        color: #a0a0a0;
+        color: #64748b;
         text-decoration: none;
-        font-size: 0.95em;
-        transition: color 0.3s;
+        font-size: 0.85em;
+        transition: color 0.2s;
+        font-weight: 500;
+      }
+
+      @media (min-width: 768px) {
+        .header-nav a {
+          font-size: 0.9em;
+        }
       }
 
       .header-nav a:hover {
-        color: #00d4ff;
+        color: #1e40af;
       }
 
       /* Hero Image Section */
       .hero-section {
         width: 100%;
-        height: 70vh;
+        height: 60vh;
         min-height: 400px;
         overflow: hidden;
         position: relative;
@@ -91,7 +129,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: brightness(0.7);
+        filter: brightness(0.75);
       }
 
       .hero-overlay {
@@ -100,7 +138,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.4);
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.5)
+        );
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -111,328 +153,585 @@
       }
 
       .hero-title {
-        font-size: 3.5em;
-        font-weight: 300;
+        font-size: 2.2em;
+        font-weight: 600;
         margin-bottom: 15px;
-        letter-spacing: 3px;
         color: #ffffff;
+        letter-spacing: -1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      @media (min-width: 768px) {
+        .hero-title {
+          font-size: 2.8em;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .hero-title {
+          font-size: 3.2em;
+        }
       }
 
       .hero-subtitle {
-        font-size: 1.3em;
-        font-weight: 300;
-        opacity: 0.95;
-        color: #00d4ff;
+        font-size: 1.1em;
+        font-weight: 400;
+        color: #f0f9ff;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
       }
 
-      .scroll-indicator {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: bounce 2s infinite;
-        color: white;
-        font-size: 2em;
+      @media (min-width: 768px) {
+        .hero-subtitle {
+          font-size: 1.25em;
+        }
       }
 
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateX(-50%) translateY(0);
-        }
-        40% {
-          transform: translateX(-50%) translateY(-10px);
-        }
-        60% {
-          transform: translateX(-50%) translateY(-5px);
+      @media (min-width: 1200px) {
+        .hero-subtitle {
+          font-size: 1.4em;
         }
       }
 
       /* Main Container */
       .container {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 60px 30px;
+        padding: 80px 40px;
+        background: #ffffff;
       }
 
       /* Sections */
       .section {
-        margin-bottom: 60px;
-        scroll-margin-top: 100px;
-        background: rgba(30, 30, 50, 0.5);
-        padding: 40px;
-        border-radius: 10px;
-        border-left: 3px solid #00d4ff;
-        transition: all 0.3s ease;
+        margin-bottom: 80px;
+        padding-bottom: 60px;
+        border-bottom: 2px solid #f0f4f8;
       }
 
-      .section:hover {
-        background: rgba(30, 30, 50, 0.8);
-        border-left-width: 5px;
-        transform: translateX(5px);
-        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+      .section:last-child {
+        border-bottom: none;
       }
 
       .section-title {
-        font-size: 1.8em;
-        font-weight: 600;
-        color: #00d4ff;
-        margin-bottom: 25px;
+        font-size: 1.6em;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 35px;
+        padding-bottom: 12px;
+        border-bottom: 4px solid #1e40af;
+        display: inline-block;
+        letter-spacing: -0.5px;
+      }
+
+      @media (min-width: 768px) {
+        .section-title {
+          font-size: 1.9em;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .section-title {
+          font-size: 2.1em;
+        }
       }
 
       .section-content {
-        color: #c0c0c0;
+        color: #475569;
         line-height: 1.8;
+        font-size: 0.95em;
+      }
+
+      @media (min-width: 768px) {
+        .section-content {
+          font-size: 1em;
+        }
       }
 
       /* Bio */
       .bio {
-        font-size: 1.1em;
-        margin-bottom: 25px;
-        color: #e0e0e0;
+        font-size: 1em;
+        margin-bottom: 30px;
+        color: #1e293b;
+        line-height: 1.8;
       }
 
-      .collaboration-note {
-        background: rgba(0, 212, 255, 0.1);
-        border-left: 3px solid #00d4ff;
-        padding: 15px 20px;
-        margin-top: 25px;
-        border-radius: 5px;
-        color: #e0e0e0;
+      @media (min-width: 768px) {
+        .bio {
+          font-size: 1.05em;
+        }
       }
 
-      .collaboration-note i {
-        color: #00d4ff;
-        margin-right: 10px;
+      @media (min-width: 1200px) {
+        .bio {
+          font-size: 1.1em;
+        }
+      }
+
+      /* About section grid layout */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      @media (min-width: 900px) {
+        .about-grid {
+          grid-template-columns: 1.4fr 1fr;
+          align-items: start;
+          gap: 60px;
+        }
+      }
+
+      .about-left {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .about-right {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
       }
 
       .links {
         display: flex;
-        gap: 20px;
+        gap: 12px;
         flex-wrap: wrap;
-        margin-top: 25px;
+        margin-top: 8px;
       }
 
       .links a {
-        color: #00d4ff;
+        color: #1e40af;
         text-decoration: none;
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 10px 20px;
-        background: rgba(0, 212, 255, 0.1);
-        border: 1px solid #00d4ff;
-        border-radius: 5px;
-        transition: all 0.3s;
+        padding: 11px 20px;
+        background: #ffffff;
+        border: 2px solid #1e40af;
+        border-radius: 8px;
+        transition: all 0.2s;
+        font-weight: 500;
+        font-size: 0.95em;
       }
 
       .links a:hover {
-        background: rgba(0, 212, 255, 0.2);
+        background: #1e40af;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
       }
 
       .links a i {
-        font-size: 1.1em;
+        font-size: 1em;
       }
 
       .coming-soon-link {
-        color: #666 !important;
-        border-color: #444 !important;
+        color: #94a3b8 !important;
+        border-color: #cbd5e1 !important;
         cursor: not-allowed;
-        opacity: 0.5;
+        opacity: 0.65;
       }
 
       .coming-soon-link:hover {
-        background: rgba(0, 212, 255, 0.05) !important;
+        background: #ffffff !important;
+        color: #94a3b8 !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Map */
+      .map-labels {
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .map-label-item {
+        color: #475569;
+        font-weight: 600;
+        font-size: 0.95em;
+        display: flex;
+        align-items: center;
+      }
+
+      @media (min-width: 768px) {
+        .map-label-item {
+          font-size: 1em;
+        }
+      }
+
+      .map-label-item i {
+        margin-right: 10px;
+        font-size: 1.05em;
+      }
+
+      @media (min-width: 768px) {
+        .map-label-item i {
+          font-size: 1.1em;
+        }
+      }
+
+      .map-icon-home {
+        color: #f97316;
+      }
+
+      .map-icon-university {
+        color: #2563eb;
+      }
+
+      .map-label {
+        margin-bottom: 16px;
+        color: #475569;
+        font-weight: 600;
+        font-size: 1.05em;
+      }
+
+      .map-label i {
+        color: #1e40af;
+        margin-right: 10px;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 320px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .map-container-dual {
+        height: 450px;
+      }
+
+      @media (max-width: 899px) {
+        .map-container {
+          height: 350px;
+        }
+
+        .map-container-dual {
+          height: 400px;
+        }
+      }
+
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
       }
 
       /* Publications */
       .publication {
         margin-bottom: 30px;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.2);
-        border-left: 3px solid #00d4ff;
-        border-radius: 5px;
+        padding: 28px;
+        background: #f8fafc;
+        border-left: 4px solid #1e40af;
+        border-radius: 8px;
         transition: all 0.3s ease;
       }
 
       .publication:hover {
-        background: rgba(0, 0, 0, 0.4);
+        background: #f1f5f9;
         border-left-width: 5px;
-        transform: translateX(8px);
-        box-shadow: -5px 5px 20px rgba(0, 212, 255, 0.3);
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.1);
       }
 
       .pub-title {
         font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 10px;
-        font-size: 1.05em;
+        color: #0f172a;
+        margin-bottom: 14px;
+        font-size: 1em;
+        line-height: 1.6;
+      }
+
+      @media (min-width: 768px) {
+        .pub-title {
+          font-size: 1.05em;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .pub-title {
+          font-size: 1.1em;
+        }
       }
 
       .pub-authors {
-        color: #a0a0a0;
-        margin-bottom: 8px;
-        font-size: 0.95em;
+        color: #64748b;
+        margin-bottom: 10px;
+        font-size: 0.88em;
+        line-height: 1.6;
       }
 
-      .pub-venue {
-        color: #888;
-        font-size: 0.95em;
+      @media (min-width: 768px) {
+        .pub-authors {
+          font-size: 0.92em;
+        }
       }
 
       .author-me {
         font-weight: 600;
-        color: #00d4ff;
+        background: linear-gradient(180deg, transparent 60%, #fef08a 60%);
+        padding: 0 3px;
+        color: #0f172a;
       }
 
       .author-joint {
         font-weight: 600;
-        color: #0099cc;
+        background: linear-gradient(180deg, transparent 60%, #dbeafe 60%);
+        padding: 0 3px;
+        color: #0f172a;
+      }
+
+      .highlight {
+        background: linear-gradient(180deg, transparent 60%, #86efac 60%);
+        font-weight: 500;
+        padding: 0 3px;
+      }
+
+      .pub-venue {
+        color: #475569;
+        font-size: 0.95em;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
       }
 
       .note {
-        color: #ff6b9d;
-        font-weight: 500;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 3px 12px;
+        border-radius: 6px;
+        font-size: 0.88em;
+        font-weight: 600;
       }
 
       .pub-link {
-        color: #00d4ff;
+        color: #1e40af;
         text-decoration: none;
-        font-size: 0.9em;
-        margin-left: 10px;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        transition: color 0.3s;
+        gap: 6px;
+        padding: 5px 12px;
+        border: 1.5px solid #1e40af;
+        border-radius: 6px;
+        font-size: 0.88em;
+        transition: all 0.2s;
+        font-weight: 500;
       }
 
       .pub-link:hover {
-        color: #66e0ff;
+        background: #1e40af;
+        color: #ffffff;
+        transform: translateY(-1px);
       }
 
       /* Projects */
       .project {
-        margin-bottom: 25px;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.2);
-        border-left: 3px solid #00d4ff;
-        border-radius: 5px;
+        margin-bottom: 28px;
+        padding: 26px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border-left: 4px solid #1e40af;
         transition: all 0.3s ease;
       }
 
       .project:hover {
-        background: rgba(0, 0, 0, 0.4);
+        background: #f1f5f9;
         border-left-width: 5px;
-        transform: translateX(8px);
-        box-shadow: -5px 5px 20px rgba(0, 212, 255, 0.3);
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.1);
       }
 
       .project-title {
         font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 8px;
-        font-size: 1.05em;
+        color: #0f172a;
+        margin-bottom: 10px;
+        font-size: 1em;
+        line-height: 1.5;
+      }
+
+      @media (min-width: 768px) {
+        .project-title {
+          font-size: 1.05em;
+        }
       }
 
       .project-meta {
-        color: #888;
-        font-size: 0.9em;
-        margin-bottom: 10px;
+        color: #64748b;
+        font-size: 0.85em;
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      @media (min-width: 768px) {
+        .project-meta {
+          font-size: 0.9em;
+        }
       }
 
       .project-desc {
-        color: #c0c0c0;
+        color: #475569;
+        line-height: 1.7;
+        font-size: 0.95em;
       }
 
       /* Education */
+      .education-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 25px;
+      }
+
+      @media (max-width: 768px) {
+        .education-content {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+
+      .edu-badge {
+        flex-shrink: 0;
+      }
+
+      .university-logo {
+        max-width: 120px;
+        max-height: 80px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+      }
+
+      .university-logo-placeholder {
+        width: 120px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+      }
+
+      .university-logo-placeholder i {
+        font-size: 2.5em;
+        color: #1e40af;
+      }
+
+      @media (min-width: 768px) {
+        .university-logo {
+          max-width: 140px;
+          max-height: 100px;
+        }
+
+        .university-logo-placeholder {
+          width: 140px;
+          height: 100px;
+        }
+
+        .university-logo-placeholder i {
+          font-size: 3em;
+        }
+      }
+
+      .edu-details {
+        flex: 1;
+      }
+
       .edu-title {
         font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 8px;
-        font-size: 1.1em;
+        color: #0f172a;
+        font-size: 1.05em;
+        margin-bottom: 12px;
+      }
+
+      @media (min-width: 768px) {
+        .edu-title {
+          font-size: 1.1em;
+        }
       }
 
       .edu-meta {
-        color: #a0a0a0;
-        font-size: 0.95em;
+        color: #475569;
         line-height: 1.8;
+        font-size: 0.95em;
       }
 
       /* Honors */
       .honor {
-        margin-bottom: 25px;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.2);
-        border-left: 3px solid #ffa500;
-        border-radius: 5px;
+        margin-bottom: 28px;
+        padding: 26px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border-left: 4px solid #1e40af;
         transition: all 0.3s ease;
       }
 
       .honor:hover {
-        background: rgba(0, 0, 0, 0.4);
+        background: #f1f5f9;
         border-left-width: 5px;
-        transform: translateX(8px);
-        box-shadow: -5px 5px 20px rgba(255, 165, 0, 0.3);
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.1);
       }
 
       .honor-title {
         font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 8px;
-        font-size: 1.05em;
+        color: #0f172a;
+        margin-bottom: 10px;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        line-height: 1.5;
+      }
+
+      @media (min-width: 768px) {
+        .honor-title {
+          font-size: 1.05em;
+        }
       }
 
       .award-badge {
-        display: inline-block;
-        background: #ffa500;
-        color: #1a1a2e;
-        padding: 4px 12px;
-        border-radius: 15px;
-        font-size: 0.85em;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 5px 14px;
+        border-radius: 6px;
+        font-size: 0.8em;
         font-weight: 600;
-        margin-left: 10px;
+      }
+
+      @media (min-width: 768px) {
+        .award-badge {
+          font-size: 0.85em;
+        }
       }
 
       .honor-meta {
-        color: #888;
-        font-size: 0.9em;
-        margin-bottom: 10px;
+        color: #64748b;
+        font-size: 0.85em;
+        margin-bottom: 12px;
+      }
+
+      @media (min-width: 768px) {
+        .honor-meta {
+          font-size: 0.9em;
+        }
       }
 
       .honor-desc {
-        color: #c0c0c0;
-      }
-
-      /* Google Map */
-      .map-container {
-        margin-top: 30px;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 2px solid #00d4ff;
-        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
-      }
-
-      .map-container iframe {
-        width: 100%;
-        height: 400px;
-        border: none;
-        display: block;
-      }
-
-      .map-label {
-        color: #00d4ff;
-        font-size: 0.9em;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .map-label i {
-        font-size: 1.1em;
+        color: #475569;
+        line-height: 1.7;
+        font-size: 0.95em;
       }
 
       /* Modal */
@@ -444,216 +743,125 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
       }
 
       .modal-content {
-        background: #1a1a2e;
+        background-color: #ffffff;
         margin: 15% auto;
-        padding: 40px;
-        border: 1px solid #00d4ff;
-        border-radius: 10px;
-        max-width: 500px;
+        padding: 45px;
+        border-radius: 12px;
+        max-width: 420px;
         text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       }
 
       .modal-icon {
-        font-size: 3em;
-        color: #00d4ff;
-        margin-bottom: 20px;
+        font-size: 3.2em;
+        color: #1e40af;
+        margin-bottom: 22px;
       }
 
       .modal-title {
-        font-size: 1.8em;
-        color: #00d4ff;
-        margin-bottom: 15px;
+        font-size: 1.6em;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
       }
 
       .modal-text {
-        color: #c0c0c0;
-        margin-bottom: 30px;
-        font-size: 1em;
+        color: #64748b;
+        margin-bottom: 28px;
+        line-height: 1.6;
+        font-size: 1.02em;
       }
 
       .modal-close {
-        background: #00d4ff;
-        color: #1a1a2e;
+        background: #1e40af;
+        color: white;
         border: none;
-        padding: 12px 30px;
+        padding: 13px 32px;
+        border-radius: 8px;
         font-size: 1em;
-        font-weight: 600;
-        border-radius: 5px;
         cursor: pointer;
-        transition: all 0.3s;
-        font-family: "Monaco", "Consolas", monospace;
+        transition: all 0.2s;
+        font-weight: 600;
       }
 
       .modal-close:hover {
-        background: #66e0ff;
+        background: #1e3a8a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
       }
 
       /* Footer */
       .footer {
         text-align: center;
-        padding: 40px 30px;
-        color: #666;
-        border-top: 1px solid #3a3a5c;
-        background: rgba(26, 26, 46, 0.5);
+        padding: 35px;
+        color: #94a3b8;
+        font-size: 0.92em;
+        border-top: 2px solid #e8eef3;
+        background: #f8fafc;
       }
 
       /* Responsive */
       @media (max-width: 768px) {
-        body {
-          font-size: 14px;
+        .hero-title {
+          font-size: 2.2em;
+        }
+
+        .hero-subtitle {
+          font-size: 1.15em;
         }
 
         .header-content {
           flex-direction: column;
-          gap: 15px;
-        }
-
-        .header-name {
-          font-size: 1em;
+          gap: 16px;
+          padding: 0 25px;
         }
 
         .header-nav {
-          gap: 15px;
-          font-size: 0.85em;
+          gap: 20px;
         }
 
-        .hero-title {
-          font-size: 2em;
-          letter-spacing: 1px;
-        }
-
-        .hero-subtitle {
-          font-size: 1em;
-        }
-
-        .container {
-          padding: 30px 15px;
-        }
-
-        .section {
-          padding: 20px;
-          margin-bottom: 40px;
+        .header-nav a {
+          font-size: 0.9em;
         }
 
         .section-title {
-          font-size: 1.4em;
-          margin-bottom: 20px;
+          font-size: 1.75em;
         }
 
-        .bio {
-          font-size: 1em;
+        .container {
+          padding: 50px 25px;
         }
 
-        .collaboration-note {
-          font-size: 0.9em;
-          padding: 12px 15px;
+        .section {
+          margin-bottom: 60px;
+          padding-bottom: 45px;
         }
 
         .links {
-          gap: 8px;
-          justify-content: space-between;
+          flex-direction: column;
         }
 
         .links a {
-          font-size: 0.8em;
-          padding: 8px 10px;
-          flex: 1 1 calc(50% - 4px);
-          min-width: 0;
           justify-content: center;
-        }
-
-        .links a i {
-          font-size: 0.9em;
-        }
-
-        .map-label {
-          font-size: 0.85em;
-          margin-bottom: 8px;
-        }
-
-        .map-container {
-          margin-top: 20px;
-        }
-
-        .map-container iframe {
-          height: 250px;
-        }
-
-        .pub-title {
-          font-size: 0.95em;
-        }
-
-        .pub-authors,
-        .pub-venue {
-          font-size: 0.85em;
-        }
-
-        .pub-link {
-          font-size: 0.8em;
-          padding: 3px 8px;
-          margin-left: 5px;
-        }
-
-        .project-title {
-          font-size: 0.95em;
-        }
-
-        .project-meta,
-        .project-desc {
-          font-size: 0.85em;
-        }
-
-        .edu-title {
-          font-size: 1em;
-        }
-
-        .edu-meta {
-          font-size: 0.85em;
-        }
-
-        .honor-title {
-          font-size: 0.95em;
-        }
-
-        .honor-meta,
-        .honor-desc {
-          font-size: 0.85em;
-        }
-
-        .award-badge {
-          font-size: 0.75em;
-          padding: 3px 10px;
         }
 
         .modal-content {
           margin: 30% auto;
-          padding: 25px;
-          max-width: 85%;
+          padding: 35px 25px;
+          max-width: 90%;
         }
+      }
 
-        .modal-icon {
-          font-size: 2.5em;
-        }
-
-        .modal-title {
-          font-size: 1.5em;
-        }
-
-        .modal-text {
-          font-size: 0.9em;
-        }
-
-        .modal-close {
-          padding: 10px 25px;
-          font-size: 0.9em;
-        }
-
-        .scroll-indicator {
-          font-size: 1.5em;
+      /* Smooth scroll offset for fixed header */
+      @media (min-width: 769px) {
+        .section {
+          scroll-margin-top: 100px;
         }
       }
     </style>
@@ -668,6 +876,7 @@
             <a href="#about">About</a>
             <a href="#publications">Publications</a>
             <a href="#research">Research</a>
+            <a href="#education">Education</a>
             <a href="#honors">Honors</a>
           </nav>
         </div>
@@ -680,7 +889,6 @@
           <div class="hero-title">Jiashu Wang</div>
           <div class="hero-subtitle">CS Undergraduate @ NEU China</div>
         </div>
-        <div class="scroll-indicator">↓</div>
       </div>
 
       <!-- Main Container -->
@@ -689,45 +897,50 @@
         <div class="section" id="about">
           <h2 class="section-title">About</h2>
           <div class="section-content">
-            <p class="bio">
-              I'm a senior undergraduate student in Computer Science at
-              Northeastern University - China, originally from Shenzhen. My
-              research interests include machine learning, computer vision, and
-              automation. I'm deeply committed to contributing to automation in
-              various communities—a focus that has driven most of my
-              undergraduate research projects.
-            </p>
-            <div class="collaboration-note">
-              <i class="fas fa-users"></i> Currently collaborating with
-              researchers at Tsinghua University and Northeastern University -
-              China
-            </div>
-            <div class="links">
-              <a href="mailto:wangjiashushenzhen@gmail.com">
-                <i class="fas fa-envelope"></i>Email
-              </a>
-              <a href="#" class="coming-soon-link">
-                <i class="fas fa-graduation-cap"></i>Google Scholar
-              </a>
-              <a href="#" class="coming-soon-link">
-                <i class="fab fa-github"></i>GitHub
-              </a>
-              <a href="#" class="coming-soon-link">
-                <i class="fas fa-file-pdf"></i>CV
-              </a>
-            </div>
-            <div class="map-label">
-              <i class="fas fa-map-marker-alt"></i>
-              Hometown: Shenzhen, China
-            </div>
-            <div class="map-container">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236153.17839679493!2d113.76353054272662!3d22.54325327659294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f432efa99ff5%3A0xb9c4f21ecf66b8f7!2sShenzhen%2C%20Guangdong%20Province%2C%20China!5e0!3m2!1sen!2ssg!4v1234567890123!5m2!1sen!2ssg"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              >
-              </iframe>
+            <div class="about-grid">
+              <div class="about-left">
+                <p class="bio">
+                  I'm a senior undergraduate student in Computer Science at
+                  Northeastern University - China, originally from Shenzhen. My
+                  research interests include
+                  <span class="highlight">machine learning</span>,
+                  <span class="highlight">computer vision</span>, and
+                  <span class="highlight">automation</span>. I'm deeply
+                  committed to contributing to automation in various
+                  communities—a focus that has driven most of my undergraduate
+                  research projects.
+                </p>
+                <div class="links">
+                  <a href="mailto:wangjiashushenzhen@gmail.com">
+                    <i class="fas fa-envelope"></i>Email
+                  </a>
+                  <a href="#" class="coming-soon-link">
+                    <i class="fas fa-graduation-cap"></i>Google Scholar
+                  </a>
+                  <a href="#" class="coming-soon-link">
+                    <i class="fab fa-github"></i>GitHub
+                  </a>
+                  <a href="#" class="coming-soon-link">
+                    <i class="fas fa-file-pdf"></i>CV
+                  </a>
+                </div>
+              </div>
+              <div class="about-right">
+                <div class="map-labels">
+                  <div class="map-label-item">
+                    <i class="fas fa-map-marker-alt map-icon-home"></i>
+                    Hometown: Shenzhen
+                  </div>
+                  <div class="map-label-item">
+                    <i class="fas fa-university map-icon-university"></i>
+                    University: Shenyang
+                  </div>
+                </div>
+                <div
+                  class="map-container map-container-dual"
+                  id="dualLocationMap"
+                ></div>
+              </div>
             </div>
           </div>
         </div>
@@ -742,8 +955,8 @@
               Solver
             </div>
             <div class="pub-authors">
-              <span class="author-joint">Xulong Zhang*</span>,
-              <span class="author-me">Jiashu Wang*</span>, Xiaoyang Qu, Hui
+              <span class="author-joint">Xulong Zhang†</span>,
+              <span class="author-me">Jiashu Wang†</span>, Xiaoyang Qu, Hui
               Tian, Jianzong Wang*
             </div>
             <div class="pub-venue">
@@ -837,10 +1050,21 @@
         <!-- Education -->
         <div class="section" id="education">
           <h2 class="section-title">Education</h2>
-          <div class="edu-title">B.S. in Computer Science</div>
-          <div class="edu-meta">
-            Northeastern University - China | 2022 - 2026<br />
-            GPA: 4.099/5.0 (90.1/100) | Rank: 27 / 191
+          <div class="education-content">
+            <div class="edu-badge">
+              <img
+                src="neu_logo.png"
+                alt="Northeastern University - China"
+                class="university-logo"
+              />
+            </div>
+            <div class="edu-details">
+              <div class="edu-title">B.S. in Computer Science</div>
+              <div class="edu-meta">
+                Northeastern University - China | 2022 - 2026<br />
+                GPA: 4.099/5.0 (90.1/100) | Rank: 27 / 191
+              </div>
+            </div>
           </div>
         </div>
 
@@ -882,42 +1106,6 @@
     </div>
 
     <script>
-      // Auto-scroll on first scroll input
-      let hasScrolled = false;
-      const heroSection = document.getElementById("heroSection");
-      const mainContent = document.getElementById("mainContent");
-
-      function handleFirstScroll(e) {
-        if (hasScrolled) return;
-
-        if (
-          e.type === "wheel" ||
-          e.type === "touchmove" ||
-          e.type === "keydown"
-        ) {
-          if (e.type === "keydown") {
-            if (![32, 34, 40].includes(e.keyCode)) return;
-          }
-
-          hasScrolled = true;
-
-          mainContent.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-
-          window.removeEventListener("wheel", handleFirstScroll);
-          window.removeEventListener("touchmove", handleFirstScroll);
-          window.removeEventListener("keydown", handleFirstScroll);
-        }
-      }
-
-      window.addEventListener("wheel", handleFirstScroll, { passive: true });
-      window.addEventListener("touchmove", handleFirstScroll, {
-        passive: true,
-      });
-      window.addEventListener("keydown", handleFirstScroll);
-
       // Coming Soon Modal functionality
       const modal = document.getElementById("comingSoonModal");
 
@@ -947,6 +1135,60 @@
       document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
           closeModal();
+        }
+      });
+
+      // Initialize dual location map
+      document.addEventListener("DOMContentLoaded", function () {
+        const mapContainer = document.getElementById("dualLocationMap");
+        if (mapContainer) {
+          // Initialize map centered between the two locations
+          const map = L.map("dualLocationMap").setView([32.0, 118.7], 5);
+
+          // Add OpenStreetMap tile layer
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19,
+          }).addTo(map);
+
+          // Create custom orange icon for Shenzhen (Hometown)
+          const orangeIcon = L.icon({
+            iconUrl:
+              "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSI0MSIgdmlld0JveD0iMCAwIDI1IDQxIj48cGF0aCBmaWxsPSIjZjk3MzE2IiBkPSJNMTIuNSAwQzUuNiAwIDAgNS42IDAgMTIuNWMwIDEuNCAwLjIgMi44IDAuNyA0LjFMMTIuNSA0MWwxMS44LTI0LjRjMC41LTEuMyAwLjctMi43IDAuNy00LjFDMjUgNS42IDE5LjQgMCAxMi41IDB6bTAgMTcuNmMtMi44IDAtNS4xLTIuMy01LjEtNS4xczIuMy01LjEgNS4xLTUuMSA1LjEgMi4zIDUuMSA1LjFTMTUuMyAxNy42IDEyLjUgMTcuNnoiLz48L3N2Zz4=",
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+          });
+
+          // Create custom blue icon for Shenyang (University)
+          const blueIcon = L.icon({
+            iconUrl:
+              "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSI0MSIgdmlld0JveD0iMCAwIDI1IDQxIj48cGF0aCBmaWxsPSIjMjU2M2ViIiBkPSJNMTIuNSAwQzUuNiAwIDAgNS42IDAgMTIuNWMwIDEuNCAwLjIgMi44IDAuNyA0LjFMMTIuNSA0MWwxMS44LTI0LjRjMC41LTEuMyAwLjctMi43IDAuNy00LjFDMjUgNS42IDE5LjQgMCAxMi41IDB6bTAgMTcuNmMtMi44IDAtNS4xLTIuMy01LjEtNS4xczIuMy01LjEgNS4xLTUuMSA1LjEgMi4zIDUuMSA1LjFTMTUuMyAxNy42IDEyLjUgMTcuNnoiLz48L3N2Zz4=",
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+          });
+
+          // Add marker for Shenzhen (Hometown) with orange icon
+          const shenzhenMarker = L.marker([22.543099, 114.057865], {
+            icon: orangeIcon,
+          })
+            .addTo(map)
+            .bindPopup("<b>🏠 Shenzhen</b><br>Hometown<br>Guangdong Province");
+
+          // Add marker for Shenyang (NEU China) with blue icon
+          const shenyangMarker = L.marker([41.687945, 123.401951], {
+            icon: blueIcon,
+          })
+            .addTo(map)
+            .bindPopup(
+              "<b>🎓 Shenyang</b><br>Northeastern University - China<br>Liaoning Province"
+            );
+
+          // Fit bounds to show both markers
+          const group = L.featureGroup([shenzhenMarker, shenyangMarker]);
+          map.fitBounds(group.getBounds().pad(0.1));
         }
       });
     </script>
