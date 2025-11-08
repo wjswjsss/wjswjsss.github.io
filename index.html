@@ -425,26 +425,24 @@
 
       /* Publications */
       .publication {
-        margin-bottom: 30px;
-        padding: 28px;
-        background: #f8fafc;
-        border-left: 4px solid #1e40af;
-        border-radius: 8px;
-        transition: all 0.3s ease;
+        margin-bottom: 18px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        transition: none;
       }
 
       .publication:hover {
-        background: #f1f5f9;
-        border-left-width: 5px;
-        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.1);
+        background: transparent;
+        box-shadow: none;
       }
 
       .pub-title {
         font-weight: 600;
         color: #0f172a;
-        margin-bottom: 14px;
+        margin-bottom: 6px;
         font-size: 1em;
-        line-height: 1.6;
+        line-height: 1.5;
       }
 
       @media (min-width: 768px) {
@@ -461,9 +459,9 @@
 
       .pub-authors {
         color: #64748b;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         font-size: 0.88em;
-        line-height: 1.6;
+        line-height: 1.5;
       }
 
       @media (min-width: 768px) {
@@ -495,7 +493,7 @@
       .pub-venue {
         color: #475569;
         font-size: 0.95em;
-        margin-top: 12px;
+        margin-top: 6px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -505,6 +503,15 @@
       .note {
         background: #fef3c7;
         color: #92400e;
+        padding: 3px 12px;
+        border-radius: 6px;
+        font-size: 0.88em;
+        font-weight: 600;
+      }
+
+      .note-review {
+        background: #dbeafe;
+        color: #1e40af;
         padding: 3px 12px;
         border-radius: 6px;
         font-size: 0.88em;
@@ -951,6 +958,20 @@
 
           <div class="publication">
             <div class="pub-title">
+              SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage
+              Segmentation in metro Tunnel Linings
+            </div>
+            <div class="pub-authors">
+              Xiaoxi Hu, <span class="author-me">Jiashu Wang</span>, Zhecheng
+              Shi, Xinyu Zhang, Lei Tan, Jiayao Chen, Mingliang Zhou
+            </div>
+            <div class="pub-venue">
+              <span class="note-review">Under Review</span>
+            </div>
+          </div>
+
+          <div class="publication">
+            <div class="pub-title">
               Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
               Solver
             </div>
@@ -1021,19 +1042,6 @@
 
           <div class="project">
             <div class="project-title">
-              Deep Learning for Infrastructure Disease Diagnosis
-            </div>
-            <div class="project-meta">
-              Advisor: Dr. Xiaoxi Hu, Tsinghua University | March 2025 - Present
-            </div>
-            <div class="project-desc">
-              Working on advanced augmentation techniques using deep learning
-              approaches.
-            </div>
-          </div>
-
-          <div class="project">
-            <div class="project-title">
               Traditional Machine Learning Optimization
             </div>
             <div class="project-meta">
@@ -1042,7 +1050,7 @@
             </div>
             <div class="project-desc">
               Exploring optimization algorithms and their applications in 3D
-              point cloud Semantic & Instance segmentation.
+              point cloud Semantic and Instance segmentation.
             </div>
           </div>
         </div>
@@ -1083,6 +1091,10 @@
               complex large-scale infrastructure based on heterogeneous
               multimodal information fusion
             </div>
+          </div>
+
+          <div style="margin-top: 15px; color: #475569; font-size: 0.95em">
+            <strong>And five more university level scholarships.</strong>
           </div>
         </div>
       </div>
