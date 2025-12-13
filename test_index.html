@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -43,6 +43,7 @@
       /* Light Theme Override */
       body.light-mode {
         --bg-color: #f0f4f8;
+        /* Lighter tint for light mode */
         --bg-overlay: linear-gradient(
           rgba(240, 244, 248, 0.85),
           rgba(240, 244, 248, 0.95)
@@ -72,19 +73,6 @@
         box-sizing: border-box;
       }
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-color);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to bottom, var(--accent-color), #818cf8);
-        border-radius: 5px;
-        border: 2px solid var(--bg-color);
-      }
-
       html {
         scroll-behavior: smooth;
       }
@@ -92,9 +80,18 @@
       body {
         font-family: "Inter", sans-serif;
         background-color: var(--bg-color);
-        background-image: var(--bg-gradient),
-          linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
-          url("./denys-nevozhai-HhmCIJTLuGY-unsplash.jpg");
+
+        /* --- BACKGROUND CONFIGURATION START --- */
+        background-image:
+            /* 1. Fancy color spots (kept from original design) */ var(
+            --bg-gradient
+          ),
+          /* 2. Dark Overlay (Makes sure text is readable over your photo) */
+            linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
+          /* 3. YOUR IMAGE HERE - Replace 'background.jpg' with your filename */
+            url("./denys-nevozhai-HhmCIJTLuGY-unsplash.jpg");
+        /* --- BACKGROUND CONFIGURATION END --- */
+
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -104,35 +101,10 @@
         transition: color 0.5s ease;
       }
 
+      /* Light mode background adjustment */
       body.light-mode {
         background-image: var(--bg-gradient), var(--bg-overlay),
           url("./denys-nevozhai-HhmCIJTLuGY-unsplash.jpg");
-      }
-
-      /* Animations */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate-on-load {
-        opacity: 0;
-        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-      }
-      .delay-1 {
-        animation-delay: 0.1s;
-      }
-      .delay-2 {
-        animation-delay: 0.2s;
-      }
-      .delay-3 {
-        animation-delay: 0.3s;
       }
 
       /* Navigation */
@@ -188,7 +160,7 @@
         color: var(--accent-color);
       }
 
-      /* Theme Toggle */
+      /* Theme Toggle Button */
       .theme-toggle {
         background: transparent;
         border: 1px solid var(--glass-border);
@@ -230,15 +202,24 @@
         border-radius: 24px;
         padding: 40px 30px;
         text-align: center;
+        transition: all 0.3s ease;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
       }
 
+      /* Find and replace this section in your <style> block */
       .profile-avatar {
         width: 150px;
         height: 150px;
         border-radius: 50%;
         margin: 0 auto 20px;
+
+        /* --- CHANGES ARE HERE --- */
+        /* 1. Removed the 'border' property to fix the edge glitch */
+
+        /* 2. New Orange-based gradient */
         background: linear-gradient(135deg, #fbbf24, #ea580c);
+
+        /* --- Rest of the styling for initials --- */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -282,7 +263,7 @@
         color: var(--text-secondary);
         text-decoration: none;
         transition: all 0.2s;
-        cursor: pointer;
+        cursor: pointer; /* changed from default to pointer for JS */
       }
 
       .social-btn:hover {
@@ -326,11 +307,9 @@
         background: var(--glass-border);
       }
 
-      /* --- MODIFIED ABOUT ME TEXT (COLOR CHANGE) --- */
       .bio-text {
-        font-family: "Lora", serif;
-        color: var(--text-primary); /* Changed to primary (Whiter/Brighter) */
-        font-size: 1.15rem;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
         margin-bottom: 2rem;
         line-height: 1.8;
       }
@@ -354,13 +333,14 @@
         border: 1px solid var(--glass-border);
         border-radius: 20px;
         padding: 40px;
+        /* Request: Use Times New Roman */
         font-family: "Times New Roman", Times, serif;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       }
 
       .pub-entry {
-        margin-bottom: 12px;
-        padding-bottom: 12px;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
         border-bottom: 1px solid var(--glass-border);
       }
 
@@ -374,13 +354,13 @@
         font-size: 1.15rem;
         font-weight: bold;
         color: var(--text-primary);
-        line-height: 1.3;
+        line-height: 1.4;
       }
 
       .pub-author-list {
         font-size: 1.05rem;
         color: var(--text-secondary);
-        margin: 2px 0;
+        margin: 4px 0;
       }
 
       .pub-author-me {
@@ -393,9 +373,10 @@
         font-size: 1rem;
         font-style: italic;
         color: var(--text-secondary);
-        margin-top: 2px;
+        margin-top: 4px; /* Added spacing */
       }
 
+      /* NEW STYLE FOR PUBLICATION LINKS */
       .pub-link {
         margin-left: 12px;
         font-style: normal;
@@ -404,7 +385,7 @@
         text-decoration: none;
         opacity: 0.9;
         transition: opacity 0.2s;
-        font-family: "Inter", sans-serif;
+        font-family: "Inter", sans-serif; /* Keep links readable */
       }
 
       .pub-link:hover {
@@ -417,7 +398,7 @@
       }
 
       .badge {
-        font-family: "Times New Roman", Times, serif;
+        font-family: "Times New Roman", Times, serif; /* Badges stay sans-serif for readability */
         font-size: 0.7rem;
         padding: 2px 6px;
         border-radius: 4px;
@@ -465,32 +446,6 @@
         font-size: 0.95rem;
       }
 
-      /* Terminal Quote */
-      .terminal-quote {
-        font-family: "Courier New", Courier, monospace;
-        font-size: 0.85rem;
-        text-align: left;
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid var(--glass-border);
-        border-left: 3px solid var(--accent-color);
-        border-radius: 6px;
-        padding: 12px 16px;
-        margin-bottom: 24px;
-        color: var(--text-secondary);
-        line-height: 1.5;
-      }
-
-      .terminal-quote::before {
-        content: "> ";
-        color: var(--accent-color);
-        font-weight: bold;
-        margin-right: 4px;
-      }
-      .terminal-quote span {
-        color: var(--accent-color);
-        opacity: 0.9;
-      }
-
       /* Toast Notification */
       #toast {
         visibility: hidden;
@@ -533,13 +488,45 @@
           display: none;
         }
       }
+
+      .terminal-quote {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.85rem;
+        text-align: left; /* Terminals are left-aligned */
+
+        /* Terminal Box Styling */
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--glass-border);
+        border-left: 3px solid var(--accent-color); /* The colored bar on the left */
+        border-radius: 6px;
+
+        padding: 12px 16px;
+        margin-bottom: 24px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* The ">" prompt character */
+      .terminal-quote::before {
+        content: "> ";
+        color: var(--accent-color);
+        font-weight: bold;
+        margin-right: 4px;
+      }
+
+      /* Optional: Makes the text "typewriter" style (green/cyan) */
+      /* remove this block if you want grey text */
+      .terminal-quote span {
+        color: var(--accent-color);
+        opacity: 0.9;
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar animate-on-load">
+    <nav class="navbar">
       <div class="nav-content">
         <div class="nav-left">
-          <a href="#" class="nav-brand">^ ^. ~</a>
+          <a href="#" class="nav-brand">JW.</a>
           <div class="nav-links">
             <a href="#about">About</a>
             <a href="#publications">Publications</a>
@@ -555,9 +542,9 @@
 
     <div class="main-container">
       <div class="grid-layout">
-        <aside class="animate-on-load delay-1">
+        <aside>
           <div class="profile-card">
-            <div class="profile-avatar">` `</div>
+            <div class="profile-avatar"></div>
             <h1 class="profile-name">Jiashu Wang</h1>
             <div class="profile-title">CS Undergraduate</div>
             <div class="terminal-quote">
@@ -590,11 +577,7 @@
         </aside>
 
         <main>
-          <section
-            id="about"
-            class="animate-on-load delay-2"
-            style="margin-bottom: 60px"
-          >
+          <section id="about" style="margin-bottom: 60px">
             <div class="section-header">
               <h2 class="section-title">About Me</h2>
               <div class="section-line"></div>
@@ -604,7 +587,7 @@
                 Hi! I'm a senior undergraduate at Northeastern University -
                 China, majoring in Computer Science and Technology. My research
                 focuses on
-                <strong><em>Computer Vision</em></strong> (DL & Traditional ML),
+                <strong>Computer Vision</strong> (DL & Traditional ML),
                 specifically Segmentation, and Generative Models. I also explore
                 Audio Processing and Speech Synthesis.
               </p>
@@ -616,11 +599,7 @@
             </div>
           </section>
 
-          <section
-            id="publications"
-            class="animate-on-load delay-3"
-            style="margin-bottom: 60px"
-          >
+          <section id="publications" style="margin-bottom: 60px">
             <div class="section-header">
               <h2 class="section-title">Publications</h2>
               <div class="section-line"></div>
@@ -711,7 +690,7 @@
             </div>
           </section>
 
-          <section id="research" class="animate-on-load delay-3">
+          <section id="research">
             <div class="section-header">
               <h2 class="section-title">Experience & Honors</h2>
               <div class="section-line"></div>
