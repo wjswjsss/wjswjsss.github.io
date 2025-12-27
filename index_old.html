@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jiashu Wang | CS Researcher</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-color: #0f172a;
+        --bg-gradient: radial-gradient(
+            circle at 15% 50%,
+            rgba(76, 29, 149, 0.3),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 85% 30%,
+            rgba(14, 165, 233, 0.3),
+            transparent 25%
+          );
+        --glass-surface: rgba(30, 41, 59, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent-color: #22d3ee;
+        --accent-glow: rgba(34, 211, 238, 0.3);
+        --card-hover: rgba(30, 41, 59, 0.9);
+      }
+
+      body.light-mode {
+        --bg-color: #f8fafc;
+        --bg-overlay: linear-gradient(
+          rgba(248, 250, 252, 0.9),
+          rgba(248, 250, 252, 0.95)
+        );
+        --bg-gradient: radial-gradient(
+            circle at 15% 50%,
+            rgba(59, 130, 246, 0.1),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 85% 30%,
+            rgba(139, 92, 246, 0.1),
+            transparent 25%
+          );
+        --glass-surface: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(0, 0, 0, 0.05);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --accent-color: #2563eb;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-color);
+        background-image: var(--bg-gradient),
+          linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+          url("./denys-nevozhai-HhmCIJTLuGY-unsplash.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-primary);
+        line-height: 1.7;
+      }
+
+      body.light-mode {
+        background-image: var(--bg-gradient), var(--bg-overlay),
+          url("./denys-nevozhai-HhmCIJTLuGY-unsplash.jpg");
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1rem 0;
+        z-index: 1000;
+        background: var(--glass-surface);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+      }
+
+      .nav-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Layout Containers */
+      .main-container {
+        max-width: 900px;
+        margin: 100px auto 60px;
+        padding: 0 2rem;
+      }
+
+      /* Profile Header Section */
+      .profile-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--glass-border);
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #fbbf24, #ea580c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(234, 88, 12, 0.2);
+      }
+
+      .profile-name {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .profile-meta {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .social-btn {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        transition: color 0.3s, transform 0.2s;
+        text-decoration: none;
+      }
+
+      .social-btn:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      /* Section Styling */
+      section {
+        margin-bottom: 5rem;
+      }
+
+      .section-header {
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .section-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+
+      .section-line {
+        flex-grow: 1;
+        height: 1px;
+        background: var(--glass-border);
+      }
+
+      .bio-text {
+        font-family: "Lora", serif;
+        font-size: 1.2rem;
+        color: var(--text-primary);
+        line-height: 1.8;
+      }
+
+      /* Content Blocks */
+      .pubs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .pub-entry {
+        font-family: "Times New Roman", Times, serif;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--glass-border);
+      }
+
+      .pub-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .pub-authors {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+      }
+
+      .pub-authors b {
+        color: var(--text-primary);
+        text-decoration: underline;
+      }
+
+      .pub-venue {
+        font-style: italic;
+        font-size: 0.95rem;
+        color: var(--accent-color);
+        margin-top: 5px;
+      }
+
+      .exp-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1rem;
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-right: 5px;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      /* Utility */
+      .theme-toggle {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      #toast {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: var(--glass-surface);
+        color: var(--text-primary);
+        text-align: center;
+        border-radius: 50px;
+        padding: 16px;
+        position: fixed;
+        z-index: 2000;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        border: 1px solid var(--accent-color);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+      }
+      #toast.show {
+        visibility: visible;
+        opacity: 1;
+        bottom: 50px;
+        transition: 0.3s;
+      }
+
+      @media (max-width: 600px) {
+        .profile-meta {
+          flex-direction: column;
+          gap: 5px;
+        }
+        .profile-name {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#publications">Publications</a>
+          <a href="#experience">Honors</a>
+        </div>
+        <button class="theme-toggle" id="theme-btn">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <header class="profile-header">
+        <div class="profile-avatar"></div>
+        <h1 class="profile-name">Jiashu Wang</h1>
+        <div class="profile-meta">
+          <span
+            ><i class="fas fa-university"></i> Northeastern University -
+            China</span
+          >
+          <span><i class="fas fa-map-marker-alt"></i> Shenzhen, China</span>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/constancecyn" class="social-btn demo-link"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a href="#" class="social-btn demo-link"
+            ><i class="fas fa-graduation-cap"></i
+          ></a>
+          <a href="#" class="social-btn demo-link"
+            ><i class="fas fa-envelope"></i
+          ></a>
+        </div>
+      </header>
+
+      <main>
+        <section id="about">
+          <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="bio-text">
+            <p>
+              Hi! I'm a senior undergraduate at Northeastern University - China,
+              majoring in Computer Science and Technology. My research focus
+              lies in <strong><em>Computer Vision</em></strong
+              >, specifically Segmentation and
+              <strong><em>Generative Models</em></strong
+              >. I also explore
+              <strong><em>Audio Processing and Speech Synthesis</em></strong
+              >.
+            </p>
+          </div>
+          <div style="margin-top: 1.5rem">
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Generative Models</span>
+            <span class="tag">Audio Processing</span>
+          </div>
+        </section>
+
+        <section id="publications">
+          <div class="section-header">
+            <h2 class="section-title">Publications</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="pubs-list">
+            <div class="pub-entry">
+              <div class="pub-title">
+                SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage
+                Segmentation
+              </div>
+              <div class="pub-authors">
+                X. Hu, <b>J. Wang</b>, Z. Shi, X. Zhang, L. Tan, J. Chen, M.
+                Zhou
+              </div>
+              <div class="pub-venue">Under Review, 2025</div>
+            </div>
+
+            <div class="pub-entry">
+              <div class="pub-title">
+                Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
+                Solver
+              </div>
+              <div class="pub-authors">
+                X. Zhang†, <b>J. Wang†</b>, X. Qu, H. Tian, J. Wang*
+              </div>
+              <div class="pub-venue">
+                ICONIP 2025 <span style="color: #eab308">[Spotlight]</span>
+              </div>
+            </div>
+
+            <div class="pub-entry">
+              <div class="pub-title">
+                Enhancing Generalization in Video Deepfake Detection
+              </div>
+              <div class="pub-authors">
+                J. Li, N. Zhang, X. Qu, <b>J. Wang</b>, Y. Zhong*, J. Wan
+              </div>
+              <div class="pub-venue">
+                ICIC 2025 <span style="color: #22d3ee">[Oral]</span>
+              </div>
+            </div>
+
+            <div class="pub-entry">
+              <div class="pub-title">
+                YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on
+                Unmanned Aerial Vehicles
+              </div>
+              <div class="pub-authors">
+                S. Weng, H Wang, <b>J. Wang</b>, C Xu*, E Zhang
+              </div>
+              <div class="pub-venue">Remote Sensing, 2025</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience">
+          <div class="section-header">
+            <h2 class="section-title">Honors & Experience</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="exp-item">
+            <span style="font-weight: 600"
+              >National Exhibition of Inventions</span
+            >
+            <span style="color: var(--accent-color)"
+              >National Gold Medal | 2025</span
+            >
+          </div>
+          <div class="exp-item">
+            <span style="color: var(--text-secondary)"
+              >University Level Scholarships</span
+            >
+            <span style="color: var(--text-secondary)">5x Recipient</span>
+          </div>
+        </section>
+      </main>
+
+      <footer
+        style="
+          text-align: center;
+          color: var(--text-secondary);
+          font-size: 0.8rem;
+          border-top: 1px solid var(--glass-border);
+          padding-top: 2rem;
+        "
+      >
+        &copy; 2025 Jiashu Wang — Built with Focus
+      </footer>
+    </div>
+
+    <div id="toast">Demo Link Only</div>
+
+    <script>
+      const themeBtn = document.getElementById("theme-btn");
+      const icon = themeBtn.querySelector("i");
+      themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+      });
+
+      const demoLinks = document.querySelectorAll(".demo-link");
+      const toast = document.getElementById("toast");
+      demoLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          toast.className = "show";
+          setTimeout(() => {
+            toast.className = toast.className.replace("show", "");
+          }, 3000);
+        });
+      });
+    </script>
+  </body>
+</html>
