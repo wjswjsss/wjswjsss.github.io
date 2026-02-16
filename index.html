@@ -118,6 +118,54 @@
         font-size: 0.98rem;
         box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
       }
+      .demo-videos {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .demo-videos figure {
+        margin: 0;
+        max-width: 360px;
+        width: 100%;
+        text-align: center;
+      }
+      .demo-videos video {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        display: block;
+      }
+      .demo-videos figcaption {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+        text-align: center;
+      }
+      .demo-listing {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: stretch;
+        margin-top: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .demo-listing .item {
+        flex: 1 1 260px;
+        max-width: 360px;
+        background: transparent;
+        border: none;
+        padding: 0.2rem 0;
+        border-radius: 0;
+        text-align: center;
+        color: var(--text-main);
+      }
+      .demo-listing .item strong {
+        display: block;
+        margin-bottom: 0.3rem;
+      }
     </style>
   </head>
   <body>
@@ -196,6 +244,45 @@
       </div>
     </section>
 
+    <section id="recent-activity">
+      <h2>Recent Activity</h2>
+      <div class="exp-row">
+        <span>Intern @ XSpark AI</span>
+        <strong>2026</strong>
+      </div>
+      <p>
+        Recently, I have been researching <strong>Embodied AI</strong> and exploring the significance of AR &amp; VR for robotic data.
+      </p>
+      <p>
+        I want to showcase some demos (work-in-progress 🥲). Videos are available in
+        <a href="./demo/">/demo/</a>.
+      </p>
+      <div class="demo-listing">
+        <div class="item">
+          <strong>Left — Pick-place demo in AR</strong>
+        </div>
+        <div class="item">
+          <strong>Right — AR &amp; teleoperation with phones</strong>
+        </div>
+      </div>
+      <div class="demo-videos">
+        <figure>
+        <video controls preload="metadata">
+            <source src="./demo/pick_place.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>pick_place.mp4 — work-in-progress</figcaption>
+        </figure>
+        <figure>
+        <video controls preload="metadata">
+            <source src="./demo/pick_place_w_teleop.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>pick_place_w_teleop.mp4 — work-in-progress</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section id="honors">
       <h2>Honors & Awards</h2>
       <div class="exp-row">
@@ -217,7 +304,7 @@
         padding-top: 1rem;
       "
     >
-      &copy; 2025 Jiashu Wang. Last updated: Dec 2025.
+      &copy; 2025 Jiashu Wang. Last updated: Feb 17, 2026.
     </footer>
   </body>
 </html>
