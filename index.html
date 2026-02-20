@@ -9,35 +9,95 @@
         --text-main: #2d3436;
         --text-muted: #636e72;
         --accent: #0984e3;
+        --accent-light: #74b9ff;
         --border: #dfe6e9;
+        --bg-page: #f0f3f8;
+        --bg-card: #ffffff;
+      }
+
+      html {
+        background: var(--bg-page);
+        background-image:
+          radial-gradient(ellipse at 20% 0%, rgba(9,132,227,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse at 80% 100%, rgba(108,92,231,0.05) 0%, transparent 60%);
+        min-height: 100%;
+        scroll-behavior: smooth;
+      }
+
+      /* Side Nav */
+      .side-nav {
+        position: fixed;
+        top: 50%;
+        left: max(calc((100vw - 820px) / 2 - 170px), 12px);
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .side-nav a {
+        display: block;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        padding: 0.35rem 0.7rem;
+        border-left: 2px solid transparent;
+        border-radius: 0 4px 4px 0;
+        transition: all 0.2s;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .side-nav a:hover,
+      .side-nav a.active {
+        color: var(--accent);
+        border-left-color: var(--accent);
+        background: rgba(9, 132, 227, 0.06);
+        text-decoration: none;
+      }
+      @media (max-width: 1120px) {
+        .side-nav {
+          display: none;
+        }
       }
 
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif;
-        line-height: 1.6;
+        line-height: 1.7;
         color: var(--text-main);
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-        background-color: #fff;
+        max-width: 820px;
+        margin: 2.5rem auto;
+        padding: 2.5rem 2.5rem 2rem;
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
       }
 
       /* Header */
       header {
-        margin-bottom: 3rem;
-        border-bottom: 2px solid var(--text-main);
-        padding-bottom: 1rem;
+        margin-bottom: 2.5rem;
+        border-bottom: none;
+        padding-bottom: 1.2rem;
+        position: relative;
+      }
+      header::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        border-radius: 2px;
+        margin-top: 1rem;
       }
 
       h1 {
         margin: 0;
         font-size: 2.2rem;
+        letter-spacing: -0.5px;
       }
       .subtitle {
         color: var(--text-muted);
         font-size: 1.1rem;
-        margin-top: 0.2rem;
+        margin-top: 0.25rem;
       }
 
       .contact-links {
@@ -46,23 +106,35 @@
         gap: 15px;
         font-size: 0.9rem;
       }
+      .contact-links a {
+        transition: color 0.2s;
+      }
 
       /* Sections */
       section {
         margin-bottom: 2.5rem;
       }
       h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 0.5rem;
+        letter-spacing: 1.5px;
+        border-bottom: none;
+        border-left: 3px solid var(--accent);
+        padding-left: 0.6rem;
+        padding-bottom: 0;
         margin-bottom: 1rem;
+        color: var(--text-main);
       }
 
       /* Publications */
       .pub-item {
         margin-bottom: 1.2rem;
+        padding: 0.7rem 0.8rem;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+      .pub-item:hover {
+        background: rgba(9, 132, 227, 0.04);
       }
       .pub-title {
         font-weight: 600;
@@ -75,6 +147,8 @@
       .me {
         font-weight: bold;
         text-decoration: underline;
+        text-decoration-color: var(--accent-light);
+        text-underline-offset: 2px;
       }
       .venue {
         color: var(--accent);
@@ -96,12 +170,19 @@
       a {
         color: var(--accent);
         text-decoration: none;
+        transition: color 0.2s;
       }
       a:hover {
+        color: #065fad;
         text-decoration: underline;
       }
 
       @media (max-width: 600px) {
+        body {
+          margin: 0;
+          border-radius: 0;
+          padding: 1.5rem 1rem;
+        }
         .exp-row {
           flex-direction: column;
           margin-bottom: 1rem;
@@ -169,7 +250,15 @@
     </style>
   </head>
   <body>
-    <header>
+    <nav class="side-nav" id="sideNav">
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#recent-activity">Activity</a>
+      <a href="#honors">Honors</a>
+    </nav>
+
+    <header id="top">
       <h1>Jiashu Wang</h1>
       <div class="subtitle">CS Undergraduate</div>
       <div class="contact-links">
@@ -297,14 +386,56 @@
 
     <footer
       style="
-        margin-top: 5rem;
+        margin-top: 4rem;
         font-size: 0.8rem;
         color: var(--text-muted);
         border-top: 1px solid var(--border);
         padding-top: 1rem;
+        text-align: center;
       "
     >
       &copy; 2025 Jiashu Wang. Last updated: Feb 17, 2026.
     </footer>
+    <script>
+      (() => {
+        const nav = document.getElementById("sideNav");
+        if (!nav) return;
+        const links = [...nav.querySelectorAll("a")];
+        const sections = links.map((a) =>
+          document.querySelector(a.getAttribute("href"))
+        );
+
+        // Smooth-scroll on click & keep URL clean (no hash → no auto-jump on reload)
+        links.forEach((a, i) => {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            const target = sections[i];
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+              history.replaceState(null, "", " ");
+            }
+          });
+        });
+
+        // Clear hash on page load so refresh always starts at top
+        if (window.location.hash) {
+          history.replaceState(null, "", " ");
+          window.scrollTo(0, 0);
+        }
+
+        // Highlight current section in side nav on scroll
+        function update() {
+          let idx = 0;
+          const offset = window.scrollY + window.innerHeight * 0.35;
+          sections.forEach((sec, i) => {
+            if (sec && sec.offsetTop <= offset) idx = i;
+          });
+          links.forEach((a, i) => a.classList.toggle("active", i === idx));
+        }
+
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+      })();
+    </script>
   </body>
 </html>
