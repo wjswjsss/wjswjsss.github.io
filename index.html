@@ -3,448 +3,214 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jiashu Wang | Engineer</title>
+    <title>Jiashu Wang</title>
     <style>
-      :root {
-        --text-main: #2d3436;
-        --text-muted: #636e72;
-        --accent: #0984e3;
-        --accent-light: #74b9ff;
-        --border: #dfe6e9;
-        --bg-page: #f0f3f8;
-        --bg-card: #ffffff;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      html {
-        background: var(--bg-page);
-        background-image:
-          radial-gradient(ellipse at 20% 0%, rgba(9,132,227,0.06) 0%, transparent 60%),
-          radial-gradient(ellipse at 80% 100%, rgba(108,92,231,0.05) 0%, transparent 60%);
-        min-height: 100%;
-        scroll-behavior: smooth;
+      body {
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.8;
+        color: #000;
+        background: #fff;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 3rem;
       }
 
-      /* Side Nav */
-      .side-nav {
+      .side-card {
         position: fixed;
         top: 50%;
-        left: max(calc((100vw - 820px) / 2 - 170px), 12px);
+        left: max(calc((100vw - 640px) / 2 - 260px), 16px);
         transform: translateY(-50%);
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
+        width: 210px;
+        border: 1px solid transparent;
+        padding: 1.8rem 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        transition: box-shadow 0.25s ease, border-color 0.25s ease;
       }
-      .side-nav a {
+
+      .side-card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .side-card .card-name {
+        font-weight: 700;
+        font-size: 1.15rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .side-card a {
         display: block;
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        padding: 0.35rem 0.7rem;
-        border-left: 2px solid transparent;
-        border-radius: 0 4px 4px 0;
-        transition: all 0.2s;
+        color: #000;
         text-decoration: none;
-        white-space: nowrap;
+        word-break: break-all;
       }
-      .side-nav a:hover,
-      .side-nav a.active {
-        color: var(--accent);
-        border-left-color: var(--accent);
-        background: rgba(9, 132, 227, 0.06);
-        text-decoration: none;
+
+      .side-card a:hover {
+        text-decoration: underline;
       }
-      @media (max-width: 1120px) {
-        .side-nav {
+
+      @media (max-width: 1100px) {
+        .side-card {
           display: none;
         }
       }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        line-height: 1.7;
-        color: var(--text-main);
-        max-width: 820px;
-        margin: 2.5rem auto;
-        padding: 2.5rem 2.5rem 2rem;
-        background-color: var(--bg-card);
-        border-radius: 12px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+      .quote {
+        font-style: italic;
+        font-size: 1.05rem;
+        margin-bottom: 3.5rem;
+        line-height: 1.9;
       }
 
-      /* Header */
-      header {
-        margin-bottom: 2.5rem;
-        border-bottom: none;
-        padding-bottom: 1.2rem;
-        position: relative;
-      }
-      header::after {
-        content: "";
-        display: block;
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, var(--accent), var(--accent-light));
-        border-radius: 2px;
-        margin-top: 1rem;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: 2.2rem;
-        letter-spacing: -0.5px;
-      }
-      .subtitle {
-        color: var(--text-muted);
+      h2 {
         font-size: 1.1rem;
-        margin-top: 0.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #000;
+        padding-bottom: 0.4rem;
       }
 
-      .contact-links {
-        margin-top: 1rem;
-        display: flex;
-        gap: 15px;
-        font-size: 0.9rem;
-      }
-      .contact-links a {
-        transition: color 0.2s;
-      }
-
-      /* Sections */
       section {
         margin-bottom: 2.5rem;
       }
-      h2 {
-        font-size: 1.3rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        border-bottom: none;
-        border-left: 3px solid var(--accent);
-        padding-left: 0.6rem;
-        padding-bottom: 0;
-        margin-bottom: 1rem;
-        color: var(--text-main);
+
+      .edu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.3rem;
       }
 
-      /* Publications */
+      .edu-item .school {
+        font-weight: 400;
+      }
+
+      .edu-item .program {
+        font-style: italic;
+        font-size: 0.93rem;
+        color: #444;
+      }
+
+      .edu-item .year {
+        font-size: 0.95rem;
+        white-space: nowrap;
+        margin-left: 1rem;
+      }
+
       .pub-item {
-        margin-bottom: 1.2rem;
-        padding: 0.7rem 0.8rem;
-        border-radius: 8px;
-        transition: background 0.2s;
+        margin-bottom: 1.3rem;
       }
-      .pub-item:hover {
-        background: rgba(9, 132, 227, 0.04);
-      }
+
       .pub-title {
         font-weight: 600;
         display: block;
-      }
-      .pub-authors {
-        font-size: 0.95rem;
-        color: var(--text-main);
-      }
-      .me {
-        font-weight: bold;
-        text-decoration: underline;
-        text-decoration-color: var(--accent-light);
-        text-underline-offset: 2px;
-      }
-      .venue {
-        color: var(--accent);
-        font-size: 0.9rem;
-        font-style: italic;
-      }
-      .tag-spotlight {
-        color: #d63031;
-        font-weight: bold;
+        margin-bottom: 0.1rem;
       }
 
-      /* Experience */
-      .exp-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
+      .pub-authors {
+        font-size: 0.95rem;
+      }
+
+      .me {
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .pub-venue {
+        font-style: italic;
+        font-size: 0.95rem;
+      }
+
+      .tag-spotlight {
+        font-weight: 700;
       }
 
       a {
-        color: var(--accent);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      a:hover {
-        color: #065fad;
+        color: #000;
         text-decoration: underline;
       }
 
-      @media (max-width: 600px) {
+      a:hover {
+        color: #555;
+      }
+
+      @media (max-width: 500px) {
         body {
-          margin: 0;
-          border-radius: 0;
-          padding: 1.5rem 1rem;
+          padding: 2.5rem 1.2rem 2rem;
         }
-        .exp-row {
+
+        .edu-item {
           flex-direction: column;
-          margin-bottom: 1rem;
         }
-      }
-      .citation {
-        display: inline-block;
-        background: #ffeaa7;
-        color: var(--text-main);
-        font-weight: 700;
-        padding: 0.15rem 0.5rem;
-        border-radius: 6px;
-        margin-top: 0.25rem;
-        font-size: 0.98rem;
-        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
-      }
-      .demo-videos {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-top: 0.5rem;
-        align-items: flex-start;
-        justify-content: center;
-      }
-      .demo-videos figure {
-        margin: 0;
-        max-width: 360px;
-        width: 100%;
-        text-align: center;
-      }
-      .demo-videos video {
-        width: 100%;
-        height: auto;
-        border-radius: 6px;
-        display: block;
-      }
-      .demo-videos figcaption {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-top: 0.25rem;
-        text-align: center;
-      }
-      .demo-listing {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        align-items: stretch;
-        margin-top: 0.6rem;
-        flex-wrap: wrap;
-      }
-      .demo-listing .item {
-        flex: 1 1 260px;
-        max-width: 360px;
-        background: transparent;
-        border: none;
-        padding: 0.2rem 0;
-        border-radius: 0;
-        text-align: center;
-        color: var(--text-main);
-      }
-      .demo-listing .item strong {
-        display: block;
-        margin-bottom: 0.3rem;
+
+        .edu-item .year {
+          margin-left: 0;
+        }
       }
     </style>
   </head>
   <body>
-    <nav class="side-nav" id="sideNav">
-      <a href="#top">Home</a>
-      <a href="#about">About</a>
-      <a href="#publications">Publications</a>
-      <a href="#recent-activity">Activity</a>
-      <a href="#honors">Honors</a>
-    </nav>
 
-    <header id="top">
-      <h1>Jiashu Wang</h1>
-      <div class="subtitle">CS Undergraduate</div>
-      <div class="contact-links">
-        <span><a href="https://github.com/wjswjsss">GitHub</a></span>
-        <span><a href="mailto:wangjiashushenzhen@gmail.com">Email</a></span>
-        <span>Shenzhen, China</span>
+    <aside class="side-card">
+      <div class="card-name">Jiashu Wang</div>
+      <a href="https://github.com/wjswjsss">GitHub</a>
+      <a href="mailto:wangjiashushenzhen@gmail.com">Email</a>
+    </aside>
+
+    <p class="quote">
+      So many chapters closed in haste through my own failings, leaving
+      apologies unspoken. Yet, I am grateful for the growth that bloomed from
+      the very soil of my regrets.
+    </p>
+
+    <section>
+      <h2>Education</h2>
+      <div class="edu-item">
+        <span class="school">Northeastern University, China <span class="program">&mdash; B.E. in Computer Science and Technology</span></span>
+        <span class="year">2022 &ndash; 2026</span>
       </div>
-    </header>
-
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        I am a senior undergraduate at
-        <strong>Northeastern University - China</strong>, majoring in Computer
-        Science and Technology. My research interests include
-        <strong>Computer Vision</strong> (Segmentation and Generative Models)
-        and <strong>Speech Synthesis</strong>.
-      </p>
+      <div class="edu-item">
+        <span class="school">Carnegie Mellon University <span class="program">&mdash; M.S. in Artificial Intelligence (ECE)</span></span>
+        <span class="year">2026 &ndash;</span>
+      </div>
     </section>
 
-    <section id="publications">
+    <section>
       <h2>Publications</h2>
 
       <div class="pub-item">
-        <span class="pub-title"
-          >SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage
-          Segmentation</span
-        >
-        <span class="pub-authors"
-          >X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J.
-          Chen, M. Zhou</span
-        ><br />
-        <span class="venue">Under Review, 2025</span>
+        <span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span>
+        <span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br />
+        <span class="pub-venue">Under Review, 2025</span>
       </div>
 
       <div class="pub-item">
-        <span class="pub-title"
-          >Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE
-          Solver</span
-        >
-        <span class="pub-authors"
-          >X. Zhang†, <span class="me">J. Wang†</span>, X. Qu, H. Tian, J.
-          Wang*</span
-        ><br />
-        <span class="venue"
-          >ICONIP 2025 <span class="tag-spotlight">[Spotlight]</span></span
-        >
+        <span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span>
+        <span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br />
+        <span class="pub-venue">ICONIP 2025 <span class="tag-spotlight">[Spotlight]</span></span>
       </div>
 
       <div class="pub-item">
-        <span class="pub-title"
-          >Enhancing Generalization in Video Deepfake Detection</span
-        >
-        <span class="pub-authors"
-          >J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*,
-          J. Wan</span
-        ><br />
-        <span class="venue">ICIC 2025 <span>[Oral]</span></span>
+        <span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span>
+        <span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br />
+        <span class="pub-venue">ICIC 2025 [Oral]</span>
       </div>
 
       <div class="pub-item">
-        <span class="pub-title"
-          >YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on
-          UAVs</span
-        >
-        <span class="pub-authors"
-          >S. Weng, H Wang, <span class="me">J. Wang</span>, C Xu*, E
-          Zhang</span
-        ><br />
-        <span class="venue">Remote Sensing, 2025</span><br />
-        <span class="citation">Citations: 12 🤩 (as of Feb 17, 2026)</span>
+        <span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span>
+        <span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br />
+        <span class="pub-venue">Remote Sensing, 2025</span>
       </div>
     </section>
 
-    <section id="recent-activity">
-      <h2>Recent Activity</h2>
-      <div class="exp-row">
-        <span></span>
-        <strong>Jan 2026 - Present</strong>
-      </div>
-      <p>
-        Recently, I have been researching <strong>Embodied AI</strong> and exploring the significance of AR &amp; VR for robotic data.
-      </p>
-      <p>
-        I want to showcase some demos (work-in-progress 🥲, 2026.02.12). Videos are available in
-        <a href="https://github.com/wjswjsss/wjswjsss.github.io/tree/main/demo">/demo/</a>.
-      </p>
-      <div class="demo-listing">
-        <div class="item">
-          <strong>Left — Pick-place demo in AR</strong>
-        </div>
-        <div class="item">
-          <strong>Right — AR &amp; teleoperation with phones</strong>
-        </div>
-      </div>
-      <div class="demo-videos">
-        <figure>
-        <video controls autoplay muted playsinline preload="metadata">
-            <source src="./demo/pick_place.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <figcaption>pick_place.mp4 — work-in-progress</figcaption>
-        </figure>
-        <figure>
-        <video controls autoplay muted playsinline preload="metadata">
-            <source src="./demo/pick_place_w_teleop.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <figcaption>pick_place_w_teleop.mp4 — work-in-progress</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="honors">
-      <h2>Honors & Awards</h2>
-      <div class="exp-row">
-        <span>National Exhibition of Inventions — National Gold Medal</span>
-        <strong>2025</strong>
-      </div>
-      <div class="exp-row">
-        <span>University Level Scholarships</span>
-        <strong>5x Recipient</strong>
-      </div>
-    </section>
-
-    <section id="visitors" style="margin-bottom: 2.5rem">
-      <h2>Visitor Map</h2>
-      <script
-        type="text/javascript"
-        id="mapmyvisitors"
-        src="//mapmyvisitors.com/map.js?d=k1ezFqI1tMA6bugcqv5X_Kg9eWa70K4Scfpp5Z5lzgU&cl=ffffff&w=a"
-      ></script>
-    </section>
-
-    <footer
-      style="
-        margin-top: 4rem;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        border-top: 1px solid var(--border);
-        padding-top: 1rem;
-        text-align: center;
-      "
-    >
-      &copy; 2025 Jiashu Wang. Last updated: Feb 17, 2026.
-    </footer>
-    <script>
-      (() => {
-        const nav = document.getElementById("sideNav");
-        if (!nav) return;
-        const links = [...nav.querySelectorAll("a")];
-        const sections = links.map((a) =>
-          document.querySelector(a.getAttribute("href"))
-        );
-
-        // Smooth-scroll on click & keep URL clean (no hash → no auto-jump on reload)
-        links.forEach((a, i) => {
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            const target = sections[i];
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-              history.replaceState(null, "", " ");
-            }
-          });
-        });
-
-        // Clear hash on page load so refresh always starts at top
-        if (window.location.hash) {
-          history.replaceState(null, "", " ");
-          window.scrollTo(0, 0);
-        }
-
-        // Highlight current section in side nav on scroll
-        function update() {
-          let idx = 0;
-          const offset = window.scrollY + window.innerHeight * 0.35;
-          sections.forEach((sec, i) => {
-            if (sec && sec.offsetTop <= offset) idx = i;
-          });
-          links.forEach((a, i) => a.classList.toggle("active", i === idx));
-        }
-
-        window.addEventListener("scroll", update, { passive: true });
-        update();
-      })();
-    </script>
   </body>
 </html>
