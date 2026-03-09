@@ -143,6 +143,34 @@
         color: #555;
       }
 
+      .checkin-row {
+        display: flex;
+        gap: 6px;
+      }
+
+      .checkin-day {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .checkin-day .label {
+        font-size: 0.78rem;
+        color: #666;
+      }
+
+      .checkin-day .cell {
+        width: 28px;
+        height: 28px;
+        border-radius: 3px;
+        background: #ebedf0;
+      }
+
+      .checkin-day .cell.checked {
+        background: #216e39;
+      }
+
       @media (max-width: 500px) {
         body {
           padding: 2.5rem 1.2rem 2rem;
@@ -211,6 +239,38 @@
         <span class="pub-venue">Remote Sensing, 2025</span>
       </div>
     </section>
+
+    <section>
+      <h2>An Anonymous Check-in Plan</h2>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.8rem;">Starting from Mar 8, 2026</p>
+      <div class="checkin-row" id="checkinRow" data-checked="1"></div>
+    </section>
+
+    <script>
+      (() => {
+        const row = document.getElementById('checkinRow');
+        const labels = ['1st','2nd','3rd','4th','5th','6th','7th'];
+
+        const checked = (row.dataset.checked || '').split(',').map(s => s.trim()).filter(Boolean);
+
+        labels.forEach((name, i) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'checkin-day';
+
+          const label = document.createElement('span');
+          label.className = 'label';
+          label.textContent = name;
+
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          if (checked.includes(String(i + 1))) cell.classList.add('checked');
+
+          wrap.appendChild(label);
+          wrap.appendChild(cell);
+          row.appendChild(wrap);
+        });
+      })();
+    </script>
 
   </body>
 </html>
