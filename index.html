@@ -5,147 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jiashu Wang</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; }
 
       body {
-        font-family: "Times New Roman", Times, serif;
-        line-height: 1.8;
-        color: #000;
-        background: #fff;
-        max-width: 640px;
+        font-family: 'VT323', 'Courier New', Courier, monospace;
+        font-size: 18px;
+        line-height: 1.6;
+        color: #aaa;
+        background: #0c0c0c;
+      }
+
+      .terminal {
+        max-width: 820px;
         margin: 0 auto;
-        padding: 4rem 2rem 3rem;
+        padding: 2rem 2.5rem 3rem;
+        min-height: 100vh;
       }
 
-      .side-card {
-        position: fixed;
-        top: 50%;
-        left: max(calc((100vw - 640px) / 2 - 260px), 16px);
-        transform: translateY(-50%);
-        width: 210px;
-        border: 1px solid transparent;
-        padding: 1.8rem 1.5rem;
-        font-size: 0.95rem;
-        line-height: 1.7;
-        transition: box-shadow 0.25s ease, border-color 0.25s ease;
-      }
-
-      .side-card:hover {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-      }
-
-      .side-card .card-name {
-        font-weight: 700;
-        font-size: 1.15rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .side-card a {
-        display: block;
-        color: #000;
-        text-decoration: none;
-        word-break: break-all;
-      }
-
-      .side-card a:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 1100px) {
-        .side-card {
-          display: none;
-        }
-      }
-
-      .quote {
-        font-style: italic;
-        font-size: 1.05rem;
-        margin-bottom: 3.5rem;
-        line-height: 1.9;
-      }
-
-      h2 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid #000;
-        padding-bottom: 0.4rem;
-      }
-
-      section {
-        margin-bottom: 2.5rem;
-      }
-
-      .edu-item {
+      .title-bar {
+        border-bottom: 1px solid #444;
+        padding-bottom: 0.6rem;
+        margin-bottom: 1.5rem;
+        color: #888;
+        font-size: 14px;
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 0.3rem;
       }
 
-      .edu-item .school {
-        font-weight: 400;
+      .ascii-art {
+        color: #5f5;
+        white-space: pre;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        font-size: 16px;
       }
 
-      .edu-item .program {
+      .prompt { color: #ccc; }
+      .cmd { color: #fff; }
+      .highlight { color: #fff; }
+      .accent { color: #5f5; }
+      .muted { color: #666; }
+
+      .block { margin-bottom: 1.2rem; }
+
+      .line { display: block; }
+
+      .pub-title { color: #fff; }
+      .pub-authors { color: #aaa; }
+      .me { color: #5f5; font-weight: bold; }
+      .pub-venue { color: #888; font-style: italic; }
+      .tag { color: #f55; }
+      .divider { color: #333; margin: 0.3rem 0; }
+
+      a { color: #5f5; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1.1em;
+        background: #aaa;
+        vertical-align: text-bottom;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+
+      .quote-line {
+        color: #888;
         font-style: italic;
-        font-size: 0.93rem;
-        color: #444;
+        margin-bottom: 1.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid #333;
       }
 
-      .edu-item .year {
-        font-size: 0.95rem;
-        white-space: nowrap;
-        margin-left: 1rem;
+      .edu-line { margin-bottom: 0.2rem; }
+      .edu-program { color: #888; }
+      .pub-item { margin-bottom: 1rem; }
+
+      /* Index table */
+      .index-table {
+        margin-bottom: 1.5rem;
       }
 
-      .pub-item {
-        margin-bottom: 1.3rem;
-      }
-
-      .pub-title {
-        font-weight: 600;
+      .index-item {
+        cursor: pointer;
+        color: #5f5;
+        padding: 0.15rem 0;
         display: block;
-        margin-bottom: 0.1rem;
       }
 
-      .pub-authors {
-        font-size: 0.95rem;
-      }
-
-      .me {
-        font-weight: 700;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
-
-      .pub-venue {
-        font-style: italic;
-        font-size: 0.95rem;
-      }
-
-      .tag-spotlight {
-        font-weight: 700;
-      }
-
-      a {
-        color: #000;
+      .index-item:hover {
+        color: #fff;
         text-decoration: underline;
       }
 
-      a:hover {
-        color: #555;
+      .index-item.active {
+        color: #fff;
+      }
+
+      /* Output sections - hidden by default */
+      .output {
+        display: none;
+        margin-bottom: 1.2rem;
+      }
+
+      .output.visible {
+        display: block;
+      }
+
+      .cmd-line {
+        margin-bottom: 0.4rem;
+      }
+
+      .typed-cmd {
+        color: #fff;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        width: 0;
+        vertical-align: bottom;
+      }
+
+      .typed-cmd.typing {
+        animation: typing 0.4s steps(20, end) forwards;
+      }
+
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+
+      /* Check-in board */
+      .checkin-section {
+        margin-top: 2rem;
+        border-top: 1px solid #333;
+        padding-top: 1rem;
+      }
+
+      .checkin-label {
+        color: #666;
+        font-size: 15px;
+        margin-bottom: 0.5rem;
+      }
+
+      .checkin-label .failed {
+        color: #f55;
       }
 
       .checkin-row {
         display: flex;
-        gap: 6px;
+        gap: 5px;
+        align-items: flex-end;
       }
 
       .checkin-day {
@@ -155,120 +168,206 @@
         gap: 4px;
       }
 
-      .checkin-day .label {
-        font-size: 0.78rem;
-        color: #666;
+      .checkin-day .day-label {
+        font-size: 13px;
+        color: #555;
       }
 
-      .checkin-day .cell {
-        width: 28px;
-        height: 28px;
+      .checkin-day .day-cell {
+        width: 26px;
+        height: 26px;
         border-radius: 3px;
-        background: #ebedf0;
+        background: #1a1a1a;
+        border: 1px solid #333;
       }
 
-      .checkin-day .cell.checked {
+      .checkin-day .day-cell.checked {
         background: #216e39;
+        border-color: #2ea043;
       }
 
-      @media (max-width: 500px) {
-        body {
-          padding: 2.5rem 1.2rem 2rem;
-        }
+      /* Prompt line at bottom */
+      .prompt-line {
+        margin-top: 1rem;
+      }
 
-        .edu-item {
-          flex-direction: column;
-        }
-
-        .edu-item .year {
-          margin-left: 0;
-        }
+      @media (max-width: 600px) {
+        .terminal { padding: 1.5rem 1rem 2rem; }
+        body { font-size: 16px; }
+        .ascii-art { font-size: 12px; }
       }
     </style>
   </head>
   <body>
+    <div class="terminal" id="terminal">
 
-    <aside class="side-card">
-      <div class="card-name">Jiashu Wang</div>
-      <a href="https://github.com/wjswjsss">GitHub</a>
-      <a href="mailto:wangjiashushenzhen@gmail.com">Email</a>
-    </aside>
-
-    <p class="quote">
-      So many chapters closed in haste through my own failings, leaving
-      apologies unspoken. If nothing else, I am grateful for the growth that
-      bloomed from the very soil of my regrets.
-    </p>
-
-    <section>
-      <h2>Education</h2>
-      <div class="edu-item">
-        <span class="school">Northeastern University, China <span class="program">&mdash; B.E. in Computer Science and Technology</span></span>
-        <span class="year">2022 &ndash; 2026</span>
-      </div>
-      <div class="edu-item">
-        <span class="school">Carnegie Mellon University <span class="program">&mdash; M.S. in Artificial Intelligence (ECE)</span></span>
-        <span class="year">2026 &ndash;</span>
-      </div>
-    </section>
-
-    <section>
-      <h2>Publications</h2>
-
-      <div class="pub-item">
-        <span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span>
-        <span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br />
-        <span class="pub-venue">Under Review, 2025</span>
+      <div class="title-bar">
+        <span>jiashu@web ~ $</span>
+        <span>last login: Mar 11, 2026</span>
       </div>
 
-      <div class="pub-item">
-        <span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span>
-        <span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br />
-        <span class="pub-venue">ICONIP 2025 <span class="tag-spotlight">[Spotlight]</span></span>
+      <div class="ascii-art">
+ooooo   ooooo oooooooooooo ooooo        ooooo          .oooooo.
+`888'   `888' `888'     `8 `888'        `888'         d8P'  `Y8b
+ 888     888   888          888          888         888      888
+ 888ooooo888   888oooo8     888          888         888      888
+ 888     888   888    "     888          888         888      888
+ 888     888   888       o  888       o  888       o `88b    d88'
+o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
+
+      <div class="quote-line">
+        So many chapters closed in haste through my own failings, leaving
+        apologies unspoken. If nothing else, I am grateful for the growth that
+        bloomed from the very soil of my regrets.
       </div>
 
-      <div class="pub-item">
-        <span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span>
-        <span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br />
-        <span class="pub-venue">ICIC 2025 [Oral]</span>
+      <div class="block">
+        <span class="prompt">C:\&gt; </span><span class="cmd">dir</span>
       </div>
 
-      <div class="pub-item">
-        <span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span>
-        <span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br />
-        <span class="pub-venue">Remote Sensing, 2025</span>
+      <div class="index-table" id="indexTable">
+        <span class="index-item" data-section="education">[1] education.txt</span>
+        <span class="index-item" data-section="publications">[2] publications.txt</span>
+        <span class="index-item" data-section="links">[3] links.txt</span>
       </div>
-    </section>
 
-    <section>
-      <h2>An Anonymous Check-in Plan</h2>
-      <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">Starting from Mar 10, 2026</p>
-      <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.8rem;">Failed attempts: <span style="color: red;">1</span></p>
-      <div class="checkin-row" id="checkinRow" data-checked="1"></div>
-    </section>
+      <!-- Output panels -->
+      <div id="outputArea"></div>
+
+      <div class="prompt-line" id="promptLine">
+        <span class="prompt">C:\&gt; </span><span class="cursor"></span>
+      </div>
+
+      <div class="checkin-section">
+        <div class="checkin-label">
+          <span class="prompt">C:\&gt; </span><span class="cmd">cat checkin.txt</span>
+        </div>
+        <div class="checkin-label" style="margin-top:0.4rem; margin-bottom:0.6rem;">
+          Anonymous Check-in Plan &nbsp;&nbsp; Starting Mar 11, 2026 &nbsp;&nbsp; Failed attempts: <span class="failed">1</span>
+        </div>
+        <div class="checkin-row" id="checkinBoard" data-checked="1"></div>
+      </div>
+
+    </div>
 
     <script>
       (() => {
-        const row = document.getElementById('checkinRow');
+        const outputArea = document.getElementById('outputArea');
+        const promptLine = document.getElementById('promptLine');
+
+        const sections = {
+          education: {
+            cmd: 'cat education.txt',
+            html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence (ECE)</span><span class="muted"> (2026 &ndash; )</span></div>`
+          },
+          publications: {
+            cmd: 'cat publications.txt',
+            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
+          },
+          links: {
+            cmd: 'cat links.txt',
+            html: `<span class="line"><a href="https://github.com/wjswjsss">github.com/wjswjsss</a></span><span class="line"><a href="mailto:wangjiashushenzhen@gmail.com">wangjiashushenzhen@gmail.com</a></span>`
+          }
+        };
+
+        let animating = false;
+
+        function typeText(el, text, speed) {
+          return new Promise(resolve => {
+            let i = 0;
+            el.textContent = '';
+            const interval = setInterval(() => {
+              el.textContent += text[i];
+              i++;
+              if (i >= text.length) {
+                clearInterval(interval);
+                resolve();
+              }
+            }, speed);
+          });
+        }
+
+        document.querySelectorAll('.index-item').forEach(item => {
+          item.addEventListener('click', async () => {
+            if (animating) return;
+            animating = true;
+
+            const key = item.dataset.section;
+            const section = sections[key];
+
+            // Check if already open — toggle off
+            const existing = document.getElementById('out-' + key);
+            if (existing) {
+              existing.remove();
+              item.classList.remove('active');
+              animating = false;
+              return;
+            }
+
+            // Close any other open section first
+            document.querySelectorAll('.output.visible').forEach(el => el.remove());
+            document.querySelectorAll('.index-item.active').forEach(el => el.classList.remove('active'));
+
+            item.classList.add('active');
+
+            // Create output block
+            const block = document.createElement('div');
+            block.className = 'output visible';
+            block.id = 'out-' + key;
+
+            // Command line with typing animation
+            const cmdLine = document.createElement('div');
+            cmdLine.className = 'cmd-line';
+            const promptSpan = document.createElement('span');
+            promptSpan.className = 'prompt';
+            promptSpan.innerHTML = 'C:\\&gt; ';
+            const cmdSpan = document.createElement('span');
+            cmdSpan.className = 'cmd';
+            cmdLine.appendChild(promptSpan);
+            cmdLine.appendChild(cmdSpan);
+
+            // Content div (hidden until typing done)
+            const content = document.createElement('div');
+            content.style.marginTop = '0.4rem';
+            content.style.display = 'none';
+            content.innerHTML = section.html;
+
+            block.appendChild(cmdLine);
+            block.appendChild(content);
+            outputArea.appendChild(block);
+
+            // Scroll into view
+            block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Type the command
+            await typeText(cmdSpan, section.cmd, 35);
+
+            // Show content after typing
+            content.style.display = 'block';
+            promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            animating = false;
+          });
+        });
+      })();
+
+      // Render check-in board
+      (() => {
+        const board = document.getElementById('checkinBoard');
+        const checked = (board.dataset.checked || '').split(',').map(s => s.trim()).filter(Boolean);
         const labels = ['1st','2nd','3rd','4th','5th','6th','7th'];
-
-        const checked = (row.dataset.checked || '').split(',').map(s => s.trim()).filter(Boolean);
-
         labels.forEach((name, i) => {
           const wrap = document.createElement('div');
           wrap.className = 'checkin-day';
-
           const label = document.createElement('span');
-          label.className = 'label';
+          label.className = 'day-label';
           label.textContent = name;
-
           const cell = document.createElement('div');
-          cell.className = 'cell';
+          cell.className = 'day-cell';
           if (checked.includes(String(i + 1))) cell.classList.add('checked');
-
           wrap.appendChild(label);
           wrap.appendChild(cell);
-          row.appendChild(wrap);
+          board.appendChild(wrap);
         });
       })();
     </script>
