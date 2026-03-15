@@ -106,6 +106,22 @@
         color: #fff;
       }
 
+      .index-bracket {
+        display: inline-block;
+        animation: bracketPulse 2s ease-in-out infinite;
+      }
+
+      .index-item.active .index-bracket,
+      .index-item:hover .index-bracket {
+        animation: none;
+        color: #fff;
+      }
+
+      @keyframes bracketPulse {
+        0%, 100% { opacity: 1; color: #5f5; text-shadow: 0 0 6px rgba(85, 255, 85, 0.6); }
+        50%       { opacity: 0.45; color: #3a3; text-shadow: none; }
+      }
+
       /* Output sections - hidden by default */
       .output {
         display: none;
@@ -136,54 +152,6 @@
       @keyframes typing {
         from { width: 0; }
         to { width: 100%; }
-      }
-
-      /* Check-in board */
-      .checkin-section {
-        margin-top: 2rem;
-        border-top: 1px solid #333;
-        padding-top: 1rem;
-      }
-
-      .checkin-label {
-        color: #666;
-        font-size: 15px;
-        margin-bottom: 0.5rem;
-      }
-
-      .checkin-label .failed {
-        color: #f55;
-      }
-
-      .checkin-row {
-        display: flex;
-        gap: 5px;
-        align-items: flex-end;
-      }
-
-      .checkin-day {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .checkin-day .day-label {
-        font-size: 13px;
-        color: #555;
-      }
-
-      .checkin-day .day-cell {
-        width: 26px;
-        height: 26px;
-        border-radius: 3px;
-        background: #1a1a1a;
-        border: 1px solid #333;
-      }
-
-      .checkin-day .day-cell.checked {
-        background: #216e39;
-        border-color: #2ea043;
       }
 
       /* Prompt line at bottom */
@@ -226,9 +194,9 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
       </div>
 
       <div class="index-table" id="indexTable">
-        <span class="index-item" data-section="education">[1] education.txt</span>
-        <span class="index-item" data-section="publications">[2] publications.txt</span>
-        <span class="index-item" data-section="links">[3] links.txt</span>
+        <span class="index-item" data-section="education"><span class="index-bracket">[1]</span> education.txt</span>
+        <span class="index-item" data-section="publications"><span class="index-bracket">[2]</span> publications.txt</span>
+        <span class="index-item" data-section="links"><span class="index-bracket">[3]</span> links.txt</span>
       </div>
 
       <!-- Output panels -->
@@ -236,16 +204,6 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
 
       <div class="prompt-line" id="promptLine">
         <span class="prompt">C:\&gt; </span><span class="cursor"></span>
-      </div>
-
-      <div class="checkin-section">
-        <div class="checkin-label">
-          <span class="prompt">C:\&gt; </span><span class="cmd">cat checkin.txt</span>
-        </div>
-        <div class="checkin-label" style="margin-top:0.4rem; margin-bottom:0.6rem;">
-          Anonymous Check-in Plan &nbsp;&nbsp; Starting Mar 11, 2026 &nbsp;&nbsp; Failed attempts: <span class="failed">1</span>
-        </div>
-        <div class="checkin-row" id="checkinBoard" data-checked="1"></div>
       </div>
 
     </div>
@@ -351,25 +309,7 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
         });
       })();
 
-      // Render check-in board
-      (() => {
-        const board = document.getElementById('checkinBoard');
-        const checked = (board.dataset.checked || '').split(',').map(s => s.trim()).filter(Boolean);
-        const labels = ['1st','2nd','3rd','4th','5th','6th','7th'];
-        labels.forEach((name, i) => {
-          const wrap = document.createElement('div');
-          wrap.className = 'checkin-day';
-          const label = document.createElement('span');
-          label.className = 'day-label';
-          label.textContent = name;
-          const cell = document.createElement('div');
-          cell.className = 'day-cell';
-          if (checked.includes(String(i + 1))) cell.classList.add('checked');
-          wrap.appendChild(label);
-          wrap.appendChild(cell);
-          board.appendChild(wrap);
-        });
-      })();
+
     </script>
 
   </body>
