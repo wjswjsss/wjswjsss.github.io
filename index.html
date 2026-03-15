@@ -15,7 +15,22 @@
         font-size: 18px;
         line-height: 1.6;
         color: #aaa;
-        background: #0c0c0c;
+        background: radial-gradient(ellipse at center, #0f0f0f 0%, #060606 100%);
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(0, 0, 0, 0.06) 3px,
+          rgba(0, 0, 0, 0.06) 4px
+        );
+        pointer-events: none;
+        z-index: 9999;
       }
 
       .terminal {
@@ -23,6 +38,8 @@
         margin: 0 auto;
         padding: 2rem 2.5rem 3rem;
         min-height: 100vh;
+        background: #0a0a0a;
+        box-shadow: 0 0 80px rgba(0, 200, 50, 0.05);
       }
 
       .title-bar {
@@ -33,14 +50,6 @@
         font-size: 14px;
         display: flex;
         justify-content: space-between;
-      }
-
-      .ascii-art {
-        color: #5f5;
-        white-space: pre;
-        line-height: 1.2;
-        margin-bottom: 1.5rem;
-        font-size: 16px;
       }
 
       .prompt { color: #ccc; }
@@ -61,7 +70,7 @@
       .divider { color: #333; margin: 0.3rem 0; }
 
       a { color: #5f5; text-decoration: none; }
-      a:hover { text-decoration: underline; }
+      a:hover { text-decoration: underline; color: #8fff8f; text-shadow: 0 0 8px rgba(85, 255, 85, 0.5); }
 
       .cursor {
         display: inline-block;
@@ -94,7 +103,10 @@
         cursor: pointer;
         color: #5f5;
         padding: 0.15rem 0;
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
       }
 
       .index-item:hover {
@@ -130,6 +142,9 @@
 
       .output.visible {
         display: block;
+        border-left: 2px solid #1f1f1f;
+        padding-left: 1rem;
+        background: rgba(0, 255, 60, 0.012);
       }
 
       .cmd-line {
@@ -159,6 +174,39 @@
         margin-top: 1rem;
       }
 
+      /* Dir listing */
+      .dir-volume {
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+
+      .dir-footer {
+        color: #555;
+        margin-top: 0.4rem;
+      }
+
+      .dir-meta {
+        color: #4a4a4a;
+        flex-shrink: 0;
+        font-size: 0.9em;
+        transition: color 0.15s;
+      }
+
+      .index-item:hover .dir-meta,
+      .index-item.active .dir-meta {
+        color: #777;
+      }
+
+      /* Content reveal */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .content-reveal {
+        animation: fadeIn 0.3s ease forwards;
+      }
+
       @media (max-width: 600px) {
         .terminal { padding: 1.5rem 1rem 2rem; }
         body { font-size: 16px; }
@@ -170,18 +218,9 @@
     <div class="terminal" id="terminal">
 
       <div class="title-bar">
-        <span>jiashu@web ~ $</span>
-        <span>last login: Mar 11, 2026</span>
+        <span>C:\JIASHU.EXE</span>
+        <span id="sysTime"></span>
       </div>
-
-      <div class="ascii-art">
-ooooo   ooooo oooooooooooo ooooo        ooooo          .oooooo.
-`888'   `888' `888'     `8 `888'        `888'         d8P'  `Y8b
- 888     888   888          888          888         888      888
- 888ooooo888   888oooo8     888          888         888      888
- 888     888   888    "     888          888         888      888
- 888     888   888       o  888       o  888       o `88b    d88'
-o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
 
       <div class="quote-line">
         So many chapters closed in haste through my own failings, leaving
@@ -194,9 +233,20 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
       </div>
 
       <div class="index-table" id="indexTable">
-        <span class="index-item" data-section="education"><span class="index-bracket">[1]</span> education.txt</span>
-        <span class="index-item" data-section="publications"><span class="index-bracket">[2]</span> publications.txt</span>
-        <span class="index-item" data-section="links"><span class="index-bracket">[3]</span> links.txt</span>
+        <div class="dir-volume"> Volume in drive C is JIASHU &nbsp;&nbsp;&nbsp; Directory of C:\</div>
+        <span class="index-item" data-section="education">
+          <span><span class="index-bracket">[1]</span> education.txt</span>
+          <span class="dir-meta">2,048 &nbsp; 03-15-2026</span>
+        </span>
+        <span class="index-item" data-section="publications">
+          <span><span class="index-bracket">[2]</span> publications.txt</span>
+          <span class="dir-meta">8,192 &nbsp; 03-15-2026</span>
+        </span>
+        <span class="index-item" data-section="links">
+          <span><span class="index-bracket">[3]</span> links.txt</span>
+          <span class="dir-meta">&nbsp;&nbsp;512 &nbsp; 03-15-2026</span>
+        </span>
+        <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 File(s) &nbsp;&nbsp;&nbsp; 10,752 bytes free</div>
       </div>
 
       <!-- Output panels -->
@@ -302,6 +352,7 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
 
             // Show content after typing
             content.style.display = 'block';
+            content.classList.add('content-reveal');
             promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
             animating = false;
@@ -309,6 +360,24 @@ o888o   o888o o888ooooood8 o888ooooood8 o888ooooood8  `Y8bood8P'</div>
         });
       })();
 
+      // Live clock in title bar
+      (() => {
+        const el = document.getElementById('sysTime');
+        const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+        function update() {
+          const d = new Date();
+          const day = days[d.getDay()];
+          const mm = String(d.getMonth() + 1).padStart(2, '0');
+          const dd = String(d.getDate()).padStart(2, '0');
+          const yy = d.getFullYear();
+          const hh = String(d.getHours()).padStart(2, '0');
+          const min = String(d.getMinutes()).padStart(2, '0');
+          const ss = String(d.getSeconds()).padStart(2, '0');
+          el.textContent = `${day} ${mm}/${dd}/${yy}  ${hh}:${min}:${ss}`;
+        }
+        update();
+        setInterval(update, 1000);
+      })();
 
     </script>
 
