@@ -5,381 +5,771 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jiashu Wang</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { height: 100%; }
+      :root {
+        color-scheme: dark;
+        --bg-1: #08111f;
+        --bg-2: #102746;
+        --bg-3: #0d5c63;
+        --panel: rgba(15, 23, 42, 0.68);
+        --panel-strong: rgba(15, 23, 42, 0.88);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #ebf2ff;
+        --muted: #a8b3cf;
+        --accent: #72e6ff;
+        --accent-strong: #8b5cf6;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
 
       body {
-        font-family: 'VT323', 'Courier New', Courier, monospace;
-        font-size: 18px;
-        line-height: 1.6;
-        color: #aaa;
-        background: radial-gradient(ellipse at center, #0f0f0f 0%, #060606 100%);
-      }
-
-      body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background: repeating-linear-gradient(
-          180deg,
-          transparent 0px,
-          transparent 3px,
-          rgba(0, 0, 0, 0.06) 3px,
-          rgba(0, 0, 0, 0.06) 4px
-        );
-        pointer-events: none;
-        z-index: 9999;
-      }
-
-      .terminal {
-        max-width: 820px;
-        margin: 0 auto;
-        padding: 2rem 2.5rem 3rem;
-        min-height: 100vh;
-        background: #0a0a0a;
-        box-shadow: 0 0 80px rgba(0, 200, 50, 0.05);
-      }
-
-      .title-bar {
-        border-bottom: 1px solid #444;
-        padding-bottom: 0.6rem;
-        margin-bottom: 1.5rem;
-        color: #888;
-        font-size: 14px;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .prompt { color: #ccc; }
-      .cmd { color: #fff; }
-      .highlight { color: #fff; }
-      .accent { color: #5f5; }
-      .muted { color: #666; }
-
-      .block { margin-bottom: 1.2rem; }
-
-      .line { display: block; }
-
-      .pub-title { color: #fff; }
-      .pub-authors { color: #aaa; }
-      .me { color: #5f5; font-weight: bold; }
-      .pub-venue { color: #888; font-style: italic; }
-      .tag { color: #f55; }
-      .divider { color: #333; margin: 0.3rem 0; }
-
-      a { color: #5f5; text-decoration: none; }
-      a:hover { text-decoration: underline; color: #8fff8f; text-shadow: 0 0 8px rgba(85, 255, 85, 0.5); }
-
-      .cursor {
-        display: inline-block;
-        width: 10px;
-        height: 1.1em;
-        background: #aaa;
-        vertical-align: text-bottom;
-        animation: blink 1s step-end infinite;
-      }
-      @keyframes blink { 50% { opacity: 0; } }
-
-      .quote-line {
-        color: #888;
-        font-style: italic;
-        margin-bottom: 1.5rem;
-        padding-left: 1rem;
-        border-left: 2px solid #333;
-      }
-
-      .edu-line { margin-bottom: 0.2rem; }
-      .edu-program { color: #888; }
-      .pub-item { margin-bottom: 1rem; }
-
-      /* Index table */
-      .index-table {
-        margin-bottom: 1.5rem;
-      }
-
-      .index-item {
-        cursor: pointer;
-        color: #5f5;
-        padding: 0.15rem 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 1rem;
-      }
-
-      .index-item:hover {
-        color: #fff;
-        text-decoration: underline;
-      }
-
-      .index-item.active {
-        color: #fff;
-      }
-
-      .index-bracket {
-        display: inline-block;
-        animation: bracketPulse 2s ease-in-out infinite;
-      }
-
-      .index-item.active .index-bracket,
-      .index-item:hover .index-bracket {
-        animation: none;
-        color: #fff;
-      }
-
-      @keyframes bracketPulse {
-        0%, 100% { opacity: 1; color: #5f5; text-shadow: 0 0 6px rgba(85, 255, 85, 0.6); }
-        50%       { opacity: 0.45; color: #3a3; text-shadow: none; }
-      }
-
-      /* Output sections - hidden by default */
-      .output {
-        display: none;
-        margin-bottom: 1.2rem;
-      }
-
-      .output.visible {
-        display: block;
-        border-left: 2px solid #1f1f1f;
-        padding-left: 1rem;
-        background: rgba(0, 255, 60, 0.012);
-      }
-
-      .cmd-line {
-        margin-bottom: 0.4rem;
-      }
-
-      .typed-cmd {
-        color: #fff;
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+        color: var(--text);
         overflow: hidden;
-        white-space: nowrap;
+        background:
+          radial-gradient(circle at top left, rgba(114, 230, 255, 0.18), transparent 26%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.22), transparent 30%),
+          linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 48%, var(--bg-3) 100%);
+      }
+
+      a {
+        color: #5fd8ff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #b8f4ff;
+      }
+
+      .desktop {
+        position: relative;
+        min-height: 100vh;
+        padding: 28px 28px 110px;
+        isolation: isolate;
+      }
+
+      .desktop::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), transparent 80%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .desktop-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      .hero-card,
+      .quote-card {
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        background: rgba(10, 18, 34, 0.4);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        max-width: 420px;
+        padding: 22px 24px;
+      }
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(114, 230, 255, 0.12);
+        color: #c8f8ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .hero-card h1 {
+        font-size: clamp(2rem, 4vw, 3.35rem);
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+
+      .hero-card p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .quote-card {
+        max-width: 360px;
+        padding: 18px 20px;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top-right-radius: 12px;
+      }
+
+      .quote-card .quote-title {
+        color: #f5d76e;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .quote-card p {
+        color: #f3f5ff;
+        line-height: 1.65;
+        font-style: italic;
+      }
+
+      .desktop-icons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 120px));
+        grid-auto-rows: min-content;
+        gap: 24px 18px;
+        align-content: start;
+        max-width: 460px;
+      }
+
+      .desktop-icon {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 18px;
+        transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .desktop-icon:hover,
+      .desktop-icon:focus-visible {
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+        transform: translateY(-3px);
+        outline: none;
+      }
+
+      .desktop-icon.active {
+        background: rgba(114, 230, 255, 0.12);
+      }
+
+      .file-graphic {
+        width: 66px;
+        height: 82px;
+        position: relative;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(217, 231, 255, 0.92));
+        box-shadow: 0 12px 24px rgba(6, 10, 24, 0.3);
+      }
+
+      .file-graphic::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, rgba(114, 230, 255, 0.65), rgba(139, 92, 246, 0.85));
+        clip-path: polygon(0 0, 100% 100%, 100% 0);
+        border-top-right-radius: 16px;
+      }
+
+      .file-lines {
+        position: absolute;
+        inset: 18px 14px 14px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .file-lines span {
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(91, 117, 175, 0.28);
+      }
+
+      .file-lines span:nth-child(2) {
+        width: 78%;
+      }
+
+      .file-lines span:nth-child(3) {
+        width: 58%;
+      }
+
+      .desktop-icon strong {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .desktop-icon span:last-child {
+        color: var(--muted);
+        font-size: 0.77rem;
+      }
+
+      .window-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .window {
+        position: absolute;
+        width: min(680px, calc(100vw - 36px));
+        min-height: 260px;
+        pointer-events: auto;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--panel-strong);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        box-shadow: 0 24px 90px rgba(2, 6, 23, 0.48);
+      }
+
+      .window.open {
+        display: flex;
+        animation: windowIn 0.22s ease;
+      }
+
+      .window-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        cursor: grab;
+        user-select: none;
+      }
+
+      .window-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .window-chip {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        box-shadow: 0 0 18px rgba(114, 230, 255, 0.45);
+      }
+
+      .window-title-text {
+        min-width: 0;
+      }
+
+      .window-title-text strong {
+        display: block;
+        font-size: 0.98rem;
+      }
+
+      .window-title-text span {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .window-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .window-actions button {
+        width: 34px;
+        height: 34px;
+        border: 0;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .window-actions button:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .window-body {
+        padding: 22px;
+        overflow: auto;
+        display: grid;
+        gap: 14px;
+        color: #e7efff;
+      }
+
+      .window-body p,
+      .window-body li {
+        line-height: 1.7;
+        color: #d6e1fa;
+      }
+
+      .window-body h2 {
+        font-size: 1.15rem;
+        margin-bottom: 4px;
+      }
+
+      .window-body .meta {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .card-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .content-card {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .content-card .title {
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .content-card .subtitle {
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .pub-tag {
         display: inline-block;
-        width: 0;
-        vertical-align: bottom;
+        margin-top: 10px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: rgba(114, 230, 255, 0.12);
+        color: #bbf6ff;
+        font-size: 0.78rem;
       }
 
-      .typed-cmd.typing {
-        animation: typing 0.4s steps(20, end) forwards;
+      .link-grid {
+        display: grid;
+        gap: 12px;
       }
 
-      @keyframes typing {
-        from { width: 0; }
-        to { width: 100%; }
+      .link-item {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      /* Prompt line at bottom */
-      .prompt-line {
-        margin-top: 1rem;
+      .link-item small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
       }
 
-      /* Dir listing */
-      .dir-volume {
-        color: #555;
-        margin-bottom: 0.5rem;
+      .taskbar {
+        position: fixed;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+        padding: 10px 14px;
+        border-radius: 22px;
+        background: rgba(9, 14, 28, 0.68);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        box-shadow: var(--shadow);
       }
 
-      .dir-footer {
-        color: #555;
-        margin-top: 0.4rem;
+      .taskbar-left,
+      .taskbar-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
-      .dir-meta {
-        color: #4a4a4a;
-        flex-shrink: 0;
-        font-size: 0.9em;
-        transition: color 0.15s;
+      .clock-pill {
+        border-radius: 16px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      .index-item:hover .dir-meta,
-      .index-item.active .dir-meta {
-        color: #777;
+      .clock-pill {
+        text-align: right;
       }
 
-      /* Content reveal */
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-5px); }
-        to   { opacity: 1; transform: translateY(0); }
+      .clock-pill strong,
+      .clock-pill span {
+        display: block;
       }
 
-      .content-reveal {
-        animation: fadeIn 0.3s ease forwards;
+      .clock-pill span {
+        color: var(--muted);
+        font-size: 0.78rem;
       }
 
-      @media (max-width: 600px) {
-        .terminal { padding: 1.5rem 1rem 2rem; }
-        body { font-size: 16px; }
-        .ascii-art { font-size: 12px; }
+      @keyframes windowIn {
+        from {
+          opacity: 0;
+          transform: translateY(16px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @media (max-width: 900px) {
+        body {
+          overflow: auto;
+        }
+
+        .desktop {
+          min-height: auto;
+          padding-bottom: 150px;
+        }
+
+        .desktop-header {
+          flex-direction: column;
+        }
+
+        .quote-card,
+        .hero-card {
+          max-width: none;
+          width: 100%;
+        }
+
+        .window-layer {
+          position: static;
+          display: grid;
+          gap: 18px;
+          margin-top: 28px;
+        }
+
+        .window {
+          position: static;
+          width: 100%;
+          min-height: 0;
+        }
+
+        .window-header {
+          cursor: default;
+        }
+
+        .taskbar {
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .desktop {
+          padding: 18px 18px 150px;
+        }
+
+        .desktop-icons {
+          grid-template-columns: repeat(2, minmax(110px, 1fr));
+          max-width: none;
+        }
+
+        .window-body {
+          padding: 18px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="terminal" id="terminal">
+    <main class="desktop">
+      <section class="desktop-header">
+        <div class="hero-card">
+          <div class="hero-label">Desktop / Jiashu Wang</div>
+          <h1>Open the files on my desk.</h1>
+          <p>
+            A modern desktop-style homepage with floating windows for education,
+            publications, and links.
+          </p>
+        </div>
 
-      <div class="title-bar">
-        <span>C:\JIASHU.EXE</span>
-        <span id="sysTime"></span>
+        <aside class="quote-card" aria-label="Quote note">
+          <div class="quote-title">Pinned note</div>
+          <p>
+            So many chapters closed in haste through my own failings, leaving
+            apologies unspoken. If nothing else, I am grateful for the growth
+            that bloomed from the very soil of my regrets.
+          </p>
+        </aside>
+      </section>
+
+      <section class="desktop-icons" aria-label="Desktop files">
+        <button class="desktop-icon" data-window="education">
+          <span class="file-graphic" aria-hidden="true">
+            <span class="file-lines"><span></span><span></span><span></span></span>
+          </span>
+          <strong>education.txt</strong>
+          <span>Academic path</span>
+        </button>
+
+        <button class="desktop-icon" data-window="publications">
+          <span class="file-graphic" aria-hidden="true">
+            <span class="file-lines"><span></span><span></span><span></span></span>
+          </span>
+          <strong>publications.txt</strong>
+          <span>Selected work</span>
+        </button>
+
+        <button class="desktop-icon" data-window="links">
+          <span class="file-graphic" aria-hidden="true">
+            <span class="file-lines"><span></span><span></span><span></span></span>
+          </span>
+          <strong>links.txt</strong>
+          <span>Reach out</span>
+        </button>
+      </section>
+
+      <section class="window-layer" id="windowLayer" aria-live="polite">
+        <article class="window open" id="window-education" data-window="education" style="top: 170px; left: 34%; z-index: 3;">
+          <div class="window-header">
+            <div class="window-title">
+              <span class="window-chip" aria-hidden="true"></span>
+              <div class="window-title-text">
+                <strong>education.txt</strong>
+                <span>Academic background</span>
+              </div>
+            </div>
+            <div class="window-actions">
+              <button type="button" data-close="education" aria-label="Close education window">×</button>
+            </div>
+          </div>
+          <div class="window-body">
+            <div class="content-card">
+              <div class="title">Northeastern University, China</div>
+              <div class="subtitle">B.E. in Computer Science and Technology · 2022–2026</div>
+            </div>
+            <div class="content-card">
+              <div class="title">Carnegie Mellon University</div>
+              <div class="subtitle">M.S. in Artificial Intelligence (ECE) · 2026–</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="window" id="window-publications" data-window="publications" style="top: 116px; left: 14%; z-index: 2;">
+          <div class="window-header">
+            <div class="window-title">
+              <span class="window-chip" aria-hidden="true"></span>
+              <div class="window-title-text">
+                <strong>publications.txt</strong>
+                <span>Selected publications</span>
+              </div>
+            </div>
+            <div class="window-actions">
+              <button type="button" data-close="publications" aria-label="Close publications window">×</button>
+            </div>
+          </div>
+          <div class="window-body card-list">
+            <div class="content-card">
+              <div class="title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</div>
+              <p>X. Hu, J. Wang, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</p>
+              <div class="meta">Under Review, 2025</div>
+            </div>
+            <div class="content-card">
+              <div class="title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</div>
+              <p>X. Zhang†, J. Wang†, X. Qu, H. Tian, J. Wang*</p>
+              <div class="meta">ICONIP 2025</div>
+              <span class="pub-tag">Spotlight</span>
+            </div>
+            <div class="content-card">
+              <div class="title">Enhancing Generalization in Video Deepfake Detection</div>
+              <p>J. Li, N. Zhang, X. Qu, J. Wang, Y. Zhong*, J. Wan</p>
+              <div class="meta">ICIC 2025</div>
+              <span class="pub-tag">Oral</span>
+            </div>
+            <div class="content-card">
+              <div class="title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</div>
+              <p>S. Weng, H. Wang, J. Wang, C. Xu*, E. Zhang</p>
+              <div class="meta">Remote Sensing, 2025</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="window" id="window-links" data-window="links" style="top: 260px; left: 44%; z-index: 1;">
+          <div class="window-header">
+            <div class="window-title">
+              <span class="window-chip" aria-hidden="true"></span>
+              <div class="window-title-text">
+                <strong>links.txt</strong>
+                <span>Contact and profiles</span>
+              </div>
+            </div>
+            <div class="window-actions">
+              <button type="button" data-close="links" aria-label="Close links window">×</button>
+            </div>
+          </div>
+          <div class="window-body link-grid">
+            <a class="link-item" href="https://github.com/wjswjsss" target="_blank" rel="noreferrer">
+              <strong>GitHub</strong>
+              <small>github.com/wjswjsss</small>
+            </a>
+            <a class="link-item" href="mailto:wangjiashushenzhen@gmail.com">
+              <strong>Email</strong>
+              <small>wangjiashushenzhen@gmail.com</small>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <nav class="taskbar" aria-label="Desktop taskbar">
+      <div class="taskbar-right">
+        <div class="clock-pill">
+          <strong id="clockTime"></strong>
+          <span id="clockDate"></span>
+        </div>
       </div>
-
-      <div class="quote-line">
-        So many chapters closed in haste through my own failings, leaving
-        apologies unspoken. If nothing else, I am grateful for the growth that
-        bloomed from the very soil of my regrets.
-      </div>
-
-      <div class="block">
-        <span class="prompt">C:\&gt; </span><span class="cmd">dir</span>
-      </div>
-
-      <div class="index-table" id="indexTable">
-        <div class="dir-volume"> Volume in drive C is JIASHU &nbsp;&nbsp;&nbsp; Directory of C:\</div>
-        <span class="index-item" data-section="education">
-          <span><span class="index-bracket">[1]</span> education.txt</span>
-          <span class="dir-meta">2,048 &nbsp; 03-15-2026</span>
-        </span>
-        <span class="index-item" data-section="publications">
-          <span><span class="index-bracket">[2]</span> publications.txt</span>
-          <span class="dir-meta">8,192 &nbsp; 03-15-2026</span>
-        </span>
-        <span class="index-item" data-section="links">
-          <span><span class="index-bracket">[3]</span> links.txt</span>
-          <span class="dir-meta">&nbsp;&nbsp;512 &nbsp; 03-15-2026</span>
-        </span>
-        <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 File(s) &nbsp;&nbsp;&nbsp; 10,752 bytes free</div>
-      </div>
-
-      <!-- Output panels -->
-      <div id="outputArea"></div>
-
-      <div class="prompt-line" id="promptLine">
-        <span class="prompt">C:\&gt; </span><span class="cursor"></span>
-      </div>
-
-    </div>
+    </nav>
 
     <script>
       (() => {
-        const outputArea = document.getElementById('outputArea');
-        const promptLine = document.getElementById('promptLine');
+        const icons = Array.from(document.querySelectorAll('.desktop-icon'));
+        const windows = Array.from(document.querySelectorAll('.window'));
+        let topZ = 4;
 
-        const sections = {
-          education: {
-            cmd: 'cat education.txt',
-            html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence (ECE)</span><span class="muted"> (2026 &ndash; )</span></div>`
-          },
-          publications: {
-            cmd: 'cat publications.txt',
-            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
-          },
-          links: {
-            cmd: 'cat links.txt',
-            html: `<span class="line"><a href="https://github.com/wjswjsss">github.com/wjswjsss</a></span><span class="line"><a href="mailto:wangjiashushenzhen@gmail.com">wangjiashushenzhen@gmail.com</a></span>`
-          }
-        };
+        function syncState() {
+          const openKeys = windows
+            .filter(windowEl => windowEl.classList.contains('open'))
+            .map(windowEl => windowEl.dataset.window);
 
-        let animating = false;
-
-        function typeText(el, text, speed) {
-          return new Promise(resolve => {
-            let i = 0;
-            el.textContent = '';
-            const interval = setInterval(() => {
-              el.textContent += text[i];
-              i++;
-              if (i >= text.length) {
-                clearInterval(interval);
-                resolve();
-              }
-            }, speed);
+          icons.forEach(icon => {
+            icon.classList.toggle('active', openKeys.includes(icon.dataset.window));
           });
         }
 
-        document.querySelectorAll('.index-item').forEach(item => {
-          item.addEventListener('click', async () => {
-            if (animating) return;
-            animating = true;
+        function bringToFront(windowEl) {
+          topZ += 1;
+          windowEl.style.zIndex = topZ;
+        }
 
-            const key = item.dataset.section;
-            const section = sections[key];
+        function openWindow(key) {
+          const windowEl = document.querySelector(`#window-${key}`);
+          if (!windowEl) return;
+          windowEl.classList.add('open');
+          bringToFront(windowEl);
+          syncState();
+        }
 
-            // Check if already open — toggle off
-            const existing = document.getElementById('out-' + key);
-            if (existing) {
-              existing.remove();
-              item.classList.remove('active');
-              animating = false;
-              return;
-            }
+        function closeWindow(key) {
+          const windowEl = document.querySelector(`#window-${key}`);
+          if (!windowEl) return;
+          windowEl.classList.remove('open');
+          syncState();
+        }
 
-            // Close any other open section first
-            document.querySelectorAll('.output.visible').forEach(el => el.remove());
-            document.querySelectorAll('.index-item.active').forEach(el => el.classList.remove('active'));
-
-            item.classList.add('active');
-
-            // Create output block
-            const block = document.createElement('div');
-            block.className = 'output visible';
-            block.id = 'out-' + key;
-
-            // Command line with typing animation
-            const cmdLine = document.createElement('div');
-            cmdLine.className = 'cmd-line';
-            const promptSpan = document.createElement('span');
-            promptSpan.className = 'prompt';
-            promptSpan.innerHTML = 'C:\\&gt; ';
-            const cmdSpan = document.createElement('span');
-            cmdSpan.className = 'cmd';
-            cmdLine.appendChild(promptSpan);
-            cmdLine.appendChild(cmdSpan);
-
-            // Content div (hidden until typing done)
-            const content = document.createElement('div');
-            content.style.marginTop = '0.4rem';
-            content.style.display = 'none';
-            content.innerHTML = section.html;
-
-            block.appendChild(cmdLine);
-            block.appendChild(content);
-            outputArea.appendChild(block);
-
-            // Scroll into view
-            block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-            // Type the command
-            await typeText(cmdSpan, section.cmd, 35);
-
-            // Show content after typing
-            content.style.display = 'block';
-            content.classList.add('content-reveal');
-            promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-            animating = false;
+        icons.forEach(icon => {
+          icon.addEventListener('click', () => {
+            openWindow(icon.dataset.window);
           });
         });
+
+        document.querySelectorAll('[data-close]').forEach(button => {
+          button.addEventListener('click', () => {
+            closeWindow(button.dataset.close);
+          });
+        });
+
+        windows.forEach(windowEl => {
+          windowEl.addEventListener('mousedown', () => {
+            bringToFront(windowEl);
+          });
+        });
+
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        if (!isMobile) {
+          windows.forEach(windowEl => {
+            const header = windowEl.querySelector('.window-header');
+            let dragActive = false;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            header.addEventListener('mousedown', event => {
+              if (event.target.closest('button')) return;
+              dragActive = true;
+              bringToFront(windowEl);
+              const rect = windowEl.getBoundingClientRect();
+              offsetX = event.clientX - rect.left;
+              offsetY = event.clientY - rect.top;
+              header.style.cursor = 'grabbing';
+            });
+
+            window.addEventListener('mousemove', event => {
+              if (!dragActive) return;
+
+              const maxLeft = window.innerWidth - windowEl.offsetWidth - 18;
+              const maxTop = window.innerHeight - windowEl.offsetHeight - 96;
+              const nextLeft = Math.min(Math.max(18, event.clientX - offsetX), Math.max(18, maxLeft));
+              const nextTop = Math.min(Math.max(18, event.clientY - offsetY), Math.max(18, maxTop));
+
+              windowEl.style.left = `${nextLeft}px`;
+              windowEl.style.top = `${nextTop}px`;
+            });
+
+            window.addEventListener('mouseup', () => {
+              dragActive = false;
+              header.style.cursor = 'grab';
+            });
+          });
+        }
+
+        syncState();
       })();
 
-      // Live clock in title bar
       (() => {
-        const el = document.getElementById('sysTime');
-        const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+        const timeEl = document.getElementById('clockTime');
+        const dateEl = document.getElementById('clockDate');
         function update() {
           const d = new Date();
-          const day = days[d.getDay()];
-          const mm = String(d.getMonth() + 1).padStart(2, '0');
-          const dd = String(d.getDate()).padStart(2, '0');
-          const yy = d.getFullYear();
-          const hh = String(d.getHours()).padStart(2, '0');
-          const min = String(d.getMinutes()).padStart(2, '0');
-          const ss = String(d.getSeconds()).padStart(2, '0');
-          el.textContent = `${day} ${mm}/${dd}/${yy}  ${hh}:${min}:${ss}`;
+          timeEl.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          dateEl.textContent = d.toLocaleDateString([], {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+          });
         }
         update();
         setInterval(update, 1000);
       })();
-
     </script>
-
   </body>
 </html>
