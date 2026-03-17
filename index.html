@@ -121,7 +121,14 @@
       .index-bracket {
         display: inline-block;
         animation: bracketPulse 2s ease-in-out infinite;
+        animation-fill-mode: both;
       }
+
+      /* Stagger bracket animations so the brackets cycle instead of
+         all flashing in sync. Durations divided evenly across items. */
+      .index-table .index-item:nth-of-type(1) .index-bracket { animation-delay: 0s; }
+      .index-table .index-item:nth-of-type(2) .index-bracket { animation-delay: 0.666s; }
+      .index-table .index-item:nth-of-type(3) .index-bracket { animation-delay: 1.333s; }
 
       .index-item.active .index-bracket,
       .index-item:hover .index-bracket {
