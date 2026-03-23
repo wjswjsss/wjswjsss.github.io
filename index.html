@@ -7,6 +7,102 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=VT323&family=Cormorant+Garamond:ital@1&display=swap');
 
+      /* ── Dark theme (default) ── */
+      :root {
+        --bg-outer: radial-gradient(ellipse at center, #0f0f0f 0%, #060606 100%);
+        --bg-terminal: #0a0a0a;
+        --bg-shadow: rgba(0, 200, 50, 0.05);
+        --bg-scanline: rgba(0, 0, 0, 0.06);
+        --bg-output: rgba(0, 255, 60, 0.012);
+        --color-text: #aaa;
+        --color-title: #888;
+        --color-prompt: #ccc;
+        --color-cmd: #fff;
+        --color-highlight: #fff;
+        --color-accent: #5f5;
+        --color-accent-dim: #3a3;
+        --color-accent-hover: #8fff8f;
+        --color-accent-glow: rgba(85, 255, 85, 0.5);
+        --color-accent-shadow: rgba(85, 255, 85, 0.6);
+        --color-muted: #666;
+        --color-quote: #888;
+        --color-about: #aaa;
+        --color-border-title: #444;
+        --color-border-quote: #333;
+        --color-border-ack: #222;
+        --color-border-output: #1f1f1f;
+        --color-divider: #333;
+        --color-cursor: #aaa;
+        --color-pub-title: #fff;
+        --color-pub-authors: #aaa;
+        --color-pub-venue: #888;
+        --color-tag: #f55;
+        --color-edu-program: #888;
+        --color-ack-name: #aaa;
+        --color-ack-note: #555;
+        --color-ack-header: #888;
+        --color-ack-quiet: #444;
+        --color-dir-volume: #555;
+        --color-dir-footer: #555;
+        --color-dir-meta: #4a4a4a;
+        --color-dir-meta-hover: #777;
+        --color-toggle: #555;
+        --color-toggle-hover: #aaa;
+        --toggle-bg: #151515;
+        --toggle-shadow: inset 2px 2px 4px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(255,255,255,0.04), 0 0 6px rgba(85,255,85,0.08);
+        --toggle-shadow-hover: inset 2px 2px 4px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(255,255,255,0.06), 0 0 10px rgba(85,255,85,0.15);
+        --toggle-border-top: #0a0a0a;
+        --toggle-border-bottom: #2a2a2a;
+      }
+
+      /* ── Light theme (white bg, dark text) ── */
+      [data-theme="light"] {
+        --bg-outer: #f0ede8;
+        --bg-terminal: #faf8f5;
+        --bg-shadow: rgba(0, 0, 0, 0.06);
+        --bg-scanline: rgba(0, 0, 0, 0.015);
+        --bg-output: rgba(0, 0, 0, 0.02);
+        --color-text: #444;
+        --color-title: #888;
+        --color-prompt: #555;
+        --color-cmd: #222;
+        --color-highlight: #222;
+        --color-accent: #2a7a2a;
+        --color-accent-dim: #4a9a4a;
+        --color-accent-hover: #1a5a1a;
+        --color-accent-glow: rgba(42, 122, 42, 0.2);
+        --color-accent-shadow: rgba(42, 122, 42, 0.3);
+        --color-muted: #999;
+        --color-quote: #777;
+        --color-about: #555;
+        --color-border-title: #ddd;
+        --color-border-quote: #ccc;
+        --color-border-ack: #e0e0e0;
+        --color-border-output: #e0e0e0;
+        --color-divider: #ddd;
+        --color-cursor: #555;
+        --color-pub-title: #222;
+        --color-pub-authors: #555;
+        --color-pub-venue: #888;
+        --color-tag: #c33;
+        --color-edu-program: #777;
+        --color-ack-name: #444;
+        --color-ack-note: #999;
+        --color-ack-header: #777;
+        --color-ack-quiet: #aaa;
+        --color-dir-volume: #aaa;
+        --color-dir-footer: #aaa;
+        --color-dir-meta: #bbb;
+        --color-dir-meta-hover: #777;
+        --color-toggle: #999;
+        --color-toggle-hover: #444;
+        --toggle-bg: #f0ede8;
+        --toggle-shadow: 2px 2px 4px rgba(0,0,0,0.12), -1px -1px 3px rgba(255,255,255,0.8), inset 0 0 0 transparent;
+        --toggle-shadow-hover: 2px 2px 5px rgba(0,0,0,0.18), -1px -1px 3px rgba(255,255,255,0.9), inset 0 0 0 transparent;
+        --toggle-border-top: #e0ddd8;
+        --toggle-border-bottom: #bbb8b2;
+      }
+
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; }
 
@@ -14,8 +110,9 @@
         font-family: 'VT323', 'Courier New', Courier, monospace;
         font-size: 18px;
         line-height: 1.6;
-        color: #aaa;
-        background: radial-gradient(ellipse at center, #0f0f0f 0%, #060606 100%);
+        color: var(--color-text);
+        background: var(--bg-outer);
+        transition: background 0.3s, color 0.3s;
       }
 
       body::after {
@@ -26,8 +123,8 @@
           180deg,
           transparent 0px,
           transparent 3px,
-          rgba(0, 0, 0, 0.06) 3px,
-          rgba(0, 0, 0, 0.06) 4px
+          var(--bg-scanline) 3px,
+          var(--bg-scanline) 4px
         );
         pointer-events: none;
         z-index: 9999;
@@ -38,62 +135,65 @@
         margin: 0 auto;
         padding: 2rem 2.5rem 3rem;
         min-height: 100vh;
-        background: #0a0a0a;
-        box-shadow: 0 0 80px rgba(0, 200, 50, 0.05);
+        background: var(--bg-terminal);
+        box-shadow: 0 0 80px var(--bg-shadow);
+        transition: background 0.3s, box-shadow 0.3s;
       }
 
       .title-bar {
-        border-bottom: 1px solid #444;
+        border-bottom: 1px solid var(--color-border-title);
         padding-bottom: 0.6rem;
         margin-bottom: 1.5rem;
-        color: #888;
+        color: var(--color-title);
         font-size: 14px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
       }
 
-      .prompt { color: #ccc; }
-      .cmd { color: #fff; }
-      .highlight { color: #fff; }
-      .accent { color: #5f5; }
-      .muted { color: #666; }
+      .prompt { color: var(--color-prompt); }
+      .cmd { color: var(--color-cmd); }
+      .highlight { color: var(--color-highlight); }
+      .accent { color: var(--color-accent); }
+      .muted { color: var(--color-muted); }
 
       .block { margin-bottom: 1.2rem; }
 
       .line { display: block; }
 
-      .pub-title { color: #fff; }
-      .pub-authors { color: #aaa; }
-      .me { color: #5f5; font-weight: bold; }
-      .pub-venue { color: #888; font-style: italic; }
-      .tag { color: #f55; }
-      .divider { color: #333; margin: 0.3rem 0; }
+      .pub-title { color: var(--color-pub-title); }
+      .pub-authors { color: var(--color-pub-authors); }
+      .me { color: var(--color-accent); font-weight: bold; }
+      .pub-venue { color: var(--color-pub-venue); font-style: italic; }
+      .tag { color: var(--color-tag); }
+      .divider { color: var(--color-divider); margin: 0.3rem 0; }
 
-      a { color: #5f5; text-decoration: none; }
-      a:hover { text-decoration: underline; color: #8fff8f; text-shadow: 0 0 8px rgba(85, 255, 85, 0.5); }
+      a { color: var(--color-accent); text-decoration: none; }
+      a:hover { text-decoration: underline; color: var(--color-accent-hover); text-shadow: 0 0 8px var(--color-accent-glow); }
 
       .cursor {
         display: inline-block;
         width: 10px;
         height: 1.1em;
-        background: #aaa;
+        background: var(--color-cursor);
         vertical-align: text-bottom;
         animation: blink 1s step-end infinite;
       }
       @keyframes blink { 50% { opacity: 0; } }
 
       .quote-line {
-        color: #888;
+        color: var(--color-quote);
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
         padding-left: 1rem;
-        border-left: 2px solid #333;
+        border-left: 2px solid var(--color-border-quote);
       }
 
       .about-line {
-        color: #aaa;
+        color: var(--color-about);
         margin-bottom: 1.5rem;
         padding-left: 1rem;
         line-height: 1.7;
@@ -102,22 +202,22 @@
       .ack-block {
         margin-top: 2.5rem;
         padding-top: 1.2rem;
-        border-top: 1px solid #222;
-        color: #666;
+        border-top: 1px solid var(--color-border-ack);
+        color: var(--color-muted);
         line-height: 1.8;
       }
       .ack-header {
-        color: #888;
+        color: var(--color-ack-header);
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
         font-size: 1.1rem;
         margin-bottom: 0.8rem;
       }
-      .ack-name { color: #aaa; }
-      .ack-note { color: #555; }
+      .ack-name { color: var(--color-ack-name); }
+      .ack-note { color: var(--color-ack-note); }
 
       .edu-line { margin-bottom: 0.2rem; }
-      .edu-program { color: #888; }
+      .edu-program { color: var(--color-edu-program); }
       .pub-item { margin-bottom: 1rem; }
 
       /* Index table */
@@ -127,7 +227,7 @@
 
       .index-item {
         cursor: pointer;
-        color: #5f5;
+        color: var(--color-accent);
         padding: 0.15rem 0;
         display: flex;
         justify-content: space-between;
@@ -136,12 +236,12 @@
       }
 
       .index-item:hover {
-        color: #fff;
+        color: var(--color-highlight);
         text-decoration: underline;
       }
 
       .index-item.active {
-        color: #fff;
+        color: var(--color-highlight);
       }
 
       .index-bracket {
@@ -160,12 +260,12 @@
       .index-item.active .index-bracket,
       .index-item:hover .index-bracket {
         animation: none;
-        color: #fff;
+        color: var(--color-highlight);
       }
 
       @keyframes bracketPulse {
-        0%, 100% { opacity: 1; color: #5f5; text-shadow: 0 0 6px rgba(85, 255, 85, 0.6); }
-        50%       { opacity: 0.45; color: #3a3; text-shadow: none; }
+        0%, 100% { opacity: 1; color: var(--color-accent); text-shadow: 0 0 6px var(--color-accent-shadow); }
+        50%       { opacity: 0.45; color: var(--color-accent-dim); text-shadow: none; }
       }
 
       /* Output sections - hidden by default */
@@ -176,9 +276,9 @@
 
       .output.visible {
         display: block;
-        border-left: 2px solid #1f1f1f;
+        border-left: 2px solid var(--color-border-output);
         padding-left: 1rem;
-        background: rgba(0, 255, 60, 0.012);
+        background: var(--bg-output);
       }
 
       .cmd-line {
@@ -210,17 +310,17 @@
 
       /* Dir listing */
       .dir-volume {
-        color: #555;
+        color: var(--color-dir-volume);
         margin-bottom: 0.5rem;
       }
 
       .dir-footer {
-        color: #555;
+        color: var(--color-dir-footer);
         margin-top: 0.4rem;
       }
 
       .dir-meta {
-        color: #4a4a4a;
+        color: var(--color-dir-meta);
         flex-shrink: 0;
         font-size: 0.9em;
         transition: color 0.15s;
@@ -228,7 +328,7 @@
 
       .index-item:hover .dir-meta,
       .index-item.active .dir-meta {
-        color: #777;
+        color: var(--color-dir-meta-hover);
       }
 
       /* Content reveal */
@@ -246,6 +346,37 @@
         body { font-size: 16px; }
         .ascii-art { font-size: 12px; }
       }
+
+      /* Theme toggle */
+      .theme-toggle {
+        background: var(--toggle-bg);
+        border: 1px solid;
+        border-top-color: var(--toggle-border-top);
+        border-left-color: var(--toggle-border-top);
+        border-bottom-color: var(--toggle-border-bottom);
+        border-right-color: var(--toggle-border-bottom);
+        color: var(--color-accent);
+        font-family: 'VT323', monospace;
+        font-size: 16px;
+        padding: 0.2rem 0.7rem;
+        min-width: 7.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: box-shadow 0.25s, color 0.2s, border-color 0.2s, text-shadow 0.2s;
+        flex-shrink: 0;
+        letter-spacing: 1px;
+        text-shadow: 0 0 4px var(--color-accent-shadow);
+        box-shadow: var(--toggle-shadow);
+        border-radius: 2px;
+      }
+      .theme-toggle:hover {
+        color: var(--color-accent-hover);
+        text-shadow: 0 0 10px var(--color-accent-glow);
+        box-shadow: var(--toggle-shadow-hover);
+      }
+      .theme-toggle:active {
+        box-shadow: inset 2px 2px 4px rgba(0,0,0,0.6), inset -1px -1px 2px rgba(255,255,255,0.03);
+      }
     </style>
   </head>
   <body>
@@ -254,6 +385,7 @@
       <div class="title-bar">
         <span>C:\JIASHU.EXE</span>
         <span id="sysTime"></span>
+        <button class="theme-toggle" id="themeToggle">[F5] LIGHT</button>
       </div>
 
       <div class="quote-line">
@@ -289,32 +421,31 @@
         <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 File(s) &nbsp;&nbsp;&nbsp; 10,496 bytes free</div>
       </div>
 
-      <!-- Output panels -->
-      <div id="outputArea"></div>
-
       <div class="prompt-line" id="promptLine">
-        <span class="prompt">C:\&gt; </span><span class="cursor"></span>
+        <span class="prompt">C:\&gt; </span><span class="cmd" id="promptCmd"></span><span class="cursor" id="promptCursor"></span>
       </div>
 
       <div class="ack-block">
         <div class="ack-header">Words are but shadows of the gratitude I feel.</div>
-        <div style="color:#444; margin-bottom:0.6rem;">(listed in no particular order)</div>
-        <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; my schoolmate at NEU(CN), heading to CMU School of Computer Science &mdash; fellow Tartans, as it turns out</span></div>
-        <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN), currently a Research Assistant at HKUST</span></div>
-        <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN), embarking on his research journey at BUAA</span></div>
-        <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN), beginning his research path at Xi&rsquo;an Jiaotong University</span></div>
-        <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN) (and, if I may venture a prediction, soon-to-be Associate Professor &mdash; congratulations in advance!)</span></div>
+        <div class="ack-note" style="margin-bottom:0.6rem;">(listed in no particular order)</div>
+        <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
+        <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
+        <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
+        <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
+        <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
         <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-        <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Researcher at Ping An Technology, Shenzhen</span></div>
-        <div style="margin-top:0.4rem; color:#444;">and many, many others whose kindness I carry with me.</div>
+        <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
+        <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
+        <div class="ack-note" style="margin-top:0.4rem;">and many, many others whose kindness I carry with me.</div>
       </div>
 
     </div>
 
     <script>
       (() => {
-        const outputArea = document.getElementById('outputArea');
         const promptLine = document.getElementById('promptLine');
+        const promptCmd = document.getElementById('promptCmd');
+        const promptCursor = document.getElementById('promptCursor');
 
         const sections = {
           education: {
@@ -322,7 +453,7 @@
             html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence Engineering (ECE Department)</span><span class="muted"> (2026 &ndash; )</span></div>`
           },          experience: {
             cmd: 'cat experience.txt',
-            html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu</span></div>`
+            html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
           },          publications: {
             cmd: 'cat publications.txt',
             html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
@@ -334,6 +465,11 @@
         };
 
         let animating = false;
+
+        function resetPrompt() {
+          promptCmd.textContent = '';
+          promptCursor.style.display = 'inline-block';
+        }
 
         function typeText(el, text, speed) {
           return new Promise(resolve => {
@@ -363,6 +499,7 @@
             if (existing) {
               existing.remove();
               item.classList.remove('active');
+              resetPrompt();
               animating = false;
               return;
             }
@@ -370,6 +507,7 @@
             // Close any other open section first
             document.querySelectorAll('.output.visible').forEach(el => el.remove());
             document.querySelectorAll('.index-item.active').forEach(el => el.classList.remove('active'));
+            resetPrompt();
 
             item.classList.add('active');
 
@@ -378,32 +516,20 @@
             block.className = 'output visible';
             block.id = 'out-' + key;
 
-            // Command line with typing animation
-            const cmdLine = document.createElement('div');
-            cmdLine.className = 'cmd-line';
-            const promptSpan = document.createElement('span');
-            promptSpan.className = 'prompt';
-            promptSpan.innerHTML = 'C:\\&gt; ';
-            const cmdSpan = document.createElement('span');
-            cmdSpan.className = 'cmd';
-            cmdLine.appendChild(promptSpan);
-            cmdLine.appendChild(cmdSpan);
-
             // Content div (hidden until typing done)
             const content = document.createElement('div');
             content.style.marginTop = '0.4rem';
             content.style.display = 'none';
             content.innerHTML = section.html;
 
-            block.appendChild(cmdLine);
             block.appendChild(content);
-            outputArea.appendChild(block);
+            promptLine.insertAdjacentElement('afterend', block);
 
             // Scroll into view
-            block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
             // Type the command
-            await typeText(cmdSpan, section.cmd, 35);
+            await typeText(promptCmd, section.cmd, 35);
 
             // Show content after typing
             content.style.display = 'block';
@@ -432,6 +558,28 @@
         }
         update();
         setInterval(update, 1000);
+      })();
+
+      // Theme toggle
+      (() => {
+        const btn = document.getElementById('themeToggle');
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          btn.textContent = '[F5] DARK';
+        }
+        btn.addEventListener('click', () => {
+          const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+          if (isLight) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            btn.textContent = '[F5] LIGHT';
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            btn.textContent = '[F5] DARK';
+          }
+        });
       })();
 
     </script>
