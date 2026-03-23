@@ -67,11 +67,11 @@
         --color-prompt: #555;
         --color-cmd: #222;
         --color-highlight: #222;
-        --color-accent: #2a7a2a;
-        --color-accent-dim: #4a9a4a;
-        --color-accent-hover: #1a5a1a;
-        --color-accent-glow: rgba(42, 122, 42, 0.2);
-        --color-accent-shadow: rgba(42, 122, 42, 0.3);
+        --color-accent: #2a6abf;
+        --color-accent-dim: #4a8ad4;
+        --color-accent-hover: #1a4a9a;
+        --color-accent-glow: rgba(42, 106, 191, 0.2);
+        --color-accent-shadow: rgba(42, 106, 191, 0.3);
         --color-muted: #999;
         --color-quote: #777;
         --color-about: #555;
@@ -150,6 +150,25 @@
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
+      }
+
+      .name-heading {
+        font-size: 2rem;
+        color: var(--color-highlight);
+        letter-spacing: 0.08em;
+        margin-bottom: 0.4rem;
+      }
+
+      a.school-link {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--color-accent-dim);
+        transition: color 0.2s, text-decoration-color 0.2s;
+      }
+      a.school-link:hover {
+        color: var(--color-accent-hover);
+        text-decoration-color: var(--color-accent-hover);
       }
 
       .prompt { color: var(--color-prompt); }
@@ -388,12 +407,14 @@
         <button class="theme-toggle" id="themeToggle">[F5] LIGHT</button>
       </div>
 
+      <div class="name-heading">Jiashu Wang</div>
+
       <div class="quote-line">
         What God grants, I embrace; what God takes, I surrender.
       </div>
 
       <div class="about-line">
-        I am a senior at Northeastern University (China) &mdash; endlessly curious, always eager to try new things, and passionate about bringing AI into every field to make each one a little more capable and a little more convenient.
+        I am a senior at <a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University (China)</a> &mdash; endlessly curious, always eager to try new things, and passionate about bringing AI into every field to make each one a little more capable and a little more convenient.
       </div>
 
       <div class="block">
@@ -451,7 +472,7 @@
         const sections = {
           education: {
             cmd: 'cat education.txt',
-            html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence Engineering (ECE Department)</span><span class="muted"> (2026 &ndash; )</span></div>`
+            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight"><a class="school-link" href="https://www.ece.cmu.edu/academics/ms-ai/index.html" target="_blank" rel="noopener">Carnegie Mellon University</a></span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence Engineering (ECE Department)</span><span class="muted"> (2026 &ndash; )</span></div>`
           },          experience: {
             cmd: 'cat experience.txt',
             html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
