@@ -153,8 +153,9 @@
       /* Stagger bracket animations so the brackets cycle instead of
          all flashing in sync. Durations divided evenly across items. */
       .index-table .index-item:nth-of-type(1) .index-bracket { animation-delay: 0s; }
-      .index-table .index-item:nth-of-type(2) .index-bracket { animation-delay: 0.666s; }
-      .index-table .index-item:nth-of-type(3) .index-bracket { animation-delay: 1.333s; }
+      .index-table .index-item:nth-of-type(2) .index-bracket { animation-delay: 0.5s; }
+      .index-table .index-item:nth-of-type(3) .index-bracket { animation-delay: 1s; }
+      .index-table .index-item:nth-of-type(4) .index-bracket { animation-delay: 1.5s; }
 
       .index-item.active .index-bracket,
       .index-item:hover .index-bracket {
@@ -281,7 +282,11 @@
           <span><span class="index-bracket">[3]</span> links.txt</span>
           <span class="dir-meta">&nbsp;&nbsp;512 &nbsp; 03-15-2026</span>
         </span>
-        <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 File(s) &nbsp;&nbsp;&nbsp; 10,752 bytes free</div>
+        <span class="index-item" data-section="experience">
+          <span><span class="index-bracket">[4]</span> experience.txt</span>
+          <span class="dir-meta">1,024 &nbsp; 03-24-2026</span>
+        </span>
+        <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 File(s) &nbsp;&nbsp;&nbsp; 10,496 bytes free</div>
       </div>
 
       <!-- Output panels -->
@@ -314,9 +319,11 @@
         const sections = {
           education: {
             cmd: 'cat education.txt',
-            html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence Engineering (ECE Department, CIT)</span><span class="muted"> (2026 &ndash; )</span></div>`
-          },
-          publications: {
+            html: `<div class="edu-line"><span class="highlight">Northeastern University, China</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Carnegie Mellon University</span><span class="edu-program"> &mdash; M.S. in Artificial Intelligence Engineering (ECE Department)</span><span class="muted"> (2026 &ndash; )</span></div>`
+          },          experience: {
+            cmd: 'cat experience.txt',
+            html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu</span></div>`
+          },          publications: {
             cmd: 'cat publications.txt',
             html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
           },
