@@ -205,7 +205,9 @@
         color: var(--color-quote);
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
-        font-size: 1.2rem;
+        font-size: 1.35rem;
+        line-height: 1.55;
+        letter-spacing: 0.01em;
         margin-bottom: 1.5rem;
         padding-left: 1rem;
         border-left: 2px solid var(--color-border-quote);
@@ -226,14 +228,42 @@
         line-height: 1.8;
       }
       .ack-header {
-        color: var(--color-ack-header);
-        font-family: 'Cormorant Garamond', serif;
-        font-style: italic;
-        font-size: 1.1rem;
+        color: var(--color-highlight);
+        font-family: 'VT323', monospace;
+        font-style: normal;
+        font-size: 1.4rem;
+        letter-spacing: 0.05em;
         margin-bottom: 0.8rem;
       }
       .ack-name { color: var(--color-ack-name); }
       .ack-note { color: var(--color-ack-note); }
+
+      /* Rolling credits */
+      .credits-viewport {
+        position: relative;
+        overflow: hidden;
+        height: 10rem;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+      }
+      .credits-track {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: roll-credits 20s linear infinite;
+      }
+      .credits-track > div {
+        padding: 0.2rem 0;
+        white-space: nowrap;
+      }
+      .credits-viewport:hover .credits-track {
+        animation-play-state: paused;
+      }
+      @keyframes roll-credits {
+        0%   { transform: translateY(0); }
+        100% { transform: translateY(-50%); }
+      }
 
       .edu-line { margin-bottom: 0.2rem; }
       .edu-program { color: var(--color-edu-program); }
@@ -404,13 +434,14 @@
       <div class="title-bar">
         <span>C:\JIASHU.EXE</span>
         <span id="sysTime"></span>
-        <button class="theme-toggle" id="themeToggle">[F5] LIGHT</button>
+        <button class="theme-toggle" id="themeToggle">[F5] DARK</button>
       </div>
 
       <div class="name-heading">Jiashu Wang</div>
 
       <div class="quote-line">
-        What God grants, I embrace; what God takes, I surrender.
+        We choose to go to the Moon. We choose to go to the Moon in this decade and do the other things, not because they are easy, but because they are hard&nbsp;&hellip;
+        <div style="margin-top:0.5rem; font-size:0.95rem; letter-spacing:0.04em; opacity:0.7;">&mdash; John F. Kennedy, 1962</div>
       </div>
 
       <div class="about-line">
@@ -447,18 +478,35 @@
       </div>
 
       <div class="ack-block">
-        <div class="ack-header">Words are but shadows of the gratitude I feel.</div>
+        <div class="ack-header">Acknowledgements</div>
         <div class="ack-note" style="margin-bottom:0.6rem;">Most of those named here are co-authors whose names appear alongside mine &mdash; listed in no particular order.</div>
-        <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-        <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
-        <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
-        <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
-        <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
-        <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
-        <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-        <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
-        <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
-        <div class="ack-note" style="margin-top:0.4rem;">and many, many others whose kindness I carry with me.</div>
+        <div class="credits-viewport">
+          <div class="credits-track">
+            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
+            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
+            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
+            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
+            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
+            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
+            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
+            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
+            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
+            <!-- duplicate for seamless loop -->
+            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
+            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
+            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
+            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
+            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
+            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
+            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
+            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
+            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -472,7 +520,7 @@
         const sections = {
           education: {
             cmd: 'cat education.txt',
-            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div>`
+            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Shenzhen Baoan Middle School</span><span class="muted"> (2019 &ndash; 2022)</span></div>`
           },          experience: {
             cmd: 'cat experience.txt',
             html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
@@ -586,10 +634,25 @@
       (() => {
         const btn = document.getElementById('themeToggle');
         const saved = localStorage.getItem('theme');
-        if (saved === 'light') {
+
+        // Priority: saved preference → system prefers-color-scheme → default light
+        let useLight;
+        if (saved === 'dark') {
+          useLight = false;
+        } else if (saved === 'light') {
+          useLight = true;
+        } else {
+          useLight = !window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        if (useLight) {
           document.documentElement.setAttribute('data-theme', 'light');
           btn.textContent = '[F5] DARK';
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          btn.textContent = '[F5] LIGHT';
         }
+
         btn.addEventListener('click', () => {
           const isLight = document.documentElement.getAttribute('data-theme') === 'light';
           if (isLight) {
