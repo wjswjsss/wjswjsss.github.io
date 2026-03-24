@@ -201,17 +201,20 @@
       }
       @keyframes blink { 50% { opacity: 0; } }
 
-      .quote-line {
-        color: var(--color-quote);
-        font-family: 'Cormorant Garamond', serif;
-        font-style: italic;
-        font-size: 1.35rem;
-        line-height: 1.55;
-        letter-spacing: 0.01em;
-        margin-bottom: 1.5rem;
-        padding-left: 1rem;
-        border-left: 2px solid var(--color-border-quote);
+      .py-print-line {
+        font-family: 'VT323', monospace;
+        font-size: 1.1rem;
+        margin-top: 2.5rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--color-border-ack);
+        text-align: center;
+        color: var(--color-muted);
+        opacity: 0.75;
+        min-height: 1.6em;
       }
+      .py-keyword { color: #5eaeff; }
+      .py-punc    { color: var(--color-muted); }
+      .py-string  { color: #98c379; }
 
       .about-line {
         color: var(--color-about);
@@ -245,20 +248,24 @@
         height: 10rem;
         mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
       }
       .credits-track {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        width: 100%;
         animation: roll-credits 20s linear infinite;
       }
       .credits-track > div {
-        padding: 0.2rem 0;
-        white-space: nowrap;
-      }
-      .credits-viewport:hover .credits-track {
-        animation-play-state: paused;
+        padding: 0.2rem 0.5rem;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
+        line-height: 1.5;
       }
       @keyframes roll-credits {
         0%   { transform: translateY(0); }
@@ -439,11 +446,6 @@
 
       <div class="name-heading">Jiashu Wang</div>
 
-      <div class="quote-line">
-        We choose to go to the Moon. We choose to go to the Moon in this decade and do the other things, not because they are easy, but because they are hard&nbsp;&hellip;
-        <div style="margin-top:0.5rem; font-size:0.95rem; letter-spacing:0.04em; opacity:0.7;">&mdash; John F. Kennedy, 1962</div>
-      </div>
-
       <div class="about-line">
         I am a senior at <a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University (China)</a> &mdash; endlessly curious, always eager to try new things, and passionate about bringing AI into every field to make each one a little more capable and a little more convenient.
       </div>
@@ -453,24 +455,18 @@
       </div>
 
       <div class="index-table" id="indexTable">
-        <div class="dir-volume"> Volume in drive C is JIASHU &nbsp;&nbsp;&nbsp; Directory of C:\</div>
         <span class="index-item" data-section="education">
           <span><span class="index-bracket">[1]</span> education.txt</span>
-          <span class="dir-meta">2,048 &nbsp; 03-15-2026</span>
         </span>
         <span class="index-item" data-section="publications">
           <span><span class="index-bracket">[2]</span> publications.txt</span>
-          <span class="dir-meta">8,192 &nbsp; 03-15-2026</span>
         </span>
         <span class="index-item" data-section="links">
           <span><span class="index-bracket">[3]</span> links.txt</span>
-          <span class="dir-meta">&nbsp;&nbsp;512 &nbsp; 03-15-2026</span>
         </span>
         <span class="index-item" data-section="experience">
           <span><span class="index-bracket">[4]</span> experience.txt</span>
-          <span class="dir-meta">1,024 &nbsp; 03-24-2026</span>
         </span>
-        <div class="dir-footer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 File(s) &nbsp;&nbsp;&nbsp; 10,496 bytes free</div>
       </div>
 
       <div class="prompt-line" id="promptLine">
@@ -508,6 +504,8 @@
           </div>
         </div>
       </div>
+
+      <div id="pyPrintLine" class="py-print-line"></div>
 
     </div>
 
@@ -665,6 +663,50 @@
             btn.textContent = '[F5] DARK';
           }
         });
+      })();
+
+      // Python print typing animation
+      (() => {
+        const container = document.getElementById('pyPrintLine');
+        const parts = [
+          { text: 'print', cls: 'py-keyword' },
+          { text: '(', cls: 'py-punc' },
+          { text: '"Hello world."', cls: 'py-string' },
+          { text: ')', cls: 'py-punc' },
+        ];
+        const totalChars = parts.reduce((s, p) => s + p.text.length, 0);
+        const cursorEl = document.createElement('span');
+        cursorEl.className = 'cursor';
+
+        function render(count) {
+          container.innerHTML = '';
+          let acc = 0;
+          for (const part of parts) {
+            const take = Math.min(Math.max(count - acc, 0), part.text.length);
+            if (take > 0) {
+              const span = document.createElement('span');
+              span.className = part.cls;
+              span.textContent = part.text.slice(0, take);
+              container.appendChild(span);
+            }
+            acc += part.text.length;
+            if (acc >= count) break;
+          }
+          container.appendChild(cursorEl);
+        }
+
+        let count = 0, direction = 1, pause = 0;
+        function step() {
+          if (pause > 0) { pause--; setTimeout(step, 80); return; }
+          count += direction;
+          render(count);
+          if (count >= totalChars) { direction = -1; pause = 22; }
+          else if (count <= 0)     { direction =  1; pause =  8; }
+          setTimeout(step, direction === 1 ? 75 : 45);
+        }
+
+        render(0);
+        step();
       })();
 
     </script>
