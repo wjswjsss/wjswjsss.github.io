@@ -666,15 +666,6 @@
       <!-- Terminal content -->
       <div class="terminal" id="terminal">
 
-        <!-- Greeting Banner -->
-        <div class="greeting-block">
-          <div class="block">
-            <span class="prompt">jiashu@mac ~ % </span><span class="cmd">cat greeting.txt</span>
-          </div>
-          <span class="greeting-text" id="greetText"></span>
-          <span class="greeting-sub" id="greetSub"></span>
-        </div>
-
         <div class="block">
           <span class="prompt">jiashu@mac ~ % </span><span class="cmd">whoami</span>
         </div>
@@ -767,36 +758,6 @@
     </div>
 
     <script>
-      // ── Greeting Banner ──
-      (() => {
-        // Visitor's local time → greeting phrase
-        const hour = new Date().getHours();
-        let period;
-        if (hour < 5)        period = 'Good night!';
-        else if (hour < 12)  period = 'Good morning!';
-        else if (hour < 17)  period = 'Good afternoon!';
-        else if (hour < 21)  period = 'Good evening!';
-        else                 period = 'Good night!';
-
-        document.getElementById('greetText').textContent = period;
-
-        // Jiashu's live local time — UTC+8
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        function updateTime() {
-          const now  = new Date();
-          const utc8 = new Date(now.getTime() + (8 * 60 + now.getTimezoneOffset()) * 60000);
-          const mon  = months[utc8.getMonth()];
-          const dd   = String(utc8.getDate()).padStart(2, '0');
-          const hh   = String(utc8.getHours()).padStart(2, '0');
-          const min  = String(utc8.getMinutes()).padStart(2, '0');
-          const ss   = String(utc8.getSeconds()).padStart(2, '0');
-          document.getElementById('greetSub').textContent =
-            `My local time: ${mon} ${dd} ${hh}:${min}:${ss} (UTC+8)`;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-      })();
-
       (() => {
         const promptLine = document.getElementById('promptLine');
         const promptCmd = document.getElementById('promptCmd');
