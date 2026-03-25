@@ -90,7 +90,7 @@
       }
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { height: 100%; }
+      html { min-height: 100%; }
 
       body {
         font-family: 'Menlo', 'Monaco', 'SF Mono', 'Courier New', Courier, monospace;
@@ -100,8 +100,8 @@
         background: var(--bg-desktop-gradient);
         background-attachment: fixed;
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         padding: 2rem;
         min-height: 100vh;
         transition: background 0.4s ease;
@@ -466,7 +466,7 @@
         body {
           padding: 0;
           font-size: 13px;
-          align-items: stretch;
+          display: block;
         }
         .window {
           border-radius: 0;
@@ -646,13 +646,13 @@
         const sections = {
           education: {
             cmd: 'cat education.txt',
-            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Shenzhen Baoan Middle School</span><span class="muted"> (2019 &ndash; 2022)</span></div>`
+            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="muted"> (Shenyang)</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Shenzhen Baoan Middle School</span><span class="muted"> (Shenzhen)</span><span class="muted"> (2019 &ndash; 2022)</span></div>`
           },          experience: {
             cmd: 'cat experience.txt',
             html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
           },          publications: {
             cmd: 'cat publications.txt',
-            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
+            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 <span class="tag">[Oral]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
           },
           links: {
             cmd: 'cat links.txt',
