@@ -5,158 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jiashu Wang</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=VT323&family=Cormorant+Garamond:ital@1&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=SF+Mono&family=Menlo&display=swap');
 
-      /* ── Dark theme (default) ── */
+      /* ── Classic macOS Dark Terminal ── */
       :root {
-        --bg-outer: radial-gradient(ellipse at center, #0f0f0f 0%, #060606 100%);
-        --bg-terminal: #0a0a0a;
-        --bg-shadow: rgba(0, 200, 50, 0.05);
-        --bg-scanline: rgba(0, 0, 0, 0.06);
-        --bg-output: rgba(0, 255, 60, 0.012);
-        --color-text: #aaa;
-        --color-title: #888;
-        --color-prompt: #ccc;
-        --color-cmd: #fff;
-        --color-highlight: #fff;
-        --color-accent: #5f5;
-        --color-accent-dim: #3a3;
-        --color-accent-hover: #8fff8f;
-        --color-accent-glow: rgba(85, 255, 85, 0.5);
-        --color-accent-shadow: rgba(85, 255, 85, 0.6);
-        --color-muted: #666;
+        --bg-desktop: #3a6ea5;
+        --bg-desktop-gradient: linear-gradient(180deg, #5a8ec5 0%, #2a5a8a 50%, #1a4a7a 100%);
+        --bg-terminal: rgba(0, 0, 0, 0.88);
+        --titlebar-bg: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 50%, #b8b8b8 51%, #d4d4d4 100%);
+        --titlebar-text: #333;
+        --titlebar-border: #888;
+        --color-text: #d4d4d4;
+        --color-title: #999;
+        --color-prompt: #33ff33;
+        --color-cmd: #ffffff;
+        --color-highlight: #ffffff;
+        --color-accent: #6699ff;
+        --color-accent-dim: #4477cc;
+        --color-accent-hover: #88bbff;
+        --color-accent-glow: rgba(102, 153, 255, 0.3);
+        --color-muted: #777;
         --color-quote: #888;
-        --color-about: #aaa;
-        --color-border-title: #444;
-        --color-border-quote: #333;
-        --color-border-ack: #222;
-        --color-border-output: #1f1f1f;
-        --color-divider: #333;
-        --color-cursor: #aaa;
-        --color-pub-title: #fff;
-        --color-pub-authors: #aaa;
+        --color-about: #ccc;
+        --color-border-title: transparent;
+        --color-border-ack: #333;
+        --color-border-output: #333;
+        --color-divider: #444;
+        --color-cursor: #33ff33;
+        --color-pub-title: #ffffff;
+        --color-pub-authors: #bbb;
         --color-pub-venue: #888;
-        --color-tag: #f55;
-        --color-edu-program: #888;
-        --color-ack-name: #aaa;
-        --color-ack-note: #555;
-        --color-ack-header: #888;
-        --color-ack-quiet: #444;
-        --color-dir-volume: #555;
-        --color-dir-footer: #555;
-        --color-dir-meta: #4a4a4a;
-        --color-dir-meta-hover: #777;
-        --color-toggle: #555;
-        --color-toggle-hover: #aaa;
-        --toggle-bg: #151515;
-        --toggle-shadow: inset 2px 2px 4px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(255,255,255,0.04), 0 0 6px rgba(85,255,85,0.08);
-        --toggle-shadow-hover: inset 2px 2px 4px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(255,255,255,0.06), 0 0 10px rgba(85,255,85,0.15);
-        --toggle-border-top: #0a0a0a;
-        --toggle-border-bottom: #2a2a2a;
+        --color-tag: #ff6666;
+        --color-edu-program: #999;
+        --color-ack-name: #ddd;
+        --color-ack-note: #888;
+        --color-ack-header: #33ff33;
+        --color-ack-quiet: #555;
+        --color-dir-volume: #33ff33;
+        --color-dir-footer: #888;
+        --color-dir-meta: #666;
+        --color-dir-meta-hover: #aaa;
+        --color-selection-bg: #264f78;
       }
 
-      /* ── Light theme (white bg, dark text) ── */
+      /* ── Classic macOS Light (Homebrew) ── */
       [data-theme="light"] {
-        --bg-outer: #f0ede8;
-        --bg-terminal: #faf8f5;
-        --bg-shadow: rgba(0, 0, 0, 0.06);
-        --bg-scanline: rgba(0, 0, 0, 0.015);
-        --bg-output: rgba(0, 0, 0, 0.02);
-        --color-text: #444;
-        --color-title: #888;
-        --color-prompt: #555;
-        --color-cmd: #222;
-        --color-highlight: #222;
-        --color-accent: #2a6abf;
-        --color-accent-dim: #4a8ad4;
-        --color-accent-hover: #1a4a9a;
-        --color-accent-glow: rgba(42, 106, 191, 0.2);
-        --color-accent-shadow: rgba(42, 106, 191, 0.3);
+        --bg-desktop: linear-gradient(135deg, #7ec8e3 0%, #4fa3c7 40%, #2d7bba 100%);
+        --bg-desktop-gradient: var(--bg-desktop);
+        --bg-terminal: #ffffff;
+        --titlebar-bg: linear-gradient(180deg, #eaeaea 0%, #d0d0d0 50%, #c0c0c0 51%, #d8d8d8 100%);
+        --titlebar-text: #222;
+        --titlebar-border: #999;
+        --color-text: #333;
+        --color-title: #666;
+        --color-prompt: #226622;
+        --color-cmd: #111;
+        --color-highlight: #000;
+        --color-accent: #0055cc;
+        --color-accent-dim: #003d99;
+        --color-accent-hover: #0044aa;
+        --color-accent-glow: rgba(0, 85, 204, 0.15);
         --color-muted: #999;
         --color-quote: #777;
-        --color-about: #555;
-        --color-border-title: #ddd;
-        --color-border-quote: #ccc;
-        --color-border-ack: #e0e0e0;
-        --color-border-output: #e0e0e0;
-        --color-divider: #ddd;
-        --color-cursor: #555;
-        --color-pub-title: #222;
+        --color-about: #444;
+        --color-border-title: transparent;
+        --color-border-ack: #ddd;
+        --color-border-output: #ddd;
+        --color-divider: #ccc;
+        --color-cursor: #226622;
+        --color-pub-title: #111;
         --color-pub-authors: #555;
         --color-pub-venue: #888;
-        --color-tag: #c33;
+        --color-tag: #cc3333;
         --color-edu-program: #777;
-        --color-ack-name: #444;
-        --color-ack-note: #999;
-        --color-ack-header: #777;
-        --color-ack-quiet: #aaa;
-        --color-dir-volume: #aaa;
-        --color-dir-footer: #aaa;
+        --color-ack-name: #333;
+        --color-ack-note: #888;
+        --color-ack-header: #226622;
+        --color-ack-quiet: #bbb;
+        --color-dir-volume: #226622;
+        --color-dir-footer: #999;
         --color-dir-meta: #bbb;
-        --color-dir-meta-hover: #777;
-        --color-toggle: #999;
-        --color-toggle-hover: #444;
-        --toggle-bg: #f0ede8;
-        --toggle-shadow: 2px 2px 4px rgba(0,0,0,0.12), -1px -1px 3px rgba(255,255,255,0.8), inset 0 0 0 transparent;
-        --toggle-shadow-hover: 2px 2px 5px rgba(0,0,0,0.18), -1px -1px 3px rgba(255,255,255,0.9), inset 0 0 0 transparent;
-        --toggle-border-top: #e0ddd8;
-        --toggle-border-bottom: #bbb8b2;
+        --color-dir-meta-hover: #666;
+        --color-selection-bg: #b4d5fe;
       }
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; }
 
       body {
-        font-family: 'VT323', 'Courier New', Courier, monospace;
-        font-size: 18px;
-        line-height: 1.6;
-        color: var(--color-text);
-        background: var(--bg-outer);
-        transition: background 0.3s, color 0.3s;
-      }
-
-      body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background: repeating-linear-gradient(
-          180deg,
-          transparent 0px,
-          transparent 3px,
-          var(--bg-scanline) 3px,
-          var(--bg-scanline) 4px
-        );
-        pointer-events: none;
-        z-index: 9999;
-      }
-
-      .terminal {
-        max-width: 820px;
-        margin: 0 auto;
-        padding: 2rem 2.5rem 3rem;
-        min-height: 100vh;
-        background: var(--bg-terminal);
-        box-shadow: 0 0 80px var(--bg-shadow);
-        transition: background 0.3s, box-shadow 0.3s;
-      }
-
-      .title-bar {
-        border-bottom: 1px solid var(--color-border-title);
-        padding-bottom: 0.6rem;
-        margin-bottom: 1.5rem;
-        color: var(--color-title);
+        font-family: 'Menlo', 'Monaco', 'SF Mono', 'Courier New', Courier, monospace;
         font-size: 14px;
+        line-height: 1.55;
+        color: var(--color-text);
+        background: var(--bg-desktop-gradient);
+        background-attachment: fixed;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 2rem;
+        min-height: 100vh;
+        transition: background 0.4s ease;
+      }
+
+      body::after { content: none; }
+
+      /* ── Window chrome ── */
+      .window {
+        width: 100%;
+        max-width: 780px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 1px 3px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255,255,255,0.15);
+        transition: box-shadow 0.3s ease;
+      }
+
+      /* ── Title bar (brushed metal) ── */
+      .title-bar {
+        background: var(--titlebar-bg);
+        border-bottom: 1px solid var(--titlebar-border);
+        padding: 0 12px;
+        height: 38px;
+        display: flex;
         align-items: center;
-        gap: 1rem;
+        position: relative;
+        cursor: default;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .title-bar-text {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--titlebar-text);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+      }
+
+      /* Traffic light buttons */
+      .traffic-lights {
+        display: flex;
+        gap: 8px;
+        z-index: 1;
+      }
+      .traffic-light {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 0.5px solid rgba(0,0,0,0.2);
+        position: relative;
+      }
+      .traffic-light.red {
+        background: linear-gradient(180deg, #ff6058 0%, #e04040 100%);
+        box-shadow: inset 0 -1px 1px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.2);
+      }
+      .traffic-light.yellow {
+        background: linear-gradient(180deg, #ffc130 0%, #e0a020 100%);
+        box-shadow: inset 0 -1px 1px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.2);
+      }
+      .traffic-light.green {
+        background: linear-gradient(180deg, #27c93f 0%, #1aab29 100%);
+        box-shadow: inset 0 -1px 1px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.2);
+      }
+
+      /* Right side controls */
+      .title-bar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        z-index: 1;
+      }
+
+      .sys-time {
+        font-size: 11px;
+        color: var(--titlebar-text);
+        opacity: 0.6;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ── Terminal body ── */
+      .terminal {
+        background: var(--bg-terminal);
+        padding: 1.2rem 1.5rem 2rem;
+        min-height: calc(100vh - 6rem);
+        transition: background 0.4s ease;
       }
 
       .name-heading {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: var(--color-highlight);
-        letter-spacing: 0.08em;
-        margin-bottom: 0.4rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
       }
 
       a.school-link {
@@ -177,23 +223,22 @@
       .accent { color: var(--color-accent); }
       .muted { color: var(--color-muted); }
 
-      .block { margin-bottom: 1.2rem; }
-
+      .block { margin-bottom: 1rem; }
       .line { display: block; }
 
       .pub-title { color: var(--color-pub-title); }
       .pub-authors { color: var(--color-pub-authors); }
       .me { color: var(--color-accent); font-weight: bold; }
       .pub-venue { color: var(--color-pub-venue); font-style: italic; }
-      .tag { color: var(--color-tag); }
-      .divider { color: var(--color-divider); margin: 0.3rem 0; }
+      .tag { color: var(--color-tag); font-weight: bold; }
+      .divider { color: var(--color-divider); margin: 0.2rem 0; }
 
-      a { color: var(--color-accent); text-decoration: none; }
-      a:hover { text-decoration: underline; color: var(--color-accent-hover); text-shadow: 0 0 8px var(--color-accent-glow); }
+      a { color: var(--color-accent); text-decoration: none; transition: color 0.2s ease; }
+      a:hover { color: var(--color-accent-hover); text-decoration: underline; }
 
       .cursor {
         display: inline-block;
-        width: 10px;
+        width: 8px;
         height: 1.1em;
         background: var(--color-cursor);
         vertical-align: text-bottom;
@@ -201,42 +246,26 @@
       }
       @keyframes blink { 50% { opacity: 0; } }
 
-      .py-print-line {
-        font-family: 'VT323', monospace;
-        font-size: 1.1rem;
-        margin-top: 2.5rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid var(--color-border-ack);
-        text-align: center;
-        color: var(--color-muted);
-        opacity: 0.75;
-        min-height: 1.6em;
-      }
-      .py-keyword { color: #5eaeff; }
-      .py-punc    { color: var(--color-muted); }
-      .py-string  { color: #98c379; }
-
       .about-line {
         color: var(--color-about);
-        margin-bottom: 1.5rem;
-        padding-left: 1rem;
-        line-height: 1.7;
+        margin-bottom: 1.2rem;
+        line-height: 1.65;
       }
 
       .ack-block {
-        margin-top: 2.5rem;
-        padding-top: 1.2rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
         border-top: 1px solid var(--color-border-ack);
         color: var(--color-muted);
-        line-height: 1.8;
+        line-height: 1.7;
       }
       .ack-header {
-        color: var(--color-highlight);
-        font-family: 'VT323', monospace;
+        color: var(--color-ack-header);
         font-style: normal;
-        font-size: 1.4rem;
-        letter-spacing: 0.05em;
-        margin-bottom: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.6rem;
       }
       .ack-name { color: var(--color-ack-name); }
       .ack-note { color: var(--color-ack-note); }
@@ -261,7 +290,7 @@
         animation: roll-credits 20s linear infinite;
       }
       .credits-track > div {
-        padding: 0.2rem 0.5rem;
+        padding: 0.15rem 0.5rem;
         white-space: normal;
         word-break: break-word;
         max-width: 100%;
@@ -274,75 +303,84 @@
 
       .edu-line { margin-bottom: 0.2rem; }
       .edu-program { color: var(--color-edu-program); }
-      .pub-item { margin-bottom: 1rem; }
+      .pub-item { margin-bottom: 0.8rem; }
 
       /* Index table */
       .index-table {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
       }
 
       .index-item {
         cursor: pointer;
         color: var(--color-accent);
-        padding: 0.15rem 0;
+        padding: 0.15rem 0.4rem;
+        margin-left: -0.4rem;
+        border-radius: 3px;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 1rem;
+        transition: background 0.15s ease, color 0.15s ease;
       }
 
       .index-item:hover {
         color: var(--color-highlight);
-        text-decoration: underline;
+        background: var(--color-selection-bg);
+      }
+
+      .index-item:hover .click-hint {
+        opacity: 1;
       }
 
       .index-item.active {
         color: var(--color-highlight);
+        background: var(--color-selection-bg);
       }
 
       .index-bracket {
         display: inline-block;
-        animation: bracketPulse 2s ease-in-out infinite;
-        animation-fill-mode: both;
+        color: var(--color-accent);
+        transition: color 0.15s ease;
       }
-
-      /* Stagger bracket animations so the brackets cycle instead of
-         all flashing in sync. Durations divided evenly across items. */
-      .index-table .index-item:nth-of-type(1) .index-bracket { animation-delay: 0s; }
-      .index-table .index-item:nth-of-type(2) .index-bracket { animation-delay: 0.5s; }
-      .index-table .index-item:nth-of-type(3) .index-bracket { animation-delay: 1s; }
-      .index-table .index-item:nth-of-type(4) .index-bracket { animation-delay: 1.5s; }
 
       .index-item.active .index-bracket,
       .index-item:hover .index-bracket {
-        animation: none;
-        color: var(--color-highlight);
+        color: inherit;
       }
 
-      @keyframes bracketPulse {
-        0%, 100% { opacity: 1; color: var(--color-accent); text-shadow: 0 0 6px var(--color-accent-shadow); }
-        50%       { opacity: 0.45; color: var(--color-accent-dim); text-shadow: none; }
+      .click-hint {
+        font-size: 0.8em;
+        color: var(--color-muted);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-style: italic;
+        pointer-events: none;
       }
 
-      /* Output sections - hidden by default */
+      /* Gradual line-by-line reveal */
+      .output-line {
+        opacity: 0;
+        transform: translateY(2px);
+        animation: lineReveal 0.15s ease forwards;
+      }
+      @keyframes lineReveal {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Output sections */
       .output {
         display: none;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1rem;
       }
 
       .output.visible {
         display: block;
-        border-left: 2px solid var(--color-border-output);
-        padding-left: 1rem;
-        background: var(--bg-output);
       }
 
-      .cmd-line {
-        margin-bottom: 0.4rem;
-      }
+      .cmd-line { margin-bottom: 0.3rem; }
 
       .typed-cmd {
-        color: #fff;
+        color: var(--color-cmd);
         overflow: hidden;
         white-space: nowrap;
         display: inline-block;
@@ -359,20 +397,16 @@
         to { width: 100%; }
       }
 
-      /* Prompt line at bottom */
-      .prompt-line {
-        margin-top: 1rem;
-      }
+      .prompt-line { margin-top: 0.8rem; }
 
-      /* Dir listing */
       .dir-volume {
         color: var(--color-dir-volume);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
       }
 
       .dir-footer {
         color: var(--color-dir-footer);
-        margin-top: 0.4rem;
+        margin-top: 0.3rem;
       }
 
       .dir-meta {
@@ -387,126 +421,216 @@
         color: var(--color-dir-meta-hover);
       }
 
-      /* Content reveal */
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-5px); }
+        from { opacity: 0; transform: translateY(-4px); }
         to   { opacity: 1; transform: translateY(0); }
       }
 
       .content-reveal {
-        animation: fadeIn 0.3s ease forwards;
+        animation: fadeIn 0.25s ease forwards;
       }
 
-      @media (max-width: 600px) {
-        .terminal { padding: 1.5rem 1rem 2rem; }
-        body { font-size: 16px; }
-        .ascii-art { font-size: 12px; }
-      }
-
-      /* Theme toggle */
+      /* Theme toggle — pill style */
       .theme-toggle {
-        background: var(--toggle-bg);
-        border: 1px solid;
-        border-top-color: var(--toggle-border-top);
-        border-left-color: var(--toggle-border-top);
-        border-bottom-color: var(--toggle-border-bottom);
-        border-right-color: var(--toggle-border-bottom);
-        color: var(--color-accent);
-        font-family: 'VT323', monospace;
-        font-size: 16px;
-        padding: 0.2rem 0.7rem;
-        min-width: 7.5rem;
+        background: transparent;
+        border: 1px solid var(--titlebar-text);
+        opacity: 0.4;
+        color: var(--titlebar-text);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 0;
+        width: 52px;
         text-align: center;
         cursor: pointer;
-        transition: box-shadow 0.25s, color 0.2s, border-color 0.2s, text-shadow 0.2s;
-        flex-shrink: 0;
-        letter-spacing: 1px;
-        text-shadow: 0 0 4px var(--color-accent-shadow);
-        box-shadow: var(--toggle-shadow);
-        border-radius: 2px;
+        border-radius: 3px;
+        transition: opacity 0.2s ease;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
       .theme-toggle:hover {
-        color: var(--color-accent-hover);
-        text-shadow: 0 0 10px var(--color-accent-glow);
-        box-shadow: var(--toggle-shadow-hover);
+        opacity: 0.8;
       }
       .theme-toggle:active {
-        box-shadow: inset 2px 2px 4px rgba(0,0,0,0.6), inset -1px -1px 2px rgba(255,255,255,0.03);
+        opacity: 1;
+      }
+
+      /* ── Tablet ── */
+      @media (max-width: 860px) {
+        body { padding: 1rem; }
+        .terminal { padding: 1.2rem 1.2rem 2rem; }
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 600px) {
+        body {
+          padding: 0;
+          font-size: 13px;
+          align-items: stretch;
+        }
+        .window {
+          border-radius: 0;
+          max-width: 100%;
+          box-shadow: none;
+        }
+        .terminal {
+          padding: 0.8rem 1rem 1.5rem;
+          min-height: calc(100vh - 34px);
+        }
+
+        /* Title bar — compact */
+        .title-bar {
+          height: 34px;
+          padding: 0 10px;
+        }
+        .traffic-light {
+          width: 10px;
+          height: 10px;
+        }
+        .traffic-lights { gap: 6px; }
+        .title-bar-text { font-size: 11px; }
+        .sys-time { display: none; }
+        .theme-toggle { font-size: 9px; padding: 1px 0; width: 42px; }
+
+        /* Name + about */
+        .name-heading { font-size: 1.3rem; margin-bottom: 0.2rem; }
+        .about-line { font-size: 12.5px; line-height: 1.6; margin-bottom: 0.8rem; }
+
+        /* Index items — bigger tap targets */
+        .index-item {
+          padding: 0.4rem 0.5rem;
+          margin-left: -0.5rem;
+          font-size: 13px;
+        }
+
+        /* Always show hints on mobile (no hover) */
+        .click-hint {
+          opacity: 0.5;
+          font-size: 0.75em;
+        }
+
+        /* Prompt */
+        .prompt { font-size: 12px; }
+        .cmd { font-size: 12px; }
+
+        /* Publications & content */
+        .pub-item { margin-bottom: 0.6rem; font-size: 12.5px; }
+        .divider { font-size: 11px; }
+
+        /* Acknowledgements */
+        .ack-block { margin-top: 1.5rem; padding-top: 0.8rem; }
+        .ack-header { font-size: 1rem; margin-bottom: 0.4rem; }
+        .credits-viewport { height: 8rem; }
+        .credits-track > div { font-size: 12px; }
+
+        /* Cursor */
+        .cursor { width: 6px; }
+      }
+
+      /* ── Very small phones ── */
+      @media (max-width: 380px) {
+        body { font-size: 12px; }
+        .terminal { padding: 0.6rem 0.7rem 1rem; }
+        .name-heading { font-size: 1.15rem; }
+        .about-line { font-size: 12px; }
+        .title-bar-text { font-size: 10px; }
       }
     </style>
   </head>
   <body>
-    <div class="terminal" id="terminal">
+    <div class="window">
 
+      <!-- macOS-style title bar -->
       <div class="title-bar">
-        <span>C:\JIASHU.EXE</span>
-        <span id="sysTime"></span>
-        <button class="theme-toggle" id="themeToggle">[F5] DARK</button>
-      </div>
-
-      <div class="name-heading">Jiashu Wang</div>
-
-      <div class="about-line">
-        I am a senior at <a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University (China)</a> &mdash; endlessly curious, always eager to try new things, and passionate about bringing AI into every field to make each one a little more capable and a little more convenient.
-      </div>
-
-      <div class="block">
-        <span class="prompt">C:\&gt; </span><span class="cmd">dir</span>
-      </div>
-
-      <div class="index-table" id="indexTable">
-        <span class="index-item" data-section="education">
-          <span><span class="index-bracket">[1]</span> education.txt</span>
-        </span>
-        <span class="index-item" data-section="publications">
-          <span><span class="index-bracket">[2]</span> publications.txt</span>
-        </span>
-        <span class="index-item" data-section="links">
-          <span><span class="index-bracket">[3]</span> links.txt</span>
-        </span>
-        <span class="index-item" data-section="experience">
-          <span><span class="index-bracket">[4]</span> experience.txt</span>
-        </span>
-      </div>
-
-      <div class="prompt-line" id="promptLine">
-        <span class="prompt">C:\&gt; </span><span class="cmd" id="promptCmd"></span><span class="cursor" id="promptCursor"></span>
-      </div>
-
-      <div class="ack-block">
-        <div class="ack-header">Acknowledgements</div>
-        <div class="ack-note" style="margin-bottom:0.6rem;">Most of those named here are co-authors whose names appear alongside mine &mdash; listed in no particular order.</div>
-        <div class="credits-viewport">
-          <div class="credits-track">
-            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
-            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
-            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
-            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
-            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
-            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
-            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
-            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
-            <!-- duplicate for seamless loop -->
-            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
-            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
-            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
-            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
-            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
-            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
-            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
-            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
-          </div>
+        <div class="traffic-lights">
+          <div class="traffic-light red"></div>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <span class="title-bar-text">jiashu — bash — 80×24</span>
+        <div class="title-bar-right">
+          <span class="sys-time" id="sysTime"></span>
+          <button class="theme-toggle" id="themeToggle">Pro</button>
         </div>
       </div>
 
-      <div id="pyPrintLine" class="py-print-line"></div>
+      <!-- Terminal content -->
+      <div class="terminal" id="terminal">
 
+        <div class="block">
+          <span class="prompt">jiashu@mac ~ % </span><span class="cmd">whoami</span>
+        </div>
+
+        <div class="name-heading">Jiashu Wang</div>
+
+        <div class="about-line">
+          I am a senior at <a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University (China)</a> &mdash; endlessly curious, always eager to try new things, and passionate about bringing AI into every field to make each one a little more capable and a little more convenient.
+        </div>
+
+        <div class="block">
+          <span class="prompt">jiashu@mac ~ % </span><span class="cmd">ls ~/</span>
+        </div>
+
+        <div class="index-table" id="indexTable">
+          <span class="index-item" data-section="education">
+            <span><span class="index-bracket">&gt;</span> education.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="publications">
+            <span><span class="index-bracket">&gt;</span> publications.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="links">
+            <span><span class="index-bracket">&gt;</span> links.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="experience">
+            <span><span class="index-bracket">&gt;</span> experience.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+        </div>
+
+        <div class="prompt-line" id="promptLine">
+          <span class="prompt">jiashu@mac ~ % </span><span class="cmd" id="promptCmd"></span><span class="cursor" id="promptCursor"></span>
+        </div>
+
+        <div class="ack-block">
+          <div class="ack-header">Acknowledgements</div>
+          <div class="ack-note" style="margin-bottom:0.6rem; text-align: center;">Most of those named here are co-authors whose names appear alongside mine &mdash; listed in no particular order.</div>
+          <div class="credits-viewport">
+            <div class="credits-track">
+              <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+              <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+              <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
+              <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
+              <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
+              <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
+              <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
+              <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
+              <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
+              <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
+              <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
+              <!-- spacer between cycles -->
+              <div style="height: 3rem;"></div>
+              <!-- duplicate for seamless loop -->
+              <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+              <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
+              <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to CMU, School of Computer Science</span></div>
+              <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
+              <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN); heading to Beijing Institute of Technology</span></div>
+              <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN); heading to Xi&rsquo;an Jiaotong University</span></div>
+              <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
+              <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
+              <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
+              <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
+              <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
+              <!-- spacer between cycles (must match the one above) -->
+              <div style="height: 3rem;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <script>
@@ -524,7 +648,7 @@
             html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
           },          publications: {
             cmd: 'cat publications.txt',
-            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">----------------------------------------</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
+            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 [Oral]</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
           },
           links: {
             cmd: 'cat links.txt',
@@ -586,7 +710,7 @@
 
             // Content div (hidden until typing done)
             const content = document.createElement('div');
-            content.style.marginTop = '0.4rem';
+            content.style.marginTop = '0.3rem';
             content.style.display = 'none';
             content.innerHTML = section.html;
 
@@ -599,9 +723,17 @@
             // Type the command
             await typeText(promptCmd, section.cmd, 35);
 
-            // Show content after typing
+            // Show content with gradual line-by-line reveal
             content.style.display = 'block';
-            content.classList.add('content-reveal');
+            const children = content.querySelectorAll(':scope > *');
+            if (children.length > 0) {
+              children.forEach((child, i) => {
+                child.classList.add('output-line');
+                child.style.animationDelay = `${i * 80}ms`;
+              });
+            } else {
+              content.classList.add('content-reveal');
+            }
             promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
             animating = false;
@@ -612,17 +744,17 @@
       // Live clock in title bar
       (() => {
         const el = document.getElementById('sysTime');
-        const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+        const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         function update() {
           const d = new Date();
           const day = days[d.getDay()];
-          const mm = String(d.getMonth() + 1).padStart(2, '0');
-          const dd = String(d.getDate()).padStart(2, '0');
-          const yy = d.getFullYear();
+          const mon = months[d.getMonth()];
+          const dd = d.getDate();
           const hh = String(d.getHours()).padStart(2, '0');
           const min = String(d.getMinutes()).padStart(2, '0');
           const ss = String(d.getSeconds()).padStart(2, '0');
-          el.textContent = `${day} ${mm}/${dd}/${yy}  ${hh}:${min}:${ss}`;
+          el.textContent = `${day} ${mon} ${dd} ${hh}:${min}:${ss}`;
         }
         update();
         setInterval(update, 1000);
@@ -633,7 +765,6 @@
         const btn = document.getElementById('themeToggle');
         const saved = localStorage.getItem('theme');
 
-        // Priority: saved preference → system prefers-color-scheme → default light
         let useLight;
         if (saved === 'dark') {
           useLight = false;
@@ -645,10 +776,10 @@
 
         if (useLight) {
           document.documentElement.setAttribute('data-theme', 'light');
-          btn.textContent = '[F5] DARK';
+          btn.textContent = 'Pro';
         } else {
           document.documentElement.removeAttribute('data-theme');
-          btn.textContent = '[F5] LIGHT';
+          btn.textContent = 'Basic';
         }
 
         btn.addEventListener('click', () => {
@@ -656,59 +787,14 @@
           if (isLight) {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'dark');
-            btn.textContent = '[F5] LIGHT';
+            btn.textContent = 'Basic';
           } else {
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-            btn.textContent = '[F5] DARK';
+            btn.textContent = 'Pro';
           }
         });
       })();
-
-      // Python print typing animation
-      (() => {
-        const container = document.getElementById('pyPrintLine');
-        const parts = [
-          { text: 'print', cls: 'py-keyword' },
-          { text: '(', cls: 'py-punc' },
-          { text: '"Hello world."', cls: 'py-string' },
-          { text: ')', cls: 'py-punc' },
-        ];
-        const totalChars = parts.reduce((s, p) => s + p.text.length, 0);
-        const cursorEl = document.createElement('span');
-        cursorEl.className = 'cursor';
-
-        function render(count) {
-          container.innerHTML = '';
-          let acc = 0;
-          for (const part of parts) {
-            const take = Math.min(Math.max(count - acc, 0), part.text.length);
-            if (take > 0) {
-              const span = document.createElement('span');
-              span.className = part.cls;
-              span.textContent = part.text.slice(0, take);
-              container.appendChild(span);
-            }
-            acc += part.text.length;
-            if (acc >= count) break;
-          }
-          container.appendChild(cursorEl);
-        }
-
-        let count = 0, direction = 1, pause = 0;
-        function step() {
-          if (pause > 0) { pause--; setTimeout(step, 80); return; }
-          count += direction;
-          render(count);
-          if (count >= totalChars) { direction = -1; pause = 22; }
-          else if (count <= 0)     { direction =  1; pause =  8; }
-          setTimeout(step, direction === 1 ? 75 : 45);
-        }
-
-        render(0);
-        step();
-      })();
-
     </script>
 
   </body>
