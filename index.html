@@ -31,7 +31,7 @@
         --color-border-ack: #333;
         --color-border-output: #333;
         --color-divider: #444;
-        --color-cursor: #33ff33;
+        --color-cursor: #d4d4d4;
         --color-pub-title: #ffffff;
         --color-pub-authors: #bbb;
         --color-pub-venue: #888;
@@ -72,7 +72,7 @@
         --color-border-ack: #ddd;
         --color-border-output: #ddd;
         --color-divider: #ccc;
-        --color-cursor: #226622;
+        --color-cursor: #111;
         --color-pub-title: #111;
         --color-pub-authors: #555;
         --color-pub-venue: #888;
@@ -102,8 +102,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2rem;
-        min-height: 100vh;
+        justify-content: center;
+        padding: 1.5rem 2rem 4.5rem;
+        height: 100vh;
+        overflow: hidden;
         transition: background 0.4s ease;
       }
 
@@ -111,6 +113,7 @@
 
       /* ── Window chrome ── */
       .window {
+        position: relative;
         width: 100%;
         max-width: 780px;
         border-radius: 8px;
@@ -120,6 +123,10 @@
           0 1px 3px rgba(0, 0, 0, 0.3),
           inset 0 1px 0 rgba(255,255,255,0.15);
         transition: box-shadow 0.3s ease;
+      }
+      .window.dragging {
+        cursor: grabbing;
+        transition: none;
       }
 
       /* ── Title bar (brushed metal) ── */
@@ -131,7 +138,7 @@
         display: flex;
         align-items: center;
         position: relative;
-        cursor: default;
+        cursor: grab;
         user-select: none;
         -webkit-user-select: none;
       }
@@ -193,7 +200,8 @@
       .terminal {
         background: var(--bg-terminal);
         padding: 1.2rem 1.5rem 2rem;
-        min-height: calc(100vh - 6rem);
+        max-height: calc(100vh - 9rem - 38px);
+        overflow-y: auto;
         transition: background 0.4s ease;
       }
 
@@ -430,6 +438,19 @@
         animation: fadeIn 0.25s ease forwards;
       }
 
+      /* ── Greeting Banner ── */
+      .greeting-block {
+        margin-bottom: 1.4rem;
+      }
+      .greeting-text {
+        color: var(--color-highlight);
+      }
+      .greeting-sub {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--color-muted);
+      }
+
       /* Theme toggle — pill style */
       .theme-toggle {
         background: transparent;
@@ -467,15 +488,23 @@
           padding: 0;
           font-size: 13px;
           display: block;
+          height: auto;
+          overflow: auto;
         }
+        .dock { display: none; }
         .window {
           border-radius: 0;
           max-width: 100%;
           box-shadow: none;
+          position: static !important;
+          left: auto !important;
+          top: auto !important;
         }
         .terminal {
           padding: 0.8rem 1rem 1.5rem;
+          max-height: none;
           min-height: calc(100vh - 34px);
+          overflow-y: visible;
         }
 
         /* Title bar — compact */
@@ -535,6 +564,86 @@
         .about-line { font-size: 12px; }
         .title-bar-text { font-size: 10px; }
       }
+      /* ── macOS Dock ── */
+      .dock {
+        position: fixed;
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        z-index: 10;
+      }
+      [data-theme="light"] .dock {
+        background: rgba(200, 200, 200, 0.45);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .dock-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 11px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        position: relative;
+        transition: transform 0.2s ease;
+      }
+      .dock-icon:hover {
+        transform: scale(1.15) translateY(-4px);
+      }
+      /* Terminal icon */
+      .dock-icon.terminal-icon {
+        background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      }
+      .dock-icon.terminal-icon .icon-prompt {
+        color: #33ff33;
+        font-family: 'Menlo', 'Monaco', monospace;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        text-shadow: 0 0 6px rgba(51, 255, 51, 0.5);
+      }
+      /* Active dot */
+      .dock-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        margin-top: 2px;
+      }
+      [data-theme="light"] .dock-dot {
+        background: rgba(0, 0, 0, 0.45);
+      }
+      /* Tooltip */
+      .dock-icon .dock-tooltip {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+        background: rgba(30, 30, 30, 0.85);
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+      }
+      .dock-icon:hover .dock-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
     </style>
   </head>
   <body>
@@ -556,6 +665,15 @@
 
       <!-- Terminal content -->
       <div class="terminal" id="terminal">
+
+        <!-- Greeting Banner -->
+        <div class="greeting-block">
+          <div class="block">
+            <span class="prompt">jiashu@mac ~ % </span><span class="cmd">cat greeting.txt</span>
+          </div>
+          <span class="greeting-text" id="greetText"></span>
+          <span class="greeting-sub" id="greetSub"></span>
+        </div>
 
         <div class="block">
           <span class="prompt">jiashu@mac ~ % </span><span class="cmd">whoami</span>
@@ -637,7 +755,48 @@
       </div>
     </div>
 
+    <!-- macOS Dock -->
+    <div class="dock">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="dock-icon terminal-icon">
+          <span class="dock-tooltip">Terminal</span>
+          <span class="icon-prompt">>_</span>
+        </div>
+        <div class="dock-dot"></div>
+      </div>
+    </div>
+
     <script>
+      // ── Greeting Banner ──
+      (() => {
+        // Visitor's local time → greeting phrase
+        const hour = new Date().getHours();
+        let period;
+        if (hour < 5)        period = 'Good night!';
+        else if (hour < 12)  period = 'Good morning!';
+        else if (hour < 17)  period = 'Good afternoon!';
+        else if (hour < 21)  period = 'Good evening!';
+        else                 period = 'Good night!';
+
+        document.getElementById('greetText').textContent = period;
+
+        // Jiashu's live local time — UTC+8
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        function updateTime() {
+          const now  = new Date();
+          const utc8 = new Date(now.getTime() + (8 * 60 + now.getTimezoneOffset()) * 60000);
+          const mon  = months[utc8.getMonth()];
+          const dd   = String(utc8.getDate()).padStart(2, '0');
+          const hh   = String(utc8.getHours()).padStart(2, '0');
+          const min  = String(utc8.getMinutes()).padStart(2, '0');
+          const ss   = String(utc8.getSeconds()).padStart(2, '0');
+          document.getElementById('greetSub').textContent =
+            `My local time: ${mon} ${dd} ${hh}:${min}:${ss} (UTC+8)`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+      })();
+
       (() => {
         const promptLine = document.getElementById('promptLine');
         const promptCmd = document.getElementById('promptCmd');
@@ -801,6 +960,44 @@
             localStorage.setItem('theme', 'light');
             btn.textContent = 'Pro';
           }
+        });
+      })();
+
+      // ── Draggable window (desktop only) ──
+      (() => {
+        const win = document.querySelector('.window');
+        const bar = document.querySelector('.title-bar');
+        let dragging = false, startX, startY, origLeft, origTop;
+
+        bar.addEventListener('mousedown', e => {
+          // Don't drag when clicking buttons
+          if (e.target.closest('.theme-toggle') || e.target.closest('.traffic-light')) return;
+          if (window.innerWidth <= 600) return;
+          dragging = true;
+          win.classList.add('dragging');
+          const rect = win.getBoundingClientRect();
+          // First drag: switch from flow to offset positioning
+          if (!win.style.left) {
+            win.style.left = '0px';
+            win.style.top  = '0px';
+          }
+          origLeft = parseInt(win.style.left, 10);
+          origTop  = parseInt(win.style.top, 10);
+          startX = e.clientX;
+          startY = e.clientY;
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', e => {
+          if (!dragging) return;
+          win.style.left = (origLeft + e.clientX - startX) + 'px';
+          win.style.top  = (origTop  + e.clientY - startY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (!dragging) return;
+          dragging = false;
+          win.classList.remove('dragging');
         });
       })();
     </script>
