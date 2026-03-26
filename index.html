@@ -741,8 +741,8 @@
       transform: translateX(-50%);
       display: flex;
       align-items: flex-end;
-      gap: 4px;
-      padding: 4px 8px;
+      gap: 12px;
+      padding: 4px 12px;
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -837,13 +837,15 @@
         0 1px 3px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
       z-index: 5;
-      display: none;
+      visibility: hidden;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
     .settings-window.visible {
-      display: block;
+      visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
     .settings-window.dragging {
       cursor: grabbing;
@@ -869,7 +871,7 @@
     }
 
     .settings-body {
-      background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 100%);
+      background: #2b2b2b;
       padding: 1.5rem;
     }
     [data-theme="light"] .settings-body {
@@ -881,7 +883,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #666;
+      color: #aaa;
       margin-bottom: 0.6rem;
     }
     [data-theme="light"] .settings-section-title {
@@ -893,18 +895,22 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.6rem 0.8rem;
-      background: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.08);
       border-radius: 6px;
-      border: 1px solid rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.05);
     }
     [data-theme="light"] .settings-row {
       background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
     .settings-label {
       font-size: 13px;
-      color: #333;
+      color: #eee;
       font-weight: 500;
+    }
+    [data-theme="light"] .settings-label {
+      color: #333;
     }
 
     .theme-switch {
@@ -912,27 +918,47 @@
       gap: 0;
       border-radius: 6px;
       overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    [data-theme="light"] .theme-switch {
       border: 1px solid rgba(0,0,0,0.15);
     }
+
     .theme-switch-btn {
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.1);
       border: none;
-      padding: 4px 12px;
+      padding: 4px 14px;
       font-family: inherit;
       font-size: 11px;
       font-weight: 600;
       cursor: pointer;
-      color: #555;
+      color: #ccc;
       transition: background 0.2s, color 0.2s;
     }
+    [data-theme="light"] .theme-switch-btn {
+      background: rgba(255,255,255,0.5);
+      color: #555;
+    }
+
     .theme-switch-btn:first-child {
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    [data-theme="light"] .theme-switch-btn:first-child {
       border-right: 1px solid rgba(0,0,0,0.1);
     }
+
     .theme-switch-btn.active {
-      background: #0058d0;
+      background: #007aff;
       color: #fff;
     }
+    [data-theme="light"] .theme-switch-btn.active {
+      background: #0058d0;
+    }
+
     .theme-switch-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.2);
+    }
+    [data-theme="light"] .theme-switch-btn:hover:not(.active) {
       background: rgba(0,0,0,0.08);
     }
 
@@ -1094,8 +1120,8 @@
       <div class="settings-row">
         <span class="settings-label">Theme</span>
         <div class="theme-switch" id="themeSwitch">
-          <button class="theme-switch-btn" data-theme-val="light">☀️ Light</button>
-          <button class="theme-switch-btn" data-theme-val="dark">🌙 Dark</button>
+          <button class="theme-switch-btn" data-theme-val="light">Light</button>
+          <button class="theme-switch-btn" data-theme-val="dark">Dark</button>
         </div>
       </div>
     </div>
@@ -1264,15 +1290,8 @@
 
       // Toggle settings window
       function toggleSettings() {
-        const isOpen = win.classList.contains('visible');
-        if (isOpen) {
-          win.style.opacity = '0';
-          setTimeout(() => { win.classList.remove('visible'); win.style.opacity = ''; }, 250);
-          dockDot.style.visibility = 'hidden';
-        } else {
-          win.classList.add('visible');
-          dockDot.style.visibility = 'visible';
-        }
+        const isOpen = win.classList.toggle('visible');
+        dockDot.style.visibility = isOpen ? 'visible' : 'hidden';
       }
 
       dockIcon.addEventListener('click', toggleSettings);
