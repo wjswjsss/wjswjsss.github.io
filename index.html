@@ -111,7 +111,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem 2rem 4.5rem;
+      padding: 1.5rem 2rem 5.5rem;
       height: 100vh;
       overflow: hidden;
       transition: background 0.4s ease;
@@ -569,32 +569,7 @@
       color: var(--color-muted);
     }
 
-    /* Theme toggle — pill style */
-    .theme-toggle {
-      background: transparent;
-      border: 1px solid var(--titlebar-text);
-      opacity: 0.4;
-      color: var(--titlebar-text);
-      font-family: inherit;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 0;
-      width: 52px;
-      text-align: center;
-      cursor: pointer;
-      border-radius: 3px;
-      transition: opacity 0.2s ease;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
 
-    .theme-toggle:hover {
-      opacity: 0.8;
-    }
-
-    .theme-toggle:active {
-      opacity: 1;
-    }
 
     /* ── Tablet ── */
     @media (max-width: 860px) {
@@ -615,6 +590,10 @@
         display: block;
         height: auto;
         overflow: auto;
+      }
+
+      .settings-window {
+        display: none !important;
       }
 
       .dock {
@@ -660,11 +639,7 @@
         display: none;
       }
 
-      .theme-toggle {
-        font-size: 9px;
-        padding: 1px 0;
-        width: 42px;
-      }
+
 
       /* Name + about */
       .name-heading {
@@ -847,6 +822,130 @@
       opacity: 1;
       transform: translateX(-50%) scale(1);
     }
+
+    /* ── Settings Window ── */
+    .settings-window {
+      position: fixed;
+      top: 50%;
+      right: calc(50% - 580px);
+      transform: translateY(-50%);
+      width: 320px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      z-index: 5;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .settings-window.visible {
+      display: block;
+      opacity: 1;
+    }
+    .settings-window.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    .settings-title-bar {
+      background: var(--titlebar-bg);
+      border-bottom: 1px solid var(--titlebar-border);
+      padding: 0 12px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .settings-title-bar .title-bar-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .settings-body {
+      background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 100%);
+      padding: 1.5rem;
+    }
+    [data-theme="light"] .settings-body {
+      background: linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
+    }
+
+    .settings-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #666;
+      margin-bottom: 0.6rem;
+    }
+    [data-theme="light"] .settings-section-title {
+      color: #555;
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.6);
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .settings-row {
+      background: rgba(255,255,255,0.85);
+    }
+
+    .settings-label {
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .theme-switch {
+      display: flex;
+      gap: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .theme-switch-btn {
+      background: rgba(255,255,255,0.5);
+      border: none;
+      padding: 4px 12px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #555;
+      transition: background 0.2s, color 0.2s;
+    }
+    .theme-switch-btn:first-child {
+      border-right: 1px solid rgba(0,0,0,0.1);
+    }
+    .theme-switch-btn.active {
+      background: #0058d0;
+      color: #fff;
+    }
+    .theme-switch-btn:hover:not(.active) {
+      background: rgba(0,0,0,0.08);
+    }
+
+    /* Settings dock icon */
+    .dock-icon.settings-icon {
+      background: linear-gradient(180deg, #8e8e8e 0%, #636363 100%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .dock-icon.settings-icon .icon-gear {
+      font-size: 26px;
+      line-height: 1;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    }
   </style>
 </head>
 
@@ -863,7 +962,6 @@
       <span class="title-bar-text">jiashu — bash — 80×24</span>
       <div class="title-bar-right">
         <span class="sys-time" id="sysTime"></span>
-        <button class="theme-toggle" id="themeToggle">Pro</button>
       </div>
     </div>
 
@@ -971,6 +1069,35 @@
         <span class="icon-prompt">>_</span>
       </div>
       <div class="dock-dot"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="dock-icon settings-icon" id="settingsDockIcon">
+        <span class="dock-tooltip">System Preferences</span>
+        <span class="icon-gear">⚙️</span>
+      </div>
+      <div class="dock-dot" id="settingsDockDot" style="visibility:hidden;"></div>
+    </div>
+  </div>
+
+  <!-- Settings Window -->
+  <div class="settings-window" id="settingsWindow">
+    <div class="settings-title-bar">
+      <div class="traffic-lights">
+        <div class="traffic-light red" id="settingsClose"></div>
+        <div class="traffic-light yellow"></div>
+        <div class="traffic-light green"></div>
+      </div>
+      <span class="title-bar-text">System Preferences</span>
+    </div>
+    <div class="settings-body">
+      <div class="settings-section-title">Appearance</div>
+      <div class="settings-row">
+        <span class="settings-label">Theme</span>
+        <div class="theme-switch" id="themeSwitch">
+          <button class="theme-switch-btn" data-theme-val="light">☀️ Light</button>
+          <button class="theme-switch-btn" data-theme-val="dark">🌙 Dark</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1105,39 +1232,105 @@
       setInterval(update, 1000);
     })();
 
-    // Theme toggle
+    // Theme: apply saved preference on load
     (() => {
-      const btn = document.getElementById('themeToggle');
       const saved = localStorage.getItem('theme');
-
       let useLight;
-      if (saved === 'dark') {
-        useLight = false;
-      } else if (saved === 'light') {
-        useLight = true;
-      } else {
-        useLight = !window.matchMedia('(prefers-color-scheme: dark)').matches;
-      }
+      if (saved === 'dark') useLight = false;
+      else if (saved === 'light') useLight = true;
+      else useLight = !window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (useLight) document.documentElement.setAttribute('data-theme', 'light');
+      else document.documentElement.removeAttribute('data-theme');
+    })();
 
-      if (useLight) {
-        document.documentElement.setAttribute('data-theme', 'light');
-        btn.textContent = 'Pro';
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        btn.textContent = 'Basic';
-      }
+    // Settings window
+    (() => {
+      const win = document.getElementById('settingsWindow');
+      const dockIcon = document.getElementById('settingsDockIcon');
+      const dockDot = document.getElementById('settingsDockDot');
+      const closeBtn = document.getElementById('settingsClose');
+      const themeSwitch = document.getElementById('themeSwitch');
+      const bar = win.querySelector('.settings-title-bar');
 
-      btn.addEventListener('click', () => {
+      // Update active button state
+      function syncButtons() {
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        if (isLight) {
-          document.documentElement.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'dark');
-          btn.textContent = 'Basic';
+        themeSwitch.querySelectorAll('.theme-switch-btn').forEach(btn => {
+          const val = btn.dataset.themeVal;
+          btn.classList.toggle('active', (val === 'light' && isLight) || (val === 'dark' && !isLight));
+        });
+      }
+      syncButtons();
+
+      // Toggle settings window
+      function toggleSettings() {
+        const isOpen = win.classList.contains('visible');
+        if (isOpen) {
+          win.style.opacity = '0';
+          setTimeout(() => { win.classList.remove('visible'); win.style.opacity = ''; }, 250);
+          dockDot.style.visibility = 'hidden';
         } else {
+          win.classList.add('visible');
+          dockDot.style.visibility = 'visible';
+        }
+      }
+
+      dockIcon.addEventListener('click', toggleSettings);
+      closeBtn.addEventListener('click', toggleSettings);
+
+      // Theme switch buttons
+      themeSwitch.addEventListener('click', e => {
+        const btn = e.target.closest('.theme-switch-btn');
+        if (!btn) return;
+        const val = btn.dataset.themeVal;
+        if (val === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
           localStorage.setItem('theme', 'light');
-          btn.textContent = 'Pro';
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'dark');
         }
+        syncButtons();
+      });
+
+      // Draggable settings window
+      let dragging = false, startX, startY, origLeft, origTop;
+
+      bar.addEventListener('mousedown', e => {
+        if (e.target.closest('.traffic-light')) return;
+        if (window.innerWidth <= 600) return;
+        dragging = true;
+        win.classList.add('dragging');
+        const rect = win.getBoundingClientRect();
+        // Switch to absolute positioning on first drag
+        if (!win.style.left || win.style.right) {
+          win.style.left = rect.left + 'px';
+          win.style.top = rect.top + 'px';
+          win.style.right = 'auto';
+          win.style.transform = 'none';
+        }
+        origLeft = parseInt(win.style.left, 10);
+        origTop = parseInt(win.style.top, 10);
+        startX = e.clientX;
+        startY = e.clientY;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        let newLeft = origLeft + e.clientX - startX;
+        let newTop = origTop + e.clientY - startY;
+        const w = win.offsetWidth, h = win.offsetHeight;
+        newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - w));
+        newTop = Math.max(0, Math.min(newTop, window.innerHeight - h));
+        win.style.left = newLeft + 'px';
+        win.style.top = newTop + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        win.classList.remove('dragging');
       });
     })();
 
@@ -1149,7 +1342,7 @@
 
       bar.addEventListener('mousedown', e => {
         // Don't drag when clicking buttons
-        if (e.target.closest('.theme-toggle') || e.target.closest('.traffic-light')) return;
+        if (e.target.closest('.traffic-light')) return;
         if (window.innerWidth <= 600) return;
         dragging = true;
         win.classList.add('dragging');
