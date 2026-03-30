@@ -1092,16 +1092,16 @@
   <!-- macOS Dock -->
   <div class="dock">
     <div style="display:flex;flex-direction:column;align-items:center;">
-      <div class="dock-icon terminal-icon">
+      <div class="dock-icon" style="background: none; box-shadow: none;">
         <span class="dock-tooltip">Terminal</span>
-        <span class="icon-prompt">>_</span>
+        <img src="terminal_icon.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Terminal">
       </div>
       <div class="dock-dot"></div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;">
-      <div class="dock-icon settings-icon" id="settingsDockIcon">
-        <span class="dock-tooltip">System Preferences</span>
-        <span class="icon-gear">⚙️</span>
+      <div class="dock-icon" id="settingsDockIcon" style="background: none; box-shadow: none;">
+        <span class="dock-tooltip">System Settings</span>
+        <img src="settings_icon.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Settings">
       </div>
       <div class="dock-dot" id="settingsDockDot" style="visibility:hidden;"></div>
     </div>
