@@ -1,1418 +1,1652 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jiashu Wang</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Mono&family=Menlo&display=swap");
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jiashu Wang</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=SF+Mono&family=Menlo&display=swap');
-
-    /* ── Classic macOS Dark Terminal ── */
-    :root {
-      --bg-desktop: #3a6ea5;
-      --bg-desktop-gradient: linear-gradient(180deg, #5a8ec5 0%, #2a5a8a 50%, #1a4a7a 100%);
-      --bg-terminal: rgba(0, 0, 0, 0.88);
-      --titlebar-bg: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 50%, #b8b8b8 51%, #d4d4d4 100%);
-      --titlebar-text: #333;
-      --titlebar-border: #888;
-      --color-text: #d4d4d4;
-      --color-title: #999;
-      --color-prompt: #33ff33;
-      --color-cmd: #ffffff;
-      --color-highlight: #ffffff;
-      --color-accent: #6699ff;
-      --color-accent-dim: #4477cc;
-      --color-accent-hover: #88bbff;
-      --color-accent-glow: rgba(102, 153, 255, 0.3);
-      --color-muted: #777;
-      --color-quote: #888;
-      --color-about: #ccc;
-      --color-border-title: transparent;
-      --color-border-ack: #333;
-      --color-border-output: #333;
-      --color-divider: #444;
-      --color-cursor: #d4d4d4;
-      --color-pub-title: #ffffff;
-      --color-pub-authors: #bbb;
-      --color-pub-venue: #888;
-      --color-tag: #ff6666;
-      --color-edu-program: #999;
-      --color-ack-name: #ddd;
-      --color-ack-note: #888;
-      --color-ack-header: #33ff33;
-      --color-ack-quiet: #555;
-      --color-dir-volume: #33ff33;
-      --color-dir-footer: #888;
-      --color-dir-meta: #666;
-      --color-dir-meta-hover: #aaa;
-      --color-selection-bg: #264f78;
-    }
-
-    /* ── Classic macOS Light (Homebrew) ── */
-    [data-theme="light"] {
-      --bg-desktop: linear-gradient(135deg, #7ec8e3 0%, #4fa3c7 40%, #2d7bba 100%);
-      --bg-desktop-gradient: var(--bg-desktop);
-      --bg-terminal: #ffffff;
-      --titlebar-bg: linear-gradient(180deg, #eaeaea 0%, #d0d0d0 50%, #c0c0c0 51%, #d8d8d8 100%);
-      --titlebar-text: #222;
-      --titlebar-border: #999;
-      --color-text: #333;
-      --color-title: #666;
-      --color-prompt: #226622;
-      --color-cmd: #111;
-      --color-highlight: #000;
-      --color-accent: #0055cc;
-      --color-accent-dim: #003d99;
-      --color-accent-hover: #0044aa;
-      --color-accent-glow: rgba(0, 85, 204, 0.15);
-      --color-muted: #999;
-      --color-quote: #777;
-      --color-about: #444;
-      --color-border-title: transparent;
-      --color-border-ack: #ddd;
-      --color-border-output: #ddd;
-      --color-divider: #ccc;
-      --color-cursor: #111;
-      --color-pub-title: #111;
-      --color-pub-authors: #555;
-      --color-pub-venue: #888;
-      --color-tag: #cc3333;
-      --color-edu-program: #777;
-      --color-ack-name: #333;
-      --color-ack-note: #888;
-      --color-ack-header: #226622;
-      --color-ack-quiet: #bbb;
-      --color-dir-volume: #226622;
-      --color-dir-footer: #999;
-      --color-dir-meta: #bbb;
-      --color-dir-meta-hover: #666;
-      --color-selection-bg: #b4d5fe;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      min-height: 100%;
-    }
-
-    body {
-      font-family: 'Menlo', 'Monaco', 'SF Mono', 'Courier New', Courier, monospace;
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--color-text);
-      background: var(--bg-desktop-gradient);
-      background-attachment: fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem 2rem 5.5rem;
-      height: 100vh;
-      overflow: hidden;
-      transition: background 0.4s ease;
-    }
-
-    body::after {
-      content: none;
-    }
-
-    /* ── Window chrome ── */
-    .window {
-      position: relative;
-      width: 100%;
-      max-width: 780px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        0 1px 3px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transition: box-shadow 0.3s ease;
-    }
-
-    .window.dragging {
-      cursor: grabbing;
-      transition: none;
-    }
-
-    /* ── Title bar (brushed metal) ── */
-    .title-bar {
-      background: var(--titlebar-bg);
-      border-bottom: 1px solid var(--titlebar-border);
-      padding: 0 12px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    .title-bar-text {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--titlebar-text);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    }
-
-    /* Traffic light buttons */
-    .traffic-lights {
-      display: flex;
-      gap: 8px;
-      z-index: 1;
-    }
-
-    .traffic-light {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 0.5px solid rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .traffic-light.red {
-      background: linear-gradient(180deg, #ff6058 0%, #e04040 100%);
-      box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.2);
-    }
-
-    .traffic-light.yellow {
-      background: linear-gradient(180deg, #ffc130 0%, #e0a020 100%);
-      box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.2);
-    }
-
-    .traffic-light.green {
-      background: linear-gradient(180deg, #27c93f 0%, #1aab29 100%);
-      box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Right side controls */
-    .title-bar-right {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      z-index: 1;
-    }
-
-    .sys-time {
-      font-size: 11px;
-      color: var(--titlebar-text);
-      opacity: 0.6;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* ── Terminal body ── */
-    .terminal {
-      background: var(--bg-terminal);
-      padding: 1.2rem 1.5rem 2rem;
-      height: calc(100vh - 9rem - 38px);
-      overflow-y: auto;
-      transition: background 0.4s ease;
-    }
-
-    .name-heading {
-      font-size: 1.5rem;
-      color: var(--color-highlight);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.3rem;
-      font-weight: bold;
-    }
-
-    a.school-link {
-      color: var(--color-accent);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--color-accent-dim);
-      transition: color 0.2s, text-decoration-color 0.2s;
-    }
-
-    a.school-link:hover {
-      color: var(--color-accent-hover);
-      text-decoration-color: var(--color-accent-hover);
-    }
-
-    .prompt {
-      color: var(--color-prompt);
-    }
-
-    .cmd {
-      color: var(--color-cmd);
-    }
-
-    .highlight {
-      color: var(--color-highlight);
-    }
-
-    .accent {
-      color: var(--color-accent);
-    }
-
-    .muted {
-      color: var(--color-muted);
-    }
-
-    .block {
-      margin-bottom: 1rem;
-    }
-
-    .line {
-      display: block;
-    }
-
-    .pub-title {
-      color: var(--color-pub-title);
-    }
-
-    .pub-authors {
-      color: var(--color-pub-authors);
-    }
-
-    .me {
-      color: var(--color-accent);
-      font-weight: bold;
-    }
-
-    .pub-venue {
-      color: var(--color-pub-venue);
-      font-style: italic;
-    }
-
-    .tag {
-      color: var(--color-tag);
-      font-weight: bold;
-    }
-
-    .divider {
-      color: var(--color-divider);
-      margin: 0.2rem 0;
-    }
-
-    a {
-      color: var(--color-accent);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: var(--color-accent-hover);
-      text-decoration: underline;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 8px;
-      height: 1.1em;
-      background: var(--color-cursor);
-      vertical-align: text-bottom;
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .about-line {
-      color: var(--color-about);
-      margin-bottom: 1.2rem;
-      line-height: 1.65;
-    }
-
-    .ack-block {
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--color-border-ack);
-      color: var(--color-muted);
-      line-height: 1.7;
-    }
-
-    .ack-header {
-      color: var(--color-ack-header);
-      font-style: normal;
-      font-size: 1.1rem;
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.6rem;
-    }
-
-    .ack-name {
-      color: var(--color-ack-name);
-    }
-
-    .ack-note {
-      color: var(--color-ack-note);
-    }
-
-    /* Rolling credits */
-    .credits-viewport {
-      position: relative;
-      overflow: hidden;
-      height: 10rem;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-      pointer-events: none;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    .credits-track {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-      animation: roll-credits 20s linear infinite;
-      will-change: transform;
-      transform: translateZ(0);
-    }
-
-    .credits-track>div {
-      padding: 0.15rem 0.5rem;
-      white-space: normal;
-      word-break: break-word;
-      max-width: 100%;
-      line-height: 1.5;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-    }
-
-    @keyframes roll-credits {
-      0% {
-        transform: translateY(0);
+      /* ── Classic macOS Dark Terminal ── */
+      :root {
+        --bg-desktop: #3a6ea5;
+        --bg-desktop-gradient: linear-gradient(
+          180deg,
+          #5a8ec5 0%,
+          #2a5a8a 50%,
+          #1a4a7a 100%
+        );
+        --bg-terminal: rgba(0, 0, 0, 0.88);
+        --titlebar-bg: linear-gradient(
+          180deg,
+          #e8e8e8 0%,
+          #c8c8c8 50%,
+          #b8b8b8 51%,
+          #d4d4d4 100%
+        );
+        --titlebar-text: #333;
+        --titlebar-border: #888;
+        --color-text: #d4d4d4;
+        --color-title: #999;
+        --color-prompt: #33ff33;
+        --color-cmd: #ffffff;
+        --color-highlight: #ffffff;
+        --color-accent: #6699ff;
+        --color-accent-dim: #4477cc;
+        --color-accent-hover: #88bbff;
+        --color-accent-glow: rgba(102, 153, 255, 0.3);
+        --color-muted: #777;
+        --color-quote: #888;
+        --color-about: #ccc;
+        --color-border-title: transparent;
+        --color-border-ack: #333;
+        --color-border-output: #333;
+        --color-divider: #444;
+        --color-cursor: #d4d4d4;
+        --color-pub-title: #ffffff;
+        --color-pub-authors: #bbb;
+        --color-pub-venue: #888;
+        --color-tag: #ff6666;
+        --color-edu-program: #999;
+        --color-ack-name: #ddd;
+        --color-ack-note: #888;
+        --color-ack-header: #33ff33;
+        --color-ack-quiet: #555;
+        --color-dir-volume: #33ff33;
+        --color-dir-footer: #888;
+        --color-dir-meta: #666;
+        --color-dir-meta-hover: #aaa;
+        --color-selection-bg: #264f78;
       }
 
-      100% {
-        transform: translateY(-50%);
-      }
-    }
-
-    .edu-line {
-      margin-bottom: 0.2rem;
-    }
-
-    .edu-program {
-      color: var(--color-edu-program);
-    }
-
-    .pub-item {
-      margin-bottom: 0.8rem;
-    }
-
-    /* Index table */
-    .index-table {
-      margin-bottom: 1.2rem;
-    }
-
-    .index-item {
-      cursor: pointer;
-      color: var(--color-accent);
-      padding: 0.15rem 0.4rem;
-      margin-left: -0.4rem;
-      border-radius: 3px;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .index-item:hover {
-      color: var(--color-highlight);
-      background: var(--color-selection-bg);
-    }
-
-    .index-item:hover .click-hint {
-      opacity: 1;
-    }
-
-    .index-item.active {
-      color: var(--color-highlight);
-      background: var(--color-selection-bg);
-    }
-
-    .index-bracket {
-      display: inline-block;
-      color: var(--color-accent);
-      transition: color 0.15s ease;
-    }
-
-    .index-item.active .index-bracket,
-    .index-item:hover .index-bracket {
-      color: inherit;
-    }
-
-    .click-hint {
-      font-size: 0.8em;
-      color: var(--color-muted);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      font-style: italic;
-      pointer-events: none;
-    }
-
-    /* Gradual line-by-line reveal */
-    .output-line {
-      opacity: 0;
-      transform: translateY(2px);
-      animation: lineReveal 0.15s ease forwards;
-    }
-
-    @keyframes lineReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Output sections */
-    .output {
-      display: none;
-      margin-bottom: 1rem;
-    }
-
-    .output.visible {
-      display: block;
-    }
-
-    .cmd-line {
-      margin-bottom: 0.3rem;
-    }
-
-    .typed-cmd {
-      color: var(--color-cmd);
-      overflow: hidden;
-      white-space: nowrap;
-      display: inline-block;
-      width: 0;
-      vertical-align: bottom;
-    }
-
-    .typed-cmd.typing {
-      animation: typing 0.4s steps(20, end) forwards;
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
+      /* ── Classic macOS Light (Homebrew) ── */
+      [data-theme="light"] {
+        --bg-desktop: linear-gradient(
+          135deg,
+          #7ec8e3 0%,
+          #4fa3c7 40%,
+          #2d7bba 100%
+        );
+        --bg-desktop-gradient: var(--bg-desktop);
+        --bg-terminal: #ffffff;
+        --titlebar-bg: linear-gradient(
+          180deg,
+          #eaeaea 0%,
+          #d0d0d0 50%,
+          #c0c0c0 51%,
+          #d8d8d8 100%
+        );
+        --titlebar-text: #222;
+        --titlebar-border: #999;
+        --color-text: #333;
+        --color-title: #666;
+        --color-prompt: #226622;
+        --color-cmd: #111;
+        --color-highlight: #000;
+        --color-accent: #0055cc;
+        --color-accent-dim: #003d99;
+        --color-accent-hover: #0044aa;
+        --color-accent-glow: rgba(0, 85, 204, 0.15);
+        --color-muted: #999;
+        --color-quote: #777;
+        --color-about: #444;
+        --color-border-title: transparent;
+        --color-border-ack: #ddd;
+        --color-border-output: #ddd;
+        --color-divider: #ccc;
+        --color-cursor: #111;
+        --color-pub-title: #111;
+        --color-pub-authors: #555;
+        --color-pub-venue: #888;
+        --color-tag: #cc3333;
+        --color-edu-program: #777;
+        --color-ack-name: #333;
+        --color-ack-note: #888;
+        --color-ack-header: #226622;
+        --color-ack-quiet: #bbb;
+        --color-dir-volume: #226622;
+        --color-dir-footer: #999;
+        --color-dir-meta: #bbb;
+        --color-dir-meta-hover: #666;
+        --color-selection-bg: #b4d5fe;
       }
 
-      to {
-        width: 100%;
-      }
-    }
-
-    .prompt-line {
-      margin-top: 0.8rem;
-    }
-
-    .dir-volume {
-      color: var(--color-dir-volume);
-      margin-bottom: 0.4rem;
-    }
-
-    .dir-footer {
-      color: var(--color-dir-footer);
-      margin-top: 0.3rem;
-    }
-
-    .dir-meta {
-      color: var(--color-dir-meta);
-      flex-shrink: 0;
-      font-size: 0.9em;
-      transition: color 0.15s;
-    }
-
-    .index-item:hover .dir-meta,
-    .index-item.active .dir-meta {
-      color: var(--color-dir-meta-hover);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-4px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .content-reveal {
-      animation: fadeIn 0.25s ease forwards;
-    }
-
-    /* ── Greeting Banner ── */
-    .greeting-block {
-      margin-bottom: 1.4rem;
-    }
-
-    .greeting-text {
-      color: var(--color-highlight);
-    }
-
-    .greeting-sub {
-      display: block;
-      margin-top: 0.2rem;
-      color: var(--color-muted);
-    }
-
-
-
-    /* ── Tablet ── */
-    @media (max-width: 860px) {
-      body {
-        padding: 1rem;
-      }
-
-      .terminal {
-        padding: 1.2rem 1.2rem 2rem;
-      }
-    }
-
-    /* ── Mobile ── */
-    @media (max-width: 600px) {
-      body {
+      * {
+        margin: 0;
         padding: 0;
-        font-size: 13px;
-        display: block;
-        height: auto;
-        overflow: auto;
+        box-sizing: border-box;
       }
 
-      .settings-window {
-        display: none !important;
+      html {
+        min-height: 100%;
       }
 
-      .dock {
-        display: none !important;
+      body {
+        font-family:
+          "Menlo", "Monaco", "SF Mono", "Courier New", Courier, monospace;
+        font-size: 14px;
+        line-height: 1.55;
+        color: var(--color-text);
+        background: var(--bg-desktop-gradient);
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 2rem 5.5rem;
+        height: 100vh;
+        overflow: hidden;
+        transition: background 0.4s ease;
       }
 
+      body::after {
+        content: none;
+      }
+
+      /* ── Window chrome ── */
       .window {
-        border-radius: 0;
-        max-width: 100%;
-        box-shadow: none;
-        position: static !important;
-        left: auto !important;
-        top: auto !important;
+        position: relative;
+        width: 100%;
+        max-width: 780px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 1px 3px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        transition: box-shadow 0.3s ease;
       }
 
-      .terminal {
-        padding: 0.8rem 1rem 1.5rem;
-        height: auto;
-        min-height: calc(100vh - 34px);
-        overflow-y: visible;
+      .window.dragging {
+        cursor: grabbing;
+        transition: none;
       }
 
-      /* Title bar — compact */
+      /* ── Title bar (brushed metal) ── */
       .title-bar {
-        height: 34px;
-        padding: 0 10px;
+        background: var(--titlebar-bg);
+        border-bottom: 1px solid var(--titlebar-border);
+        padding: 0 12px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .title-bar-text {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--titlebar-text);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+
+      /* Traffic light buttons */
+      .traffic-lights {
+        display: flex;
+        gap: 8px;
+        z-index: 1;
       }
 
       .traffic-light {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 0.5px solid rgba(0, 0, 0, 0.2);
+        position: relative;
       }
 
-      .traffic-lights {
-        gap: 6px;
+      .traffic-light.red {
+        background: linear-gradient(180deg, #ff6058 0%, #e04040 100%);
+        box-shadow:
+          inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+          0 0 1px rgba(0, 0, 0, 0.2);
       }
 
-      .title-bar-text {
-        font-size: 11px;
+      .traffic-light.yellow {
+        background: linear-gradient(180deg, #ffc130 0%, #e0a020 100%);
+        box-shadow:
+          inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+          0 0 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .traffic-light.green {
+        background: linear-gradient(180deg, #27c93f 0%, #1aab29 100%);
+        box-shadow:
+          inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+          0 0 1px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Right side controls */
+      .title-bar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        z-index: 1;
       }
 
       .sys-time {
-        display: none;
+        font-size: 11px;
+        color: var(--titlebar-text);
+        opacity: 0.6;
+        font-variant-numeric: tabular-nums;
       }
 
+      /* ── Terminal body ── */
+      .terminal {
+        background: var(--bg-terminal);
+        padding: 1.2rem 1.5rem 2rem;
+        height: calc(100vh - 9rem - 38px);
+        overflow-y: auto;
+        transition: background 0.4s ease;
+      }
 
-
-      /* Name + about */
       .name-heading {
-        font-size: 1.3rem;
-        margin-bottom: 0.2rem;
+        font-size: 1.5rem;
+        color: var(--color-highlight);
+        letter-spacing: 0.04em;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
       }
 
-      .about-line {
-        font-size: 12.5px;
-        line-height: 1.6;
-        margin-bottom: 0.8rem;
+      a.school-link {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: var(--color-accent-dim);
+        transition:
+          color 0.2s,
+          text-decoration-color 0.2s;
       }
 
-      /* Index items — bigger tap targets */
-      .index-item {
-        padding: 0.4rem 0.5rem;
-        margin-left: -0.5rem;
-        font-size: 13px;
+      a.school-link:hover {
+        color: var(--color-accent-hover);
+        text-decoration-color: var(--color-accent-hover);
       }
 
-      /* Always show hints on mobile (no hover) */
-      .click-hint {
-        opacity: 0.5;
-        font-size: 0.75em;
-      }
-
-      /* Prompt */
       .prompt {
-        font-size: 12px;
+        color: var(--color-prompt);
       }
 
       .cmd {
-        font-size: 12px;
+        color: var(--color-cmd);
       }
 
-      /* Publications & content */
-      .pub-item {
-        margin-bottom: 0.6rem;
-        font-size: 12.5px;
+      .highlight {
+        color: var(--color-highlight);
+      }
+
+      .accent {
+        color: var(--color-accent);
+      }
+
+      .muted {
+        color: var(--color-muted);
+      }
+
+      .block {
+        margin-bottom: 1rem;
+      }
+
+      .line {
+        display: block;
+      }
+
+      .pub-title {
+        color: var(--color-pub-title);
+      }
+
+      .pub-authors {
+        color: var(--color-pub-authors);
+      }
+
+      .me {
+        color: var(--color-accent);
+        font-weight: bold;
+      }
+
+      .pub-venue {
+        color: var(--color-pub-venue);
+        font-style: italic;
+      }
+
+      .tag {
+        color: var(--color-tag);
+        font-weight: bold;
       }
 
       .divider {
-        font-size: 11px;
+        color: var(--color-divider);
+        margin: 0.2rem 0;
       }
 
-      /* Acknowledgements */
-      .ack-block {
-        margin-top: 1.5rem;
-        padding-top: 0.8rem;
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+        transition: color 0.2s ease;
       }
 
-      .ack-header {
-        font-size: 1rem;
-        margin-bottom: 0.4rem;
+      a:hover {
+        color: var(--color-accent-hover);
+        text-decoration: underline;
       }
 
-      .credits-viewport {
-        height: 8rem;
-      }
-
-      .credits-track>div {
-        font-size: 12px;
-      }
-
-      /* Cursor */
       .cursor {
-        width: 6px;
-      }
-    }
-
-    /* ── Very small phones ── */
-    @media (max-width: 380px) {
-      body {
-        font-size: 12px;
+        display: inline-block;
+        width: 8px;
+        height: 1.1em;
+        background: var(--color-cursor);
+        vertical-align: text-bottom;
+        animation: blink 1s step-end infinite;
       }
 
-      .terminal {
-        padding: 0.6rem 0.7rem 1rem;
-      }
-
-      .name-heading {
-        font-size: 1.15rem;
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
       }
 
       .about-line {
-        font-size: 12px;
+        color: var(--color-about);
+        margin-bottom: 1.2rem;
+        line-height: 1.65;
       }
 
-      .title-bar-text {
-        font-size: 10px;
+      .ack-block {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border-ack);
+        color: var(--color-muted);
+        line-height: 1.7;
       }
-    }
 
-    /* ── macOS Dock ── */
-    .dock {
-      position: fixed;
-      bottom: 0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: flex-end;
-      gap: 12px;
-      padding: 4px 12px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      z-index: 10;
-    }
+      .ack-header {
+        color: var(--color-ack-header);
+        font-style: normal;
+        font-size: 1.1rem;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.6rem;
+      }
 
-    [data-theme="light"] .dock {
-      background: rgba(200, 200, 200, 0.45);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
+      .ack-name {
+        color: var(--color-ack-name);
+      }
 
-    .dock-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 11px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: default;
-      position: relative;
-      transition: transform 0.2s ease;
-    }
+      .ack-note {
+        color: var(--color-ack-note);
+      }
 
-    .dock-icon:hover {
-      transform: scale(1.15) translateY(-4px);
-    }
+      /* Rolling credits */
+      .credits-viewport {
+        position: relative;
+        overflow: hidden;
+        height: 10rem;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 15%,
+          black 85%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 15%,
+          black 85%,
+          transparent 100%
+        );
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
 
-    /* Terminal icon */
-    .dock-icon.terminal-icon {
-      background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
+      .credits-track {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        animation: roll-credits 20s linear infinite;
+        will-change: transform;
+        transform: translateZ(0);
+      }
 
-    .dock-icon.terminal-icon .icon-prompt {
-      color: #33ff33;
-      font-family: 'Menlo', 'Monaco', monospace;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 1;
-      text-shadow: 0 0 6px rgba(51, 255, 51, 0.5);
-    }
+      .credits-track > div {
+        padding: 0.15rem 0.5rem;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
+        line-height: 1.5;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+      }
 
-    /* Active dot */
-    .dock-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      margin-top: 2px;
-    }
+      @keyframes roll-credits {
+        0% {
+          transform: translateY(0);
+        }
 
-    [data-theme="light"] .dock-dot {
-      background: rgba(0, 0, 0, 0.45);
-    }
+        100% {
+          transform: translateY(-50%);
+        }
+      }
 
-    /* Tooltip */
-    .dock-icon .dock-tooltip {
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.8);
-      background: rgba(30, 30, 30, 0.85);
-      color: #fff;
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 4px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
+      .edu-line {
+        margin-bottom: 0.2rem;
+      }
 
-    .dock-icon:hover .dock-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
+      .edu-program {
+        color: var(--color-edu-program);
+      }
 
-    /* ── Settings Window ── */
-    .settings-window {
-      position: fixed;
-      top: 50%;
-      right: calc(50% - 580px);
-      transform: translateY(-50%);
-      width: 320px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        0 1px 3px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      z-index: 5;
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-    .settings-window.visible {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .settings-window.dragging {
-      cursor: grabbing;
-      transition: none;
-    }
+      .pub-item {
+        margin-bottom: 0.8rem;
+      }
 
-    .settings-title-bar {
-      background: var(--titlebar-bg);
-      border-bottom: 1px solid var(--titlebar-border);
-      padding: 0 12px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .settings-title-bar .title-bar-text {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+      /* Index table */
+      .index-table {
+        margin-bottom: 1.2rem;
+      }
 
-    .settings-body {
-      background: #2b2b2b;
-      padding: 1.5rem;
-    }
-    [data-theme="light"] .settings-body {
-      background: linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
-    }
+      .index-item {
+        cursor: pointer;
+        color: var(--color-accent);
+        padding: 0.15rem 0.4rem;
+        margin-left: -0.4rem;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
 
-    .settings-section-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #aaa;
-      margin-bottom: 0.6rem;
-    }
-    [data-theme="light"] .settings-section-title {
-      color: #555;
-    }
+      .index-item:hover {
+        color: var(--color-highlight);
+        background: var(--color-selection-bg);
+      }
 
-    .settings-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 0.8rem;
-      background: rgba(255,255,255,0.08);
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    [data-theme="light"] .settings-row {
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(0,0,0,0.08);
-    }
+      .index-item:hover .click-hint {
+        opacity: 1;
+      }
 
-    .settings-label {
-      font-size: 13px;
-      color: #eee;
-      font-weight: 500;
-    }
-    [data-theme="light"] .settings-label {
-      color: #333;
-    }
+      .index-item.active {
+        color: var(--color-highlight);
+        background: var(--color-selection-bg);
+      }
 
-    .theme-switch {
-      display: flex;
-      gap: 0;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    [data-theme="light"] .theme-switch {
-      border: 1px solid rgba(0,0,0,0.15);
-    }
+      .index-bracket {
+        display: inline-block;
+        color: var(--color-accent);
+        transition: color 0.15s ease;
+      }
 
-    .theme-switch-btn {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      padding: 4px 0;
-      width: 56px;
-      text-align: center;
-      font-family: inherit;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      color: #ccc;
-      transition: background 0.2s, color 0.2s;
-    }
-    [data-theme="light"] .theme-switch-btn {
-      background: rgba(255,255,255,0.5);
-      color: #555;
-    }
+      .index-item.active .index-bracket,
+      .index-item:hover .index-bracket {
+        color: inherit;
+      }
 
-    .theme-switch-btn:first-child {
-      border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    [data-theme="light"] .theme-switch-btn:first-child {
-      border-right: 1px solid rgba(0,0,0,0.1);
-    }
+      .click-hint {
+        font-size: 0.8em;
+        color: var(--color-muted);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-style: italic;
+        pointer-events: none;
+      }
 
-    .theme-switch-btn.active {
-      background: #007aff;
-      color: #fff;
-    }
-    [data-theme="light"] .theme-switch-btn.active {
-      background: #0058d0;
-    }
+      /* Gradual line-by-line reveal */
+      .output-line {
+        opacity: 0;
+        transform: translateY(2px);
+        animation: lineReveal 0.15s ease forwards;
+      }
 
-    .theme-switch-btn:hover:not(.active) {
-      background: rgba(255,255,255,0.2);
-    }
-    [data-theme="light"] .theme-switch-btn:hover:not(.active) {
-      background: rgba(0,0,0,0.08);
-    }
+      @keyframes lineReveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    /* Settings dock icon */
-    .dock-icon.settings-icon {
-      background: linear-gradient(180deg, #8e8e8e 0%, #636363 100%);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-    .dock-icon.settings-icon .icon-gear {
-      font-size: 26px;
-      line-height: 1;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
-    }
-  </style>
-</head>
+      /* Output sections */
+      .output {
+        display: none;
+        margin-bottom: 1rem;
+      }
 
-<body>
-  <div class="window">
+      .output.visible {
+        display: block;
+      }
 
-    <!-- macOS-style title bar -->
-    <div class="title-bar">
-      <div class="traffic-lights">
-        <div class="traffic-light red"></div>
-        <div class="traffic-light yellow"></div>
-        <div class="traffic-light green"></div>
+      .cmd-line {
+        margin-bottom: 0.3rem;
+      }
+
+      .typed-cmd {
+        color: var(--color-cmd);
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        width: 0;
+        vertical-align: bottom;
+      }
+
+      .typed-cmd.typing {
+        animation: typing 0.4s steps(20, end) forwards;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+
+        to {
+          width: 100%;
+        }
+      }
+
+      .prompt-line {
+        margin-top: 0.8rem;
+      }
+
+      .dir-volume {
+        color: var(--color-dir-volume);
+        margin-bottom: 0.4rem;
+      }
+
+      .dir-footer {
+        color: var(--color-dir-footer);
+        margin-top: 0.3rem;
+      }
+
+      .dir-meta {
+        color: var(--color-dir-meta);
+        flex-shrink: 0;
+        font-size: 0.9em;
+        transition: color 0.15s;
+      }
+
+      .index-item:hover .dir-meta,
+      .index-item.active .dir-meta {
+        color: var(--color-dir-meta-hover);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .content-reveal {
+        animation: fadeIn 0.25s ease forwards;
+      }
+
+      /* ── Greeting Banner ── */
+      .greeting-block {
+        margin-bottom: 1.4rem;
+      }
+
+      .greeting-text {
+        color: var(--color-highlight);
+      }
+
+      .greeting-sub {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--color-muted);
+      }
+
+      /* ── Tablet ── */
+      @media (max-width: 860px) {
+        body {
+          padding: 1rem;
+        }
+
+        .terminal {
+          padding: 1.2rem 1.2rem 2rem;
+        }
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 600px) {
+        body {
+          padding: 0;
+          font-size: 13px;
+          display: block;
+          height: auto;
+          overflow: auto;
+        }
+
+        .settings-window {
+          display: none !important;
+        }
+
+        .dock {
+          display: none !important;
+        }
+
+        .window {
+          border-radius: 0;
+          max-width: 100%;
+          box-shadow: none;
+          position: static !important;
+          left: auto !important;
+          top: auto !important;
+        }
+
+        .terminal {
+          padding: 0.8rem 1rem 1.5rem;
+          height: auto;
+          min-height: calc(100vh - 34px);
+          overflow-y: visible;
+        }
+
+        /* Title bar — compact */
+        .title-bar {
+          height: 34px;
+          padding: 0 10px;
+        }
+
+        .traffic-light {
+          width: 10px;
+          height: 10px;
+        }
+
+        .traffic-lights {
+          gap: 6px;
+        }
+
+        .title-bar-text {
+          font-size: 11px;
+        }
+
+        .sys-time {
+          display: none;
+        }
+
+        /* Name + about */
+        .name-heading {
+          font-size: 1.3rem;
+          margin-bottom: 0.2rem;
+        }
+
+        .about-line {
+          font-size: 12.5px;
+          line-height: 1.6;
+          margin-bottom: 0.8rem;
+        }
+
+        /* Index items — bigger tap targets */
+        .index-item {
+          padding: 0.4rem 0.5rem;
+          margin-left: -0.5rem;
+          font-size: 13px;
+        }
+
+        /* Always show hints on mobile (no hover) */
+        .click-hint {
+          opacity: 0.5;
+          font-size: 0.75em;
+        }
+
+        /* Prompt */
+        .prompt {
+          font-size: 12px;
+        }
+
+        .cmd {
+          font-size: 12px;
+        }
+
+        /* Publications & content */
+        .pub-item {
+          margin-bottom: 0.6rem;
+          font-size: 12.5px;
+        }
+
+        .divider {
+          font-size: 11px;
+        }
+
+        /* Acknowledgements */
+        .ack-block {
+          margin-top: 1.5rem;
+          padding-top: 0.8rem;
+        }
+
+        .ack-header {
+          font-size: 1rem;
+          margin-bottom: 0.4rem;
+        }
+
+        .credits-viewport {
+          height: 8rem;
+        }
+
+        .credits-track > div {
+          font-size: 12px;
+        }
+
+        /* Cursor */
+        .cursor {
+          width: 6px;
+        }
+      }
+
+      /* ── Very small phones ── */
+      @media (max-width: 380px) {
+        body {
+          font-size: 12px;
+        }
+
+        .terminal {
+          padding: 0.6rem 0.7rem 1rem;
+        }
+
+        .name-heading {
+          font-size: 1.15rem;
+        }
+
+        .about-line {
+          font-size: 12px;
+        }
+
+        .title-bar-text {
+          font-size: 10px;
+        }
+      }
+
+      /* ── macOS Dock ── */
+      .dock {
+        position: fixed;
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        padding: 4px 12px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        z-index: 10;
+      }
+
+      [data-theme="light"] .dock {
+        background: rgba(200, 200, 200, 0.45);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .dock-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 11px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        position: relative;
+        transition: transform 0.2s ease;
+      }
+
+      .dock-icon:hover {
+        transform: scale(1.15) translateY(-4px);
+      }
+
+      /* Terminal icon */
+      .dock-icon.terminal-icon {
+        background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .dock-icon.terminal-icon .icon-prompt {
+        color: #33ff33;
+        font-family: "Menlo", "Monaco", monospace;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        text-shadow: 0 0 6px rgba(51, 255, 51, 0.5);
+      }
+
+      /* Active dot */
+      .dock-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        margin-top: 2px;
+      }
+
+      [data-theme="light"] .dock-dot {
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      /* Tooltip */
+      .dock-icon .dock-tooltip {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+        background: rgba(30, 30, 30, 0.85);
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition:
+          opacity 0.15s ease,
+          transform 0.15s ease;
+      }
+
+      .dock-icon:hover .dock-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
+
+      /* ── Settings Window ── */
+      .settings-window {
+        position: fixed;
+        top: 50%;
+        right: calc(50% - 580px);
+        transform: translateY(-50%);
+        width: 320px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 1px 3px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease;
+      }
+      .settings-window.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .settings-window.dragging {
+        cursor: grabbing;
+        transition: none;
+      }
+
+      .settings-title-bar {
+        background: var(--titlebar-bg);
+        border-bottom: 1px solid var(--titlebar-border);
+        padding: 0 12px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .settings-title-bar .title-bar-text {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .settings-body {
+        background: #2b2b2b;
+        padding: 1.5rem;
+      }
+      [data-theme="light"] .settings-body {
+        background: linear-gradient(180deg, #f6f6f6 0%, #ececec 100%);
+      }
+
+      .settings-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #aaa;
+        margin-bottom: 0.6rem;
+      }
+      [data-theme="light"] .settings-section-title {
+        color: #555;
+      }
+
+      .settings-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.6rem 0.8rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      [data-theme="light"] .settings-row {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .settings-label {
+        font-size: 13px;
+        color: #eee;
+        font-weight: 500;
+      }
+      [data-theme="light"] .settings-label {
+        color: #333;
+      }
+
+      .theme-switch {
+        display: flex;
+        gap: 0;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      [data-theme="light"] .theme-switch {
+        border: 1px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .theme-switch-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 4px 0;
+        width: 56px;
+        text-align: center;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        color: #ccc;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      [data-theme="light"] .theme-switch-btn {
+        background: rgba(255, 255, 255, 0.5);
+        color: #555;
+      }
+
+      .theme-switch-btn:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      [data-theme="light"] .theme-switch-btn:first-child {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .theme-switch-btn.active {
+        background: #007aff;
+        color: #fff;
+      }
+      [data-theme="light"] .theme-switch-btn.active {
+        background: #0058d0;
+      }
+
+      .theme-switch-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      [data-theme="light"] .theme-switch-btn:hover:not(.active) {
+        background: rgba(0, 0, 0, 0.08);
+      }
+
+      /* Settings dock icon */
+      .dock-icon.settings-icon {
+        background: linear-gradient(180deg, #8e8e8e 0%, #636363 100%);
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+      .dock-icon.settings-icon .icon-gear {
+        font-size: 26px;
+        line-height: 1;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="window">
+      <!-- macOS-style title bar -->
+      <div class="title-bar">
+        <div class="traffic-lights">
+          <div class="traffic-light red"></div>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <span class="title-bar-text">jiashu — bash — 80×24</span>
+        <div class="title-bar-right">
+          <span class="sys-time" id="sysTime"></span>
+        </div>
       </div>
-      <span class="title-bar-text">jiashu — bash — 80×24</span>
-      <div class="title-bar-right">
-        <span class="sys-time" id="sysTime"></span>
-      </div>
-    </div>
 
-    <!-- Terminal content -->
-    <div class="terminal" id="terminal">
+      <!-- Terminal content -->
+      <div class="terminal" id="terminal">
+        <div class="block">
+          <span class="prompt">jiashu@mac ~ % </span
+          ><span class="cmd">whoami</span>
+        </div>
 
-      <div class="block">
-        <span class="prompt">jiashu@mac ~ % </span><span class="cmd">whoami</span>
-      </div>
+        <div class="name-heading">Jiashu Wang</div>
 
-      <div class="name-heading">Jiashu Wang</div>
+        <div class="about-line">
+          I am a senior at
+          <a
+            class="school-link"
+            href="https://english.neu.edu.cn/"
+            target="_blank"
+            rel="noopener"
+            >Northeastern University (China)</a
+          >
+          &mdash; endlessly curious, always eager to try new things, and
+          passionate about bringing AI into every field to make each one a
+          little more capable and a little more convenient.
+        </div>
 
-      <div class="about-line">
-        I am a senior at <a class="school-link" href="https://english.neu.edu.cn/" target="_blank"
-          rel="noopener">Northeastern University (China)</a> &mdash; endlessly curious, always eager to try new things,
-        and passionate about bringing AI into every field to make each one a little more capable and a little more
-        convenient.
-      </div>
+        <div class="block">
+          <span class="prompt">jiashu@mac ~ % </span
+          ><span class="cmd">ls ~/</span>
+        </div>
 
-      <div class="block">
-        <span class="prompt">jiashu@mac ~ % </span><span class="cmd">ls ~/</span>
-      </div>
+        <div class="index-table" id="indexTable">
+          <span class="index-item" data-section="education">
+            <span><span class="index-bracket">&gt;</span> education.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="publications">
+            <span
+              ><span class="index-bracket">&gt;</span> publications.txt</span
+            >
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="links">
+            <span><span class="index-bracket">&gt;</span> links.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="experience">
+            <span><span class="index-bracket">&gt;</span> experience.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+          <span class="index-item" data-section="awards">
+            <span><span class="index-bracket">&gt;</span> awards.txt</span>
+            <span class="click-hint">click to view</span>
+          </span>
+        </div>
 
-      <div class="index-table" id="indexTable">
-        <span class="index-item" data-section="education">
-          <span><span class="index-bracket">&gt;</span> education.txt</span>
-          <span class="click-hint">click to view</span>
-        </span>
-        <span class="index-item" data-section="publications">
-          <span><span class="index-bracket">&gt;</span> publications.txt</span>
-          <span class="click-hint">click to view</span>
-        </span>
-        <span class="index-item" data-section="links">
-          <span><span class="index-bracket">&gt;</span> links.txt</span>
-          <span class="click-hint">click to view</span>
-        </span>
-        <span class="index-item" data-section="experience">
-          <span><span class="index-bracket">&gt;</span> experience.txt</span>
-          <span class="click-hint">click to view</span>
-        </span>
-        <span class="index-item" data-section="awards">
-          <span><span class="index-bracket">&gt;</span> awards.txt</span>
-          <span class="click-hint">click to view</span>
-        </span>
-      </div>
+        <div class="prompt-line" id="promptLine">
+          <span class="prompt">jiashu@mac ~ % </span
+          ><span class="cmd" id="promptCmd"></span
+          ><span class="cursor" id="promptCursor"></span>
+        </div>
 
-      <div class="prompt-line" id="promptLine">
-        <span class="prompt">jiashu@mac ~ % </span><span class="cmd" id="promptCmd"></span><span class="cursor"
-          id="promptCursor"></span>
-      </div>
-
-      <div class="ack-block">
-        <div class="ack-header">Acknowledgements</div>
-        <div class="ack-note" style="margin-bottom:0.6rem; text-align: center;">Most of those named here are co-authors
-          whose names appear alongside mine &mdash; listed in no particular order.</div>
-        <div class="credits-viewport">
-          <div class="credits-track">
-            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Bin Yan</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); incoming MS Student at CMU, School of Computer Science</span></div>
-            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
-            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yufan Chen</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Tao Lin</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Xu Zhang</span> <span class="ack-note">&mdash; teaching at NEU(CN) CS Lab</span></div>
-            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
-            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
-            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
-            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
-            <!-- spacer between cycles -->
-            <div style="height: 3rem;"></div>
-            <!-- duplicate for seamless loop -->
-            <div><span class="ack-name">Yibin Liu</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yu Zhang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Bin Yan</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Wuji Wang</span> <span class="ack-note">&mdash; NEU(CN); incoming MS Student at CMU, School of Computer Science</span></div>
-            <div><span class="ack-name">Zhecheng Shi</span> <span class="ack-note">&mdash; NEU(CN); Research Assistant at HKUST</span></div>
-            <div><span class="ack-name">Shimin Weng</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Yufan Chen</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Han Wang</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Tao Lin</span> <span class="ack-note">&mdash; NEU(CN)</span></div>
-            <div><span class="ack-name">Xu Zhang</span> <span class="ack-note">&mdash; teaching at NEU(CN) CS Lab</span></div>
-            <div><span class="ack-name">Dr. Xianwei Lv</span> <span class="ack-note">&mdash; Lecturer at NEU(CN)</span></div>
-            <div><span class="ack-name">Dr. Xiaoxi Hu</span> <span class="ack-note">&mdash; Postdoctoral Researcher at Tsinghua University</span></div>
-            <div><span class="ack-name">Dr. Xiaoyang Qu</span> <span class="ack-note">&mdash; Chief Scientist at Ping An Technology, Shenzhen</span></div>
-            <div><span class="ack-name">Prof. Jiguang Wan</span> <span class="ack-note">&mdash; Professor at Huazhong University of Science and Technology</span></div>
-            <div><span class="ack-note">and many, many others whose kindness I carry with me.</span></div>
-            <!-- spacer between cycles (must match the one above) -->
-            <div style="height: 3rem;"></div>
+        <div class="ack-block">
+          <div class="ack-header">Acknowledgements</div>
+          <div
+            class="ack-note"
+            style="margin-bottom: 0.6rem; text-align: center"
+          >
+            Most of those named here are co-authors whose names appear alongside
+            mine &mdash; listed in no particular order.
+          </div>
+          <div class="credits-viewport">
+            <div class="credits-track">
+              <div>
+                <span class="ack-name">Yibin Liu</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Yu Zhang</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Bin Yan</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Wuji Wang</span>
+                <span class="ack-note"
+                  >&mdash; NEU(CN); incoming MS Student at CMU, School of
+                  Computer Science</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Zhecheng Shi</span>
+                <span class="ack-note"
+                  >&mdash; NEU(CN); Research Assistant at HKUST</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Shimin Weng</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Yufan Chen</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Han Wang</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Tao Lin</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Xu Zhang</span>
+                <span class="ack-note">&mdash; teaching at NEU(CN) CS Lab</span>
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xianwei Lv</span>
+                <span class="ack-note">&mdash; Lecturer at NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xiaoxi Hu</span>
+                <span class="ack-note"
+                  >&mdash; Postdoctoral Researcher at Tsinghua University</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xiaoyang Qu</span>
+                <span class="ack-note"
+                  >&mdash; Chief Scientist at Ping An Technology, Shenzhen</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Prof. Jiguang Wan</span>
+                <span class="ack-note"
+                  >&mdash; Professor at Huazhong University of Science and
+                  Technology</span
+                >
+              </div>
+              <div>
+                <span class="ack-note"
+                  >and many, many others whose kindness I carry with me.</span
+                >
+              </div>
+              <!-- spacer between cycles -->
+              <div style="height: 3rem"></div>
+              <!-- duplicate for seamless loop -->
+              <div>
+                <span class="ack-name">Yibin Liu</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Yu Zhang</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Bin Yan</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Wuji Wang</span>
+                <span class="ack-note"
+                  >&mdash; NEU(CN); incoming MS Student at CMU, School of
+                  Computer Science</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Zhecheng Shi</span>
+                <span class="ack-note"
+                  >&mdash; NEU(CN); Research Assistant at HKUST</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Shimin Weng</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Yufan Chen</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Han Wang</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Tao Lin</span>
+                <span class="ack-note">&mdash; NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Xu Zhang</span>
+                <span class="ack-note">&mdash; teaching at NEU(CN) CS Lab</span>
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xianwei Lv</span>
+                <span class="ack-note">&mdash; Lecturer at NEU(CN)</span>
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xiaoxi Hu</span>
+                <span class="ack-note"
+                  >&mdash; Postdoctoral Researcher at Tsinghua University</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Dr. Xiaoyang Qu</span>
+                <span class="ack-note"
+                  >&mdash; Chief Scientist at Ping An Technology, Shenzhen</span
+                >
+              </div>
+              <div>
+                <span class="ack-name">Prof. Jiguang Wan</span>
+                <span class="ack-note"
+                  >&mdash; Professor at Huazhong University of Science and
+                  Technology</span
+                >
+              </div>
+              <div>
+                <span class="ack-note"
+                  >and many, many others whose kindness I carry with me.</span
+                >
+              </div>
+              <!-- spacer between cycles (must match the one above) -->
+              <div style="height: 3rem"></div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- macOS Dock -->
+    <div class="dock">
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <div class="dock-icon" style="background: none; box-shadow: none">
+          <span class="dock-tooltip">Terminal</span>
+          <img
+            src="terminal_icon.png"
+            style="width: 100%; height: 100%; object-fit: contain"
+            alt="Terminal"
+          />
+        </div>
+        <div class="dock-dot"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <div
+          class="dock-icon"
+          id="settingsDockIcon"
+          style="background: none; box-shadow: none"
+        >
+          <span class="dock-tooltip">System Settings</span>
+          <img
+            src="settings_icon.png"
+            style="width: 100%; height: 100%; object-fit: contain"
+            alt="Settings"
+          />
+        </div>
+        <div
+          class="dock-dot"
+          id="settingsDockDot"
+          style="visibility: hidden"
+        ></div>
+      </div>
     </div>
-  </div>
 
-  <!-- macOS Dock -->
-  <div class="dock">
-    <div style="display:flex;flex-direction:column;align-items:center;">
-      <div class="dock-icon" style="background: none; box-shadow: none;">
-        <span class="dock-tooltip">Terminal</span>
-        <img src="terminal_icon.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Terminal">
+    <!-- Settings Window -->
+    <div class="settings-window" id="settingsWindow">
+      <div class="settings-title-bar">
+        <div class="traffic-lights">
+          <div class="traffic-light red" id="settingsClose"></div>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <span class="title-bar-text">System Preferences</span>
       </div>
-      <div class="dock-dot"></div>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:center;">
-      <div class="dock-icon" id="settingsDockIcon" style="background: none; box-shadow: none;">
-        <span class="dock-tooltip">System Settings</span>
-        <img src="settings_icon.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Settings">
-      </div>
-      <div class="dock-dot" id="settingsDockDot" style="visibility:hidden;"></div>
-    </div>
-  </div>
-
-  <!-- Settings Window -->
-  <div class="settings-window" id="settingsWindow">
-    <div class="settings-title-bar">
-      <div class="traffic-lights">
-        <div class="traffic-light red" id="settingsClose"></div>
-        <div class="traffic-light yellow"></div>
-        <div class="traffic-light green"></div>
-      </div>
-      <span class="title-bar-text">System Preferences</span>
-    </div>
-    <div class="settings-body">
-      <div class="settings-section-title">Appearance</div>
-      <div class="settings-row">
-        <span class="settings-label">Theme</span>
-        <div class="theme-switch" id="themeSwitch">
-          <button class="theme-switch-btn" data-theme-val="light">Light</button>
-          <button class="theme-switch-btn" data-theme-val="dark">Dark</button>
+      <div class="settings-body">
+        <div class="settings-section-title">Appearance</div>
+        <div class="settings-row">
+          <span class="settings-label">Theme</span>
+          <div class="theme-switch" id="themeSwitch">
+            <button class="theme-switch-btn" data-theme-val="light">
+              Light
+            </button>
+            <button class="theme-switch-btn" data-theme-val="dark">Dark</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    (() => {
-      const promptLine = document.getElementById('promptLine');
-      const promptCmd = document.getElementById('promptCmd');
-      const promptCursor = document.getElementById('promptCursor');
+    <script>
+      (() => {
+        const promptLine = document.getElementById("promptLine");
+        const promptCmd = document.getElementById("promptCmd");
+        const promptCursor = document.getElementById("promptCursor");
 
-      const sections = {
-        education: {
-          cmd: 'cat education.txt',
-          html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="muted"> (Shenyang)</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Shenzhen Baoan Middle School</span><span class="muted"> (Shenzhen)</span><span class="muted"> (2019 &ndash; 2022)</span></div>`
-        }, experience: {
-          cmd: 'cat experience.txt',
-          html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`
-        }, publications: {
-          cmd: 'cat publications.txt',
-          html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">Under Review, 2025</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 <span class="tag">[Oral]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`
-        },
-        links: {
-          cmd: 'cat links.txt',
-          html: `<span class="line"><a href="https://github.com/wjswjsss">github.com/wjswjsss</a></span><span class="line"><a href="mailto:wangjiashushenzhen@gmail.com">wangjiashushenzhen@gmail.com</a></span>`
-        },
-        awards: {
-          cmd: 'cat awards.txt',
-          html: `<div><span class="pub-title">Gold Award, National Invention Exhibition</span><span class="muted"> &mdash; 10/2025</span></div><div><span class="pub-authors">Awarded by the China Invention Association &amp; the BRICS Skills Development and Technological Innovation Committee &amp; the Belt and Road Initiative, and the BRICS Skills Development International Alliance.</span></div><div class="divider">────────────────────────────────────────</div><div><span class="pub-title">5&times; University-Level Scholarship</span></div><div><span class="pub-authors">Northeastern University, China</span></div>`
+        const sections = {
+          education: {
+            cmd: "cat education.txt",
+            html: `<div class="edu-line"><span class="highlight"><a class="school-link" href="https://english.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University, China</a></span><span class="muted"> (Shenyang)</span><span class="edu-program"> &mdash; B.E. in Computer Science and Technology</span><span class="muted"> (2022 &ndash; 2026)</span></div><div class="edu-line"><span class="highlight">Shenzhen Baoan Middle School</span><span class="muted"> (Shenzhen)</span><span class="muted"> (2019 &ndash; 2022)</span></div>`,
+          },
+          experience: {
+            cmd: "cat experience.txt",
+            html: `<div><span class="ack-name">Research Assistant &mdash; Northeastern University, China</span> <span class="ack-note">&mdash; supervised by Dr. Xianwei Lv</span></div><div><span class="ack-name">Research Assistant &mdash; Tsinghua University</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoxi Hu and Academician Jiayao Chen</span></div><div><span class="ack-name">Research Intern &mdash; Ping An Technology, Shenzhen</span> <span class="ack-note">&mdash; supervised by Dr. Xiaoyang Qu and Prof. Jiguang Wan</span></div>`,
+          },
+          publications: {
+            cmd: "cat publications.txt",
+            html: `<div class="pub-item"><span class="pub-title">SD-WLSNet: Diffusion-Augmented Small-Sample Water Leakage Segmentation</span><br/><span class="pub-authors">X. Hu, <span class="me">J. Wang</span>, Z. Shi, X. Zhang, L. Tan, J. Chen, M. Zhou</span><br/><span class="pub-venue">GeoRisk, 2026</span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Turbo-TTS: Enhancing Diffusion Model TTS with an Improved ODE Solver</span><br/><span class="pub-authors">X. Zhang&dagger;, <span class="me">J. Wang&dagger;</span>, X. Qu, H. Tian, J. Wang*</span><br/><span class="pub-venue">ICONIP 2025 <span class="tag">[Spotlight]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">Enhancing Generalization in Video Deepfake Detection</span><br/><span class="pub-authors">J. Li, N. Zhang, X. Qu, <span class="me">J. Wang</span>, Y. Zhong*, J. Wan</span><br/><span class="pub-venue">ICIC 2025 <span class="tag">[Oral]</span></span></div><div class="divider">────────────────────────────────────────</div><div class="pub-item"><span class="pub-title">YOLO-SRMX: A Lightweight Model for Real-Time Object Detection on UAVs</span><br/><span class="pub-authors">S. Weng, H. Wang, <span class="me">J. Wang</span>, C. Xu*, E. Zhang</span><br/><span class="pub-venue">Remote Sensing, 2025</span></div>`,
+          },
+          links: {
+            cmd: "cat links.txt",
+            html: `<span class="line"><a href="https://github.com/wjswjsss">github.com/wjswjsss</a></span><span class="line"><a href="mailto:wangjiashushenzhen@gmail.com">wangjiashushenzhen@gmail.com</a></span>`,
+          },
+          awards: {
+            cmd: "cat awards.txt",
+            html: `<div><span class="pub-title">Gold Award, National Invention Exhibition</span><span class="muted"> &mdash; 10/2025</span></div><div><span class="pub-authors">Awarded by the China Invention Association &amp; the BRICS Skills Development and Technological Innovation Committee &amp; the Belt and Road Initiative, and the BRICS Skills Development International Alliance.</span></div><div class="divider">────────────────────────────────────────</div><div><span class="pub-title">5&times; University-Level Scholarship</span></div><div><span class="pub-authors">Northeastern University, China</span></div>`,
+          },
+        };
+
+        let animating = false;
+
+        function resetPrompt() {
+          promptCmd.textContent = "";
+          promptCursor.style.display = "inline-block";
         }
-      };
 
-      let animating = false;
+        function typeText(el, text, speed) {
+          return new Promise((resolve) => {
+            let i = 0;
+            el.textContent = "";
+            const interval = setInterval(() => {
+              el.textContent += text[i];
+              i++;
+              if (i >= text.length) {
+                clearInterval(interval);
+                resolve();
+              }
+            }, speed);
+          });
+        }
 
-      function resetPrompt() {
-        promptCmd.textContent = '';
-        promptCursor.style.display = 'inline-block';
-      }
+        document.querySelectorAll(".index-item").forEach((item) => {
+          item.addEventListener("click", async () => {
+            if (animating) return;
+            animating = true;
 
-      function typeText(el, text, speed) {
-        return new Promise(resolve => {
-          let i = 0;
-          el.textContent = '';
-          const interval = setInterval(() => {
-            el.textContent += text[i];
-            i++;
-            if (i >= text.length) {
-              clearInterval(interval);
-              resolve();
+            const key = item.dataset.section;
+            const section = sections[key];
+
+            // Check if already open — toggle off
+            const existing = document.getElementById("out-" + key);
+            if (existing) {
+              existing.remove();
+              item.classList.remove("active");
+              resetPrompt();
+              animating = false;
+              return;
             }
-          }, speed);
-        });
-      }
 
-      document.querySelectorAll('.index-item').forEach(item => {
-        item.addEventListener('click', async () => {
-          if (animating) return;
-          animating = true;
-
-          const key = item.dataset.section;
-          const section = sections[key];
-
-          // Check if already open — toggle off
-          const existing = document.getElementById('out-' + key);
-          if (existing) {
-            existing.remove();
-            item.classList.remove('active');
+            // Close any other open section first
+            document
+              .querySelectorAll(".output.visible")
+              .forEach((el) => el.remove());
+            document
+              .querySelectorAll(".index-item.active")
+              .forEach((el) => el.classList.remove("active"));
             resetPrompt();
+
+            item.classList.add("active");
+
+            // Create output block
+            const block = document.createElement("div");
+            block.className = "output visible";
+            block.id = "out-" + key;
+
+            // Content div (hidden until typing done)
+            const content = document.createElement("div");
+            content.style.marginTop = "0.3rem";
+            content.style.display = "none";
+            content.innerHTML = section.html;
+
+            block.appendChild(content);
+            promptLine.insertAdjacentElement("afterend", block);
+
+            // Scroll into view
+            promptLine.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+            // Type the command
+            await typeText(promptCmd, section.cmd, 35);
+
+            // Show content with gradual line-by-line reveal
+            content.style.display = "block";
+            const children = content.querySelectorAll(":scope > *");
+            if (children.length > 0) {
+              children.forEach((child, i) => {
+                child.classList.add("output-line");
+                child.style.animationDelay = `${i * 80}ms`;
+              });
+            } else {
+              content.classList.add("content-reveal");
+            }
+            promptLine.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
             animating = false;
-            return;
-          }
-
-          // Close any other open section first
-          document.querySelectorAll('.output.visible').forEach(el => el.remove());
-          document.querySelectorAll('.index-item.active').forEach(el => el.classList.remove('active'));
-          resetPrompt();
-
-          item.classList.add('active');
-
-          // Create output block
-          const block = document.createElement('div');
-          block.className = 'output visible';
-          block.id = 'out-' + key;
-
-          // Content div (hidden until typing done)
-          const content = document.createElement('div');
-          content.style.marginTop = '0.3rem';
-          content.style.display = 'none';
-          content.innerHTML = section.html;
-
-          block.appendChild(content);
-          promptLine.insertAdjacentElement('afterend', block);
-
-          // Scroll into view
-          promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-          // Type the command
-          await typeText(promptCmd, section.cmd, 35);
-
-          // Show content with gradual line-by-line reveal
-          content.style.display = 'block';
-          const children = content.querySelectorAll(':scope > *');
-          if (children.length > 0) {
-            children.forEach((child, i) => {
-              child.classList.add('output-line');
-              child.style.animationDelay = `${i * 80}ms`;
-            });
-          } else {
-            content.classList.add('content-reveal');
-          }
-          promptLine.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-          animating = false;
+          });
         });
-      });
-    })();
+      })();
 
-    // Live clock in title bar
-    (() => {
-      const el = document.getElementById('sysTime');
-      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      function update() {
-        const d = new Date();
-        const day = days[d.getDay()];
-        const mon = months[d.getMonth()];
-        const dd = d.getDate();
-        const hh = String(d.getHours()).padStart(2, '0');
-        const min = String(d.getMinutes()).padStart(2, '0');
-        const ss = String(d.getSeconds()).padStart(2, '0');
-        el.textContent = `${day} ${mon} ${dd} ${hh}:${min}:${ss}`;
-      }
-      update();
-      setInterval(update, 1000);
-    })();
+      // Live clock in title bar
+      (() => {
+        const el = document.getElementById("sysTime");
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        function update() {
+          const d = new Date();
+          const day = days[d.getDay()];
+          const mon = months[d.getMonth()];
+          const dd = d.getDate();
+          const hh = String(d.getHours()).padStart(2, "0");
+          const min = String(d.getMinutes()).padStart(2, "0");
+          const ss = String(d.getSeconds()).padStart(2, "0");
+          el.textContent = `${day} ${mon} ${dd} ${hh}:${min}:${ss}`;
+        }
+        update();
+        setInterval(update, 1000);
+      })();
 
-    // Theme: apply saved preference on load
-    (() => {
-      const saved = localStorage.getItem('theme');
-      let useLight;
-      if (saved === 'dark') useLight = false;
-      else if (saved === 'light') useLight = true;
-      else useLight = !window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (useLight) document.documentElement.setAttribute('data-theme', 'light');
-      else document.documentElement.removeAttribute('data-theme');
-    })();
+      // Theme: apply saved preference on load
+      (() => {
+        const saved = localStorage.getItem("theme");
+        let useLight;
+        if (saved === "dark") useLight = false;
+        else if (saved === "light") useLight = true;
+        else
+          useLight = !window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (useLight)
+          document.documentElement.setAttribute("data-theme", "light");
+        else document.documentElement.removeAttribute("data-theme");
+      })();
 
-    // Settings window
-    (() => {
-      const win = document.getElementById('settingsWindow');
-      const dockIcon = document.getElementById('settingsDockIcon');
-      const dockDot = document.getElementById('settingsDockDot');
-      const closeBtn = document.getElementById('settingsClose');
-      const themeSwitch = document.getElementById('themeSwitch');
-      const bar = win.querySelector('.settings-title-bar');
+      // Settings window
+      (() => {
+        const win = document.getElementById("settingsWindow");
+        const dockIcon = document.getElementById("settingsDockIcon");
+        const dockDot = document.getElementById("settingsDockDot");
+        const closeBtn = document.getElementById("settingsClose");
+        const themeSwitch = document.getElementById("themeSwitch");
+        const bar = win.querySelector(".settings-title-bar");
 
-      // Update active button state
-      function syncButtons() {
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        themeSwitch.querySelectorAll('.theme-switch-btn').forEach(btn => {
-          const val = btn.dataset.themeVal;
-          btn.classList.toggle('active', (val === 'light' && isLight) || (val === 'dark' && !isLight));
-        });
-      }
-      syncButtons();
-
-      // Toggle settings window
-      function toggleSettings() {
-        const isOpen = win.classList.toggle('visible');
-        dockDot.style.visibility = isOpen ? 'visible' : 'hidden';
-      }
-
-      dockIcon.addEventListener('click', toggleSettings);
-      closeBtn.addEventListener('click', toggleSettings);
-
-      // Theme switch buttons
-      themeSwitch.addEventListener('click', e => {
-        const btn = e.target.closest('.theme-switch-btn');
-        if (!btn) return;
-        const val = btn.dataset.themeVal;
-        if (val === 'light') {
-          document.documentElement.setAttribute('data-theme', 'light');
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.documentElement.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'dark');
+        // Update active button state
+        function syncButtons() {
+          const isLight =
+            document.documentElement.getAttribute("data-theme") === "light";
+          themeSwitch.querySelectorAll(".theme-switch-btn").forEach((btn) => {
+            const val = btn.dataset.themeVal;
+            btn.classList.toggle(
+              "active",
+              (val === "light" && isLight) || (val === "dark" && !isLight),
+            );
+          });
         }
         syncButtons();
-      });
 
-      // Draggable settings window
-      let dragging = false, startX, startY, origLeft, origTop;
-
-      bar.addEventListener('mousedown', e => {
-        if (e.target.closest('.traffic-light')) return;
-        if (window.innerWidth <= 600) return;
-        dragging = true;
-        win.classList.add('dragging');
-        const rect = win.getBoundingClientRect();
-        // Switch to absolute positioning on first drag
-        if (!win.style.left || win.style.right) {
-          win.style.left = rect.left + 'px';
-          win.style.top = rect.top + 'px';
-          win.style.right = 'auto';
-          win.style.transform = 'none';
+        // Toggle settings window
+        function toggleSettings() {
+          const isOpen = win.classList.toggle("visible");
+          dockDot.style.visibility = isOpen ? "visible" : "hidden";
         }
-        origLeft = parseInt(win.style.left, 10);
-        origTop = parseInt(win.style.top, 10);
-        startX = e.clientX;
-        startY = e.clientY;
-        e.preventDefault();
-      });
 
-      document.addEventListener('mousemove', e => {
-        if (!dragging) return;
-        let newLeft = origLeft + e.clientX - startX;
-        let newTop = origTop + e.clientY - startY;
-        const w = win.offsetWidth, h = win.offsetHeight;
-        newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - w));
-        newTop = Math.max(0, Math.min(newTop, window.innerHeight - h));
-        win.style.left = newLeft + 'px';
-        win.style.top = newTop + 'px';
-      });
+        dockIcon.addEventListener("click", toggleSettings);
+        closeBtn.addEventListener("click", toggleSettings);
 
-      document.addEventListener('mouseup', () => {
-        if (!dragging) return;
-        dragging = false;
-        win.classList.remove('dragging');
-      });
-    })();
+        // Theme switch buttons
+        themeSwitch.addEventListener("click", (e) => {
+          const btn = e.target.closest(".theme-switch-btn");
+          if (!btn) return;
+          const val = btn.dataset.themeVal;
+          if (val === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+          } else {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "dark");
+          }
+          syncButtons();
+        });
 
-    // ── Draggable window (desktop only) ──
-    (() => {
-      const win = document.querySelector('.window');
-      const bar = document.querySelector('.title-bar');
-      let dragging = false, startX, startY, origLeft, origTop, baseX, baseY;
+        // Draggable settings window
+        let dragging = false,
+          startX,
+          startY,
+          origLeft,
+          origTop;
 
-      bar.addEventListener('mousedown', e => {
-        // Don't drag when clicking buttons
-        if (e.target.closest('.traffic-light')) return;
-        if (window.innerWidth <= 600) return;
-        dragging = true;
-        win.classList.add('dragging');
-        const rect = win.getBoundingClientRect();
-        // First drag: switch from flow to offset positioning
-        if (!win.style.left) {
-          win.style.left = '0px';
-          win.style.top = '0px';
-        }
-        origLeft = parseInt(win.style.left, 10);
-        origTop = parseInt(win.style.top, 10);
-        baseX = rect.left - origLeft;
-        baseY = rect.top - origTop;
-        startX = e.clientX;
-        startY = e.clientY;
-        e.preventDefault();
-      });
+        bar.addEventListener("mousedown", (e) => {
+          if (e.target.closest(".traffic-light")) return;
+          if (window.innerWidth <= 600) return;
+          dragging = true;
+          win.classList.add("dragging");
+          const rect = win.getBoundingClientRect();
+          // Switch to absolute positioning on first drag
+          if (!win.style.left || win.style.right) {
+            win.style.left = rect.left + "px";
+            win.style.top = rect.top + "px";
+            win.style.right = "auto";
+            win.style.transform = "none";
+          }
+          origLeft = parseInt(win.style.left, 10);
+          origTop = parseInt(win.style.top, 10);
+          startX = e.clientX;
+          startY = e.clientY;
+          e.preventDefault();
+        });
 
-      document.addEventListener('mousemove', e => {
-        if (!dragging) return;
-        let newLeft = origLeft + e.clientX - startX;
-        let newTop = origTop + e.clientY - startY;
+        document.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          let newLeft = origLeft + e.clientX - startX;
+          let newTop = origTop + e.clientY - startY;
+          const w = win.offsetWidth,
+            h = win.offsetHeight;
+          newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - w));
+          newTop = Math.max(0, Math.min(newTop, window.innerHeight - h));
+          win.style.left = newLeft + "px";
+          win.style.top = newTop + "px";
+        });
 
-        let absLeft = baseX + newLeft;
-        let absTop = baseY + newTop;
-        const rectWidth = win.offsetWidth;
-        const rectHeight = win.offsetHeight;
+        document.addEventListener("mouseup", () => {
+          if (!dragging) return;
+          dragging = false;
+          win.classList.remove("dragging");
+        });
+      })();
 
-        if (absLeft > window.innerWidth - rectWidth) absLeft = window.innerWidth - rectWidth;
-        if (absLeft < 0) absLeft = 0;
+      // ── Draggable window (desktop only) ──
+      (() => {
+        const win = document.querySelector(".window");
+        const bar = document.querySelector(".title-bar");
+        let dragging = false,
+          startX,
+          startY,
+          origLeft,
+          origTop,
+          baseX,
+          baseY;
 
-        if (absTop > window.innerHeight - rectHeight) absTop = window.innerHeight - rectHeight;
-        if (absTop < 0) absTop = 0;
+        bar.addEventListener("mousedown", (e) => {
+          // Don't drag when clicking buttons
+          if (e.target.closest(".traffic-light")) return;
+          if (window.innerWidth <= 600) return;
+          dragging = true;
+          win.classList.add("dragging");
+          const rect = win.getBoundingClientRect();
+          // First drag: switch from flow to offset positioning
+          if (!win.style.left) {
+            win.style.left = "0px";
+            win.style.top = "0px";
+          }
+          origLeft = parseInt(win.style.left, 10);
+          origTop = parseInt(win.style.top, 10);
+          baseX = rect.left - origLeft;
+          baseY = rect.top - origTop;
+          startX = e.clientX;
+          startY = e.clientY;
+          e.preventDefault();
+        });
 
-        newLeft = absLeft - baseX;
-        newTop = absTop - baseY;
+        document.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          let newLeft = origLeft + e.clientX - startX;
+          let newTop = origTop + e.clientY - startY;
 
-        win.style.left = newLeft + 'px';
-        win.style.top = newTop + 'px';
-      });
+          let absLeft = baseX + newLeft;
+          let absTop = baseY + newTop;
+          const rectWidth = win.offsetWidth;
+          const rectHeight = win.offsetHeight;
 
-      document.addEventListener('mouseup', () => {
-        if (!dragging) return;
-        dragging = false;
-        win.classList.remove('dragging');
-      });
-    })();
-  </script>
+          if (absLeft > window.innerWidth - rectWidth)
+            absLeft = window.innerWidth - rectWidth;
+          if (absLeft < 0) absLeft = 0;
 
-</body>
+          if (absTop > window.innerHeight - rectHeight)
+            absTop = window.innerHeight - rectHeight;
+          if (absTop < 0) absTop = 0;
 
+          newLeft = absLeft - baseX;
+          newTop = absTop - baseY;
+
+          win.style.left = newLeft + "px";
+          win.style.top = newTop + "px";
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (!dragging) return;
+          dragging = false;
+          win.classList.remove("dragging");
+        });
+      })();
+    </script>
+  </body>
 </html>
